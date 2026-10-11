@@ -5,7 +5,7 @@ En este capítulo se describen las etapas previas al análisis, fundamentales pa
 
 Se comienza en el apartado \ref{sec:method} describiendo la metodología usada. Seguidamente, en \ref{sec:phases}, se presentan las fases en las que se ha abordado el desarrollo del trabajo y la planificación temporal seguida.
 
-\section{Metodología} \label{sec:method}
+\section{Metodología}\label{sec:method}
 El desarrollo del proyecto ha sido gestionado con \textit{Git}\cite{webGit}, alojado en un repositorio\cite{webGitlabRenderer} de \textit{Gitlab}\cite{webGitlab}. La metodología ha consistido en implementar funcionalidades de cada área en una rama distinta, para luego ser unida a la rama principal. De esta manera, es más sencillo detectar dónde los errores fueron generados y localizarlos.
 
 Todo el desarrollo tuvo lugar en el sistema operativo \textit{GNU/Linux}\cite{webGNULinux}, concretamente la distribución \textit{Debian}\cite{webDebian}. A modo de diario personal, el progreso fue siendo guardado semanalmente en un documento \textit{Asciidoc} \cite{webAsciidoc}, que ha servido de bitácora y muy útil para la memoria.
@@ -17,13 +17,15 @@ La mayoría de la documentación que se ha necesitado proviene directamente de l
 Respecto a la implementación, se ha intentado extraer el máximo número de funciones posible a bibliotecas propias según crece el código. De esta manera, se divide la carga y es más fácil discernir errores y aumenta la reutilización de código.
 
 \section{Fases y Planificación} \label{sec:phases}
-A continuación, se describen las fases en las que se ha abordado el proyecto: 
+A continuación, se describen las fases en las que se ha abordado el proyecto. El proceso de elaboración de documentación va implícito en cada fase, evolucionando a lo largo del proyecto. En la fase 1 \ref{sub:phase-1} se analizan los sistemas de renderizado, especialmente \textit{OpenGl}, y se realiza un análisis sobre la estrategia que se llevará a cabo para desarrollar el programa y las bibliotecas. En la fase 2 \ref{sub:phase-2} se configura el entorno de trabajo y se implementan las bibliotecas y el programa principal. En la fase 3 \ref{sub:phase-3} se realizan pruebas a partir del \textit{software} desarrollado y gráficas con los resultados obtenidos.
 
-\paragraph{Estudio sobre OpenGL}
+\subsection{Fase 1: Estudio sobre los sistemas de renderizado y análisis del proyecto}\label{sub:phase-1}
 Primero, es necesario comprender cómo funciona \textit{OpenGL} y los sistemas de renderización desde los conceptos básicos. Este es el primer paso esencial. Para entender esto, están a disposición manuales y guías sobre gráficos por ordenador por doquier, aunque para este trabajo los de \textit{Khronos} son particularmente interesantes. También, investigar algunas bibliotecas que facilitan el desarrollo, como pueden ser \textit{GLUT} y \textit{GLEW}. 
 
-\paragraph{Configuración del entorno de trabajo}
-En segundo lugar, conseguir establecer un entorno de trabajo con \textit{CMake} \cite{webCMakeDocs}. Dividir el proyecto en varias carpetas:
+\subsection{Fase 2: Configuración del entorno de trabajo, bibliotecas propias y sistema de animación}\label{sub:phase-2}
+
+\paragraph{Configuración de entorno}
+Para conseguir establecer un entorno de trabajo organizado con \textit{CMake}\cite{webCMakeDocs}, se divide el proyecto en varias carpetas:
 
 \begin{itemize}
 
@@ -38,16 +40,20 @@ En segundo lugar, conseguir establecer un entorno de trabajo con \textit{CMake} 
 \end{itemize}
 Cada una de las carpetas contiene código \textit{CMake}, profundizando en las carpetas según el nivel de complejidad que se requiera. Por ejemplo, dentro de \textit{src} existen varios directorios con las áreas implementadas, como \textit{movement} o \textit{polygon}, y dentro de estos se declara la configuración de compilación de los programas relacionados con el movimiento.
 
-\paragraph{Desarrollo de biblioteca propia}
-En tercer lugar, con el objetivo de facilitar tareas de \textit{OpenGL}, se ha optado por crear una biblioteca cuyo código se encontraría dentro del directorio \textit{lib}. Este paso debería llevarse a cabo simultáneamente con el desarrollo del código principal, pues sería conveniente extraer las funciones y colocarlas en la biblioteca según aumente el programa.
 
-La biblioteca de \textit{shaders} aislaría en una caja negra todo el proceso de un \textit{shader}. Debería ser capaz de, recibiendo los contenidos del \textit{shader}, devolver un \textit{programa}, así llamado en la jerga de \textit{OpenGL}. El usuario, entonces, no necesitaría conocer los mecanismos de este proceso.
+\paragraph{Bibliotecas propias}
+Con el objetivo de facilitar tareas de \textit{OpenGL}, se ha optado por crear una biblioteca cuyo código se encontraría dentro del directorio \textit{lib}. Este paso debería llevarse a cabo simultáneamente con el desarrollo del código principal, pues sería conveniente extraer las funciones y colocarlas en la biblioteca según aumente el programa.
 
-La biblioteca de polígonos contendrá funciones que creen formas geométricas, útiles para las pruebas de los programas desarrollados. En concreto, se centrará en crear polígonos regulares de cualquier número de lados. Son fáciles de crear y son un instrumento conveniente para estimar rendimiento según número de vértices.
+\begin{itemize}
+    \item Una biblioteca de \textit{shaders}, que aisla en una caja negra todo el proceso de un \textit{shader}. Debería ser capaz de, recibiendo los contenidos del \textit{shader}, devolver un \textit{programa}, así llamado en la jerga de \textit{OpenGL}. El usuario, entonces, no necesitaría conocer los mecanismos de este proceso.
 
-Una biblioteca de animaciones, que será el principal objetivo, ya que reúne todo lo anterior creado y permite crear una secuencia de movimientos para los vértices en pantalla. Esto pone a prueba el rendimiento de los sistemas, ya que es necesaria una coordinación entre \textit{CPU} y \textit{GPU} al calcular cada \textit{frame} y operaciones matriciales en ambos lados para crear movimiento.
+    \item Una biblioteca de polígonos, que contiene funciones que creen formas geométricas, útiles para las pruebas de los programas desarrollados. En concreto, se centrará en crear polígonos regulares de cualquier número de lados. Son fáciles de crear y son un instrumento conveniente para estimar rendimiento según número de vértices.
 
-Finalmente, una biblioteca que maneje errores de forma centralizada, pues podría ser realmente caótico y repetitivo de otra manera. Aquí se reunirían mensajes y códigos de error, llamándose cuando quiera comprobarse si un valor es erróneo. Deberá llamarse después de llamar a una función crítica, especialmente.
+    \item Una biblioteca de animaciones, que es el principal objetivo, ya que reúne todo lo anterior creado y permite crear una secuencia de movimientos para los vértices en pantalla. Esto pone a prueba el rendimiento de los sistemas, ya que es necesaria una coordinación entre \textit{CPU} y \textit{GPU} al calcular cada \textit{frame} y operaciones matriciales en ambos lados para crear movimiento.
+
+    \item Una biblioteca que maneje errores de forma centralizada, pues podría ser realmente caótico y repetitivo de otra manera. Aquí se reunirían mensajes y códigos de error, llamándose cuando quiera comprobarse si un valor es erróneo. Deberá llamarse después de llamar a una función crítica, especialmente.
+\end{itemize}
+
 
 \paragraph{Desarrollo de la animación}
 Habiendo estudiado el funcionamiento de \textit{OpenGL} y construido un entorno cómodo de trabajo, puede comenzarse el desarrollo del sistema de animación, haciendo uso de la biblioteca propia creada previamente, que facilitará su creación.
@@ -62,7 +68,91 @@ También, podrá almacenarse la secuencia cargando desde un \textit{buffer} del 
 
 En resumen, se dará libertad al usuario para programar la animación, desde el funcionamiento más manual, aunque más eficiente, a uno más sencillo, aunque menos eficiente.
 
-\paragraph{Pruebas y optimización}
-En esta parte, se pondrán a prueba los algoritmos, comparando el rendimiento de diferentes formas y en distintos escenarios. Una vez obtenidos los resultados, observarlos y revisar de nuevo el sistema para detectar posibles mejoras con el objetivo de optimizarlos al máximo.
+\subsection{Fase 3: Pruebas y optimización}\label{sub:phase-3}
+En esta parte, se pondrán a prueba los algoritmos, comparando el rendimiento, uso de memoria y de \textit{CPU} en distintos escenarios. Una vez obtenidos los resultados, observarlos y revisar de nuevo el sistema para detectar posibles mejoras con el objetivo de optimizarlos al máximo.
 
-Finalmente, en el diagrama de Gantt de la figura XXX, se muestra la duración de cada una de las etapas descritas.
+
+\section{Diagrama de Gantt}
+Finalmente, en el diagrama de Gantt de la figura \ref{fig:gantt-full}, se muestra la duración de cada una de las etapas descritas. La fecha de inicio es el 26 de enero y la fecha final es el 13 de octubre.
+
+\begin{figure}[H]
+    \centering
+    
+    % === FASE I ===
+    \begin{subfigure}{\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{%
+            \begin{ganttchart}{1}{75}
+            % Cabecera adaptada a los meses y semanas del calendario
+            \gantttitle{Fase I: Estudio del renderizado y análisis del proyecto (Semanas 1 - 8)}{80} \\
+            \gantttitle{Enero}{20} \gantttitle{Febrero}{20} \gantttitle{Marzo}{20} \gantttitle{Abril}{10} \\
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} % Enero
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} % Febrero
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} \gantttitle{S5}{5} % Marzo
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \\ % Abril
+            
+            \ganttbar{\scriptsize Estudio: Pseudoaleatoriedad}{1}{8} \\
+            \ganttbar{\scriptsize Estudio: Ruido coherente}{9}{13} \\
+            \ganttbar{\scriptsize Marco Teórico: Aprender Zig}{14}{20} \\
+            \ganttbar{\scriptsize Marco teórico: Analizar arquitecturas}{21}{22}
+            \end{ganttchart}%
+        }
+        \caption{Fase I: Estudio del renderizado y análisis del proyecto}
+        \label{fig:gantt-phase1}
+    \end{subfigure}
+    
+    \vspace{0.4cm} 
+
+    % === FASE II ===
+    \begin{subfigure}{\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{%
+            \begin{ganttchart}{1}{75}
+            \gantttitle{Fase II: Implementación de aleatoriedad (Semanas 5 - 10)}{75} \\
+            \gantttitle{Enero}{20} \gantttitle{Febrero}{20} \gantttitle{Marzo}{25} \gantttitle{Abril}{10} \\
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} 
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} 
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} \gantttitle{S5}{5} 
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \\
+            
+            \ganttbar{\scriptsize Impl. tests y gráficas}{23}{27} \\
+            \ganttbar{\scriptsize Sprint I: Optimizac. y validac.}{28}{32} \\
+            \ganttbar{\scriptsize Sprint II: Optimizac. y validac.}{33}{37} \\
+            \ganttbar{\scriptsize Sprint III: Optimizac. y validac.}{38}{42} \\
+            \ganttbar{\scriptsize Sprint IV: Optimizac. y validac.}{43}{47} \\
+            \ganttbar{\scriptsize Validación multiarquitectura}{48}{50}
+            \end{ganttchart}%
+        }
+        \caption{Fase II: Implementación de aleatoriedad. Duración efectiva: 28 días laborables.}
+        \label{fig:gantt-phase2}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+
+    % === FASE III ===
+    \begin{subfigure}{\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{%
+            \begin{ganttchart}{1}{75}
+            \gantttitle{Fase III: Diseño de ruido Perlin (Semanas 11 - 15)}{75} \\
+            \gantttitle{Enero}{20} \gantttitle{Febrero}{20} \gantttitle{Marzo}{25} \gantttitle{Abril}{10} \\
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} 
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} 
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} \gantttitle{S5}{5} 
+            \gantttitle{S1}{5} \gantttitle{S2}{5} \\
+            
+            \ganttbar{\scriptsize Diseño impl. base}{51}{52} \\
+            \ganttbar{\scriptsize Sprint I\: Optimizac. y validac.}{53}{57} \\
+            \ganttbar{\scriptsize Sprint II\: Optimizac. y validac.}{58}{62} \\
+            \ganttbar{\scriptsize Sprint III\: Optimizac. y validac.}{63}{67} \\
+            \ganttbar{\scriptsize Sprint IV\: Optimizac. y validac.}{68}{72} \\
+            \ganttbar{\scriptsize Validación multiarquitectura}{73}{75} 
+            \end{ganttchart}%
+        }
+        \caption{Fase III: Diseño de ruido Perlin. Duración efectiva: 25 días laborables.}
+        \label{fig:gantt-phase3}
+    \end{subfigure}
+
+    \caption{Diagrama de Gantt detallado del proyecto}
+    \label{fig:gantt-full}
+\end{figure}
