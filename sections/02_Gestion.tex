@@ -6,13 +6,13 @@ En este capítulo se describen las etapas previas al análisis, fundamentales pa
 Se comienza en el apartado \ref{sec:method} describiendo la metodología usada. Seguidamente, en \ref{sec:phases}, se presentan las fases en las que se ha abordado el desarrollo del trabajo y la planificación temporal seguida.
 
 \section{Metodología} \label{sec:method}
-El desarrollo del proyecto ha sido gestionado con \textit{Git} \cite{webGit}, alojado en un repositorio \cite{webGitlabRenderer} de \textit{Gitlab} \cite{webGitlab}. La metodología ha consistido en implementar funcionalidades de cada área en una rama distinta, para luego ser unida a la rama principal. De esta manera, es más sencillo detectar dónde los errores fueron generados y localizarlos.
+El desarrollo del proyecto ha sido gestionado con \textit{Git}\cite{webGit}, alojado en un repositorio\cite{webGitlabRenderer} de \textit{Gitlab}\cite{webGitlab}. La metodología ha consistido en implementar funcionalidades de cada área en una rama distinta, para luego ser unida a la rama principal. De esta manera, es más sencillo detectar dónde los errores fueron generados y localizarlos.
 
-Todo el desarrollo tuvo lugar en el sistema operativo \textit{GNU/Linux} \cite{webGNULinux}, concretamente la distribución \textit{Debian} \cite{webDebian}. A modo de diario personal, el progreso fue siendo guardado semanalmente en un documento \textit{Asciidoc} \cite{webAsciidoc}, que ha servido de bitácora y muy útil para la memoria.
+Todo el desarrollo tuvo lugar en el sistema operativo \textit{GNU/Linux}\cite{webGNULinux}, concretamente la distribución \textit{Debian}\cite{webDebian}. A modo de diario personal, el progreso fue siendo guardado semanalmente en un documento \textit{Asciidoc} \cite{webAsciidoc}, que ha servido de bitácora y muy útil para la memoria.
 
 El flujo de compilación lo gestiona \textit{CMake}. Con esta tecnología, es sencillo modularizar el proyecto, añadiendo dependencias según las necesidades del programa y creando una estructura de proyecto ordenada. Incluso, es simple compilar bibliotecas propias y enlazarlas posteriormente al código. Las ventajas frente a compilar manualmente son abrumadoras.
 
-La mayoría de la documentación que se ha necesitado proviene directamente de los autores de \textit{OpenGL}, \textit{Khronos} \cite{bookOGLGuideKhronos9}. Tanto el libro como su página web donde detallan minuciosamente las funciones fueron de gran utilidad. El resto de documentación proviene de sus respectivos autores, buscando información por la red cuando fuera necesario.
+La mayoría de la documentación que se ha necesitado proviene directamente de los autores de \textit{OpenGL}, \textit{Khronos}\cite{bookOGLGuideKhronos9}. Tanto el libro como su página web donde detallan minuciosamente las funciones fueron de gran utilidad. El resto de documentación proviene de sus respectivos autores, buscando información por la red cuando fuera necesario.
 
 Respecto a la implementación, se ha intentado extraer el máximo número de funciones posible a bibliotecas propias según crece el código. De esta manera, se divide la carga y es más fácil discernir errores y aumenta la reutilización de código.
 
