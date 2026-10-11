@@ -1,0 +1,39 @@
+\begin{table}[htp]
+\centering
+
+    % Esta primera línea define las columnas de la tabla. Los posibles tipos de columna son:
+    % c: texto centrado
+    % l: texto alineado a la izquierda
+    % r: texto centrado a la derecha
+    % p: columna de ancho fijo
+    % Las columnas tienen ancho dinámico según la anchura máxima de los elementos que contengan.
+
+    % Las columnas l/r/c no parten el texto en filas diferentes si éste es demasiado largo. Para ello, puede utilizar el tipo de columna de ancho fijo "p".
+    
+    % Las barras verticales | se usan para definir los bordes verticales de la tabla. Pruebe a eliminar algunas y observe qué ocurre.
+    \begin{tabular}{ | p{2cm} | p{2cm} | p{3cm} | p{3cm} | p{2cm} | }
+        
+        % A continuación van las filas de la tabla. En cada fila, las columnas se separan con el carácter &
+        % Para terminar una fila se usa \\
+        % Para incluir un borde horizontal entre filas se usa \hline
+
+        % Cabecera con textos en negrita:
+        \hline
+        \textbf{Motor} & \textbf{2D/3D} & \textbf{APIs} & \textbf{Objetivo} & \textbf{Licencia}\\
+        \hline
+        
+        % Cuerpo de la tabla:
+        Godot & Ambos & OpenGL, Vulkan y DirectX & Videojuegos: partículas, animaciones, luces y sombras  & MIT\\
+        \hline
+        Blender & Ambos & CUDA, OptiX, HIP, oneAPI y Metal  & Fotorrealismo, basado en físicas  & GPL\\
+        \hline
+        GTK & 2D & OpenGL y Vulkan & Interfaces de usuario & GPL\\
+        \hline
+        Unity & Ambos & OpenGL, Vulkan, DirectX y Metal & Videojuegos y animación  & Privativa\\
+        \hline
+        
+    \end{tabular} 
+    
+    \caption{Comparación de motores de renderización}
+    \label{tbl:comparison-engine} 
+\end{table}

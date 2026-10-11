@@ -1,0 +1,59 @@
+\chapter{Análisis del problema}\label{chp:analysis}
+
+En este capítulo se tratarán los requisitos \ref{sec:requirements} se ajustan al proyecto necesarios para el correcto funcionamiento del mismo.
+
+\section{Requisitos} \label{sec:requirements}
+La tabla de requisitos \ref{table:requirements} describe 4 tipos: \textbf{información} \ref{sub:information-requirement}, \textbf{funcional} \ref{sub:functional-requirement}, \textbf{no funcional} \ref{sub:non-functional-requirement} y \textbf{hardware} \ref{sub:hardware-requirement}. Cada elemento consta de un identificador, un número y una descripción.
+\input{tables/table_requirements.tex}
+
+\subsection{Requisitos de información} \label{sub:information-requirement}
+Los requisitos de información describen los documentos y código que debe ser almacenado, leído y procesado.
+
+\begin{enumerate}
+
+    \item \textit{Shaders}, código \textit{GLSL} externo que necesita ser compilado dentro del programa para renderizar la geometría.
+
+    \item Resultados de los programas, almacenados en diferentes formatos con el objeto de llevar a cabo análisis de resultados y transformarlos en gráficas.
+    
+\end{enumerate}
+
+\subsection{Requisitos funcionales} \label{sub:functional-requirement}
+Los requisitos funcionales describen cómo se debe comportar el sistema al ser ejecutado y qué propiedades tiene.
+
+\begin{enumerate}
+
+    \item Debe existir una biblioteca relacionada con \textit{shaders} que facilite su uso para el usuario.
+
+    \item Debe existir una biblioteca de errores que provea al usuario de una manera sencilla de comprobar la validez de ciertas acciones y actuar en consecuencia.
+
+    \item Debe existir una biblioteca relacionada con \textbf{polígonos}, que construya geometría para el usuario.
+
+    \item Debe existir una biblioteca miscelánea que cubra propósitos generales de programación, como leer archivos y crear estructuras de memoria.
+
+    \item Debe existir una biblioteca de animación, que soporte crear una secuencia de transformaciones sobre los vértices en pantalla y que simulen movimiento, pudiendo configurar los fotogramas por segundo, acciones y demás.
+
+    \item Deben existir programas que utilicen todas las bibliotecas creadas, para servir de ejemplo y sujeto de pruebas para los resultados a analizar.
+
+\end{enumerate}
+
+\subsection{Requisitos no funcionales} \label{sub:non-functional-requirement}
+Los requisitos no funcionales describen características más abstractas a las funcionables que describen propiedades ajenas al comportamiento técnico del sistema, como pueden ser la robustez, la modularidad o la fluidez.
+
+\begin{enumerate}
+
+    \item El sistema debe ser robusto y detectar errores tras operaciones cruciales en la secuencia de los programas.
+    
+    \item El proyecto debe estar organizado de forma ordenada y modular.
+
+    \item El código del proyecto debe estar comentado correctamente, además de estar escrito en el idioma inglés.
+    
+\end{enumerate}
+
+\subsection{Requisitos hardware} \label{sub:hardware-requirement}
+
+\begin{enumerate}
+    \item Poseer una \textit{GPU}, preferiblemente \textit{AMD} o \textit{NVIDIA}, configurada correctamente con los controladores apropiados.
+
+    \item No es necesario establecer un requisito mínimo de otros componentes, ya sea \textit{RAM}, \textit{CPU} o disco, pues \textit{OpenGL} es flexible.
+\end{enumerate}
+

@@ -1,0 +1,907 @@
+= Progreso semanal TFG
+Iván Barbero Lay
+:reproducible:
+:source-highlighter: rouge
+:source-language: c
+
+== Semana 26-30 Enero
+
+Comienzo de registro semanal de progreso de TFG.
+
+* Objetivos
+** Encontrar bibliografía relevante lo más actual posible.
+** Buscar información sobre qué renderizadores se usan en entornos GNU/Linux.
+** Solucionar dilema OpenGL/Vulkan.
+** Definir qué es un renderer 2D y sus usos.
+
+=== Recolección de bibliografía sobre el tema del trabajo
+* Linux 3D Graphics Programming - Norman Lin
+* Real-time graphics-rendering engine - Hujun Bao, Wei Hua
+* Computer graphics : from pixels to programmable graphics hardware - Boreskov A., Shikin E.
+* OpenGL Programming Guide Eight Edition. The Official Guide to Learning OpenGL, Version 4.3 - The Khronos OpenGL ARB Working Group
+* learnopengl.com
+* wiki.khronos.org
+
+=== Renderizadores usados en software popular
+Godot::
+Renderización 2D y 3D acompañado de un motor de física. Incluye tilemaps, partículas y animaciones. Se centra en luces y sombras, movimiento de partículas y display de meshes. Usa OpenGL y Vulkan como
+APIs de gráficos. Usa optimización GPU.
+
+Blender::
+Renderización 2D y 3D. Tiene tres renderizadores, aunque el más relevante es Cycles. Basado en ray-trace. Permite renderización multi-core con CPU y optimización SIMD, a la vez que permite
+renderización mediante GPU y multi-GPU.
+
+GTK::
+GTK apuesta por un renderer 2D unificado para GL y Vulkan, que son compilados de la misma fuente, aunque este cambio es reciente. Previamente, existía un renderer 2D GL que usaban shaders simples
+aunque más optimizado. El nuevo renderer unificado se centra en la mantenibilidad y correción a largo plazo a cambio de rendimiento. Este lujo es posible gracias a que los programas que hacen uso de
+este software no son excesivamente demandantes ni requieren una tasa de rendimiento grande, como podría ser Godot, Blender, Unity o Unreal Engine. También conlleva algunas capabilidades interesantes,
+como antialising, escalado fraccional y gradientes arbitrarios.
+
+Unity::
+Renderer 3D y 2D que usa DirectX, Metal, OpenGL y Vulkan. Utiliza optimización GPU para procesar el renderizado.
+Docs: https://discussions.unity.com/t/trying-to-understand-the-rendering-steps/734699/2
+
+Unreal Engine::
+Renderer semejante al de Unity.
+Docs: https://unrealartoptimization.github.io/book/pipelines/
+
+=== Solucionar dilema OpenGL/Vulkan
+
+OpenGL y Vulkan son especificaciones de APIs, no la implementación en sí. OpenGL es la predecesora y se mantiene como una opción estable y más sencilla de utilizar. Vulkan es mucho más flexible, lo
+que conlleva un incremento en la complejidad; está dirigido a aplicaciones muy demandantes que necesitan exprimir hasta la última gota de eficiencia.
+
+En este trabajo se ha decidido usar OpenGL, ya que es una API muy utilizada y estable, a la par que altamente flexible (aunque no al nivel de Vulkan).
+
+=== Definición de Renderer
+Del glosario de Unity:
+
+"2D rendering creates visuals from flat graphic elements through specialized techniques like sprite batching, tile-based systems, and optimized draw calls, often enhanced with modern lighting and
+shader effects despite the two-dimensional nature. "
+
+Es usado en videojuegos, diseños técnicos, mapas, imágenes o similares situaciones en las que se necesite un entorno con dos dimensiones.
+
+== Semana 2-6 Febrero
+* Objetivos
+** Entorno CMake
+** Principios esenciales de OpenGL
+
+=== Entorno CMake
+Se usará CMake para gestionar dependencias y compilación del proyecto.
+
+CMake maneja dependencias de forma estable y es beneficioso a largo plazo, cuando el código empieza a aumentar de tamaño y comienza a ser insostenible compilar a mano. Otra alternativa sería
+manualmente escribir Makefile. He visto mucho más útil y profesional usar CMake, ya que tiene un nivel de abstracción sobre los Makefile muy pulido y efectivo que costaría replicar a mano, además de
+no ser el objetivo de este proyecto.
+
+Docs: https://cmake.org/cmake/help/latest/
+
+=== Principios esenciales de OpenGL
+Immediate mode y core-profile. El primer modo es más fácil de entender y usar, aunque tiene funciones deprecadas y no se aconseja su uso. La manera recomendada de programar es con core-profile, que es
+una división de la especificación de opengl con funcionalidades modernas. La especificación de opengl permite extensiones para que los desarrolladores no necesiten esperar a una nueva versión de
+opengl, aunque rara vez se utiliza.
+
+OpenGL se puede entender como una gran máquina de estados, llamándose al estado de OpenGL _contexto_. Este contexto puede ser cambiado por funciones y usado por otras. El código está escrito en C,
+aunque permite derivaciones para distintos lenguajes. Se usan objetos (struct). Cada objeto es un conjunto de opciones que representan un subset del estado de OpenGL. Un objeto podría representar el
+tamaño y colores de una ventana.
+
+.Esto podría ser un ejemplo de creación y manipulación de un objeto:
+----
+// create object
+unsigned int objectId = 0;
+glGenObject(1, &objectId);
+
+// bind/assign object to context
+glBindObject(GL_WINDOW_TARGET, objectId);
+
+// set options of object currently bound to GL_WINDOW_TARGET
+glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_WIDTH,  800);
+glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, 600);
+
+// set context target back to default
+glBindObject(GL_WINDOW_TARGET, 0);
+----
+
+Los objetos se crean, se modifican y se utilizan mediante la API, y la información se almacena fuera de la vista del programador. Esto permite una flexibilidad y reusabilidad increíble, pues se pueden
+crear varios objetos y vincularlos para dibujarlos de forma rápida.
+
+== Semana 9-12 Febrero
+* Objetivos
+** Experimentar con OpenGL como primer contacto
+
+=== Experimentar con OpenGL
+OpenGL es sólo una especificación, por lo que habrá que instalar una implementación de ésta. Se usará en este proyecto la implementación de 'mesa', aunque se podrían usar los drivers de nvidia. Además,
+se usará GLFW para manejar ventanas y contextos de manera sencilla y escéptica en cuanto a sistema operativo. Por último, es conveniente usar una biblioteca que ayude a cargar funciones en tiempo de
+ejecución, lo que puede ser tedioso de otra manera. Se usará GLAD en esta ocasión.
+
+Las funciones de OpenGL se cargan de maneras diferentes según la plataforma en la que nos encontremos. En linux, bajo la implementación de 'mesa', están dinámicamente vinculadas, por lo que hay que
+recuperarlas de memoria. En otras plataformas es distinto, por lo que GLAD es muy útil para resolver este problema.
+
+Para instalar GLFW hay dos maneras: compilar manualmente el código fuente o instalar mediante _apt_, en mi caso. He decidido instalarlo de este último método, aunque para mayor optimización debería
+ser compilado.
+
+Para configurar GLAD hay dos vías: su servicio web o ejecutar localmente. Yo usaré el servicio web.
+
+==== Conceptos base
+
+Para entender algunas funciones de GLFW y GLAD, hay que tener conocimiento sobre C/Cpp, sobre todo de punteros. He tenido varios problemas con los llamados "function pointer". Revisaré un par de
+conceptos que son necesarios para entender el código, aunque se asume conocimiento global del lenguaje.
+
+Puntero::
+Un puntero es una variable que almacena una dirección en memoria de otra variable.
+
+Puntero a una función::
+Un puntero de función es similar, aunque en vez de variable, es una función.
+
+.Considerando la siguiente función:
+----
+int foo()
+{
+    return 5;
+}
+----
+
+Toda función se almacena como una variable, en memoria. Por lo tanto, es posible crear un puntero hacia ellas, con la siguiente sintaxis:
+----
+// fncPtr es un puntero a una función que no toma argumentos y devuelve un entero
+int (*fncPtr)();
+----
+
+Los paréntesis alrededor de _fncPtr_ son necesarios debido a la precedencia. Si fuera `int* fncPtr()`, se interpretaría como una función que no toma argumentos y que devuelve un puntero a un entero.
+Si se quisiera hacer un puntero constante, se añadiría la palabra clave 'const' detrás del asterisco: `int (*const fcnPtr)();`.
+
+En C++ también puede declararse un puntero a una función en una misma línea: `int (*fcnPtr)(int){ &foo };`.
+
+.De este modo, se puede crear un puntero a una función ya creada y usarla a través de este puntero:
+----
+#include <stdio.h>
+int foo()
+{
+    return 5;
+}
+
+int main()
+{
+    int (*fncPtr)(); // Inicializar puntero
+    fncPtr = &foo; // Asignar la función 'foo' al puntero
+    int a = fncPtr(); // Llamada implícita. Algunos compiladores no soportan esta opción
+    int b = (*fncPtr)(); // Llamada explícita
+
+    return 0;
+}
+----
+
+Con toda esta información, se puede empezar a analizar como inicializar GLAD y GLFW. En esta experimentación se usará la versión 3.3, aunque en la versión final se intentará usar una versión más
+moderna.
+
+== Semana 16-20
+
+=== Experimentar con OpenGL
+==== Ventana simple
+
+.Se incluyen GLAD y GLFW, en ese orden:
+----
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+----
+
+.Se inicia GLFW de la siguiente manera:
+----
+
+int main()
+{
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  
+    return 0;
+}
+----
+
+Primero se inicializa GLFW con `glfwInit`. Las funciones `glfwWindowHint` se usan para configurar propiedades, como la versión y el perfil que se usa (perfil 'core'). La última línea comentada se
+usaría para dar compatibilidad con MAC OS X.
+
+
+.Creación de una ventana de 800x600 y asignación del contexto. Se asigna una función de callback que cambia el viewport cuando la ventana se expande o contrae.
+----
+GLFWwindow* window = glfwCreateWindow(800, 600, "Learn OpenGL", NULL, NULL);
+
+if (window == NULL) {
+    printf("Failed to create GLFW Window");
+    glfwTerminate();
+    return -1;
+}
+glfwMakeContextCurrent(window);
+glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+----
+
+
+.Antes de usar funciones de OpenGL, inicializamos GLAD para cargarlas.
+----
+if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+{
+    std::cout << "Failed to initialize GLAD" << std::endl;
+    return -1;
+}    
+----
+
+La primera línea puede ser un tanto chocante, por lo que la detallaré en profundidad.
+
+.`glfwGetProcAddress` se define como:
+----
+GLFWglproc glfwGetProcAddress(const char* procname);
+----
+
+
+.Esto significa que la función toma como argumento una cadena y devuelve 'GLFWglproc', que es un puntero a una función que no toma argumentos y que devuelve 'void': 
+----
+typedef void (*GLFWglproc)(void);
+----
+
+Con esto, se puede decir que 'glfwGetProcAddress' toma una cadena como argumento y devuelve un puntero a una función sin argumentos que devuelve 'void'. La función devuelve la dirección de la función
+especificada de OpenGL si lo permite el contexto actual.
+
+.Luego, nos encontramos con un 'type cast' mediante el tipo 'GlADloadproc':
+----
+typedef void* (* GLADloadproc)(const char *name);
+----
+
+De nuevo, es un puntero a una función. Esta vez, se trata de una función que toma como argumento una cadena y devuelve un puntero a 'void'. Lo que se intenta hacer es convertir una función que toma
+una cadena y devuelve un puntero a una función a otra función que también toma una cadena como argumento, pero devuelve un puntero a void. Esto sucede porque está permitido convertir cualquier puntero
+a `void*`.
+
+.Luego, este resultado lo acepta 'gladLoadGLLloader', que se define en las cabeceras como:
+----
+int gladLoadGLLoader(GLADloadproc);
+----
+
+Esta función toma un valor 'GLADloadproc', que es justo lo que se trató de hacer anteriormente. Luego se rodea con una instrucción condicional para comprobar que efectivamente se ha cargado con éxito.
+
+En resumen, esta primera parte del código le indica a GLAD que estamos usando GLFW, haciendo una conversión de tipos para que pueda aceptarse la función de GLFW para encontrar la dirección de las
+funciones de OpenGL, y luego se comprueba que se han cargado las funciones con GLAD correctamente. En este caso se ha usado el 'loader' de GLFW, pero GLAD también incorpora uno.
+
+Es necesario mantener un bucle de renderizado que gestione cada 'frame'. En este ejemplo, procesamos el input del usuario con una función externa que cierra la ventana cuando se pulsa la tecla de
+escape. Luego, se borra el buffer de color y se reemplaza con otro elegido a mano. Por último, se intercambia el buffer (doble buffer) y se hace 'glfwPollEvents', que procesa las pulsaciones de
+teclas, movimiento de ratón, etc. Al salir del bucle, se termina GLFW y se devuelve _0_.
+
+.Ejemplo de render loop
+----
+while (!glfwWindowShouldClose(window))
+{
+    // input
+    // -----
+    processInput(window);
+
+    // render
+    // ------
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+    // -------------------------------------------------------------------------------
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+// glfw: terminate, clearing all previously allocated GLFW resources.
+// ------------------------------------------------------------------
+glfwTerminate();
+return 0;
+----
+
+==== Flujo de Shaders
+
+El flujo de shaders que tiene OpenGL puede dividirse en 6 etapas fundamentales: Vertex Shader, Geometry Shader, Primitive Assembly, Rasterization, Fragment Shader y Tests and Blending. Hay algunas
+fases en las que el programador puede introducir su propia implementación, como se mostrará más adelante. Cada fase se explicará secuencialmente.
+
+Se usa un lenguaje especial de OpenGL para shaders, llamado 'GLSL', para compilar y generar estos shaders. Este lenguaje se tratará más adelante.
+
+Vertex Shader::
+Se transforman vectores de posición de los vértices en otros diferentes, generalmente 3D.
+
+Geometry Shader::
+Se modifican, añaden o eliminan formas. Por ejemplo, romper un triángulo en tres, eliminar formas que no necesita o cambiar un punto en un cuadrado.
+
+Primitive Assembly::
+Se toman los vértices procesados y se agrupan en formas simples, como puntos, líneas o triángulos.
+
+Rasterization::
+Se transforman formas 3D en piezas 2D llamadas 'fragmentos' (potenciales píxeles). En esta fase se determina qué píxeles en la pantalla
+cubre cada forma y qué datos lleva cada fragmento.
+
+Fragment Shader::
+En este paso se decide cómo se verá cada fragmento, es decir, color, luces, sombras, textura, etc.
+
+Tests and Blending (Per-Sample Operations)::
+En este paso final se decide qué fragmentos finalmente ocuparán píxeles en la pantalla. Se hacen pruebas como el 'Depth Test', el 'Stencil Test' o el 'Scissor Test'. Después de estas pruebas se crea
+la imagen final con los fragmentos supervivientes.
+
+==== Creación de un Vertex Shader
+
+Los shaders deben ser compilados en tiempo de ejecución. Aunque no haya profundizado en el lenguaje GLSL, es sencillo de entender una vez aprendido C. 
+
+.Este es un ejemplo muy básico de un Vertex Shader que simplemente pasa las coordenadas al shader, sin manipularlas.
+[,glsl]
+----
+#version 330 core
+layout (location = 0) in vec3 aPos;
+
+void main()
+{
+    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+}
+----
+
+La primera línea indica la versión que se utiliza, que es semejante a la versión de OpenGL que se esté usando (3.3). La segunda línea indica la posición en la que se encuentra el dato 'aPos', que es
+un vector de 3 dimensiones. Este sería el vector que indica la posición de un vértice. La posición se transporta a un vector de 4 dimensiones, en la que la última coordenada es un dato llamado
+'perspective division', en la función principal del shader.
+
+
+==== Creación de un Fragment Shader
+
+.Este es un ejemplo muy básico de un Fragment Shader que hace que todos los colores sean el naranja, simplemente.
+[,glsl]
+----
+#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+} 
+----
+
+La instrucción 'out' hace que devuelva una variable: 'FragColor', que decide el color final. En este caso, es un vector de 4 dimensiones, que indica los tres colores primarios: rojo, verde y azul
+(RGB) y el valor alpha (opacidad).
+
+==== Compilación de un Shader
+
+Por ahora, el código GLSL se almacenará en constantes dentro de nuestro código C.
+
+.Código para compilar Vertex Shader y Fragment Shader:
+----
+// Declaración de los Shaders
+const char *vertexShaderSource = "#version 330 core\n"
+    "layout (location = 0) in vec3 aPos;\n"
+    "void main()\n"
+    "{\n"
+    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "}\0";
+
+const char *fragmentShaderSource = "#version 330 core\n"
+    "out vec4 FragColor;\n"
+    "void main()\n"
+    "{\n"
+    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "}\0";
+
+// Se crea el objeto del Shader y se almacena la referencia
+unsigned int vertexShader, fragmentShader;
+vertexShader = glCreateShader(GL_VERTEX_SHADER);
+fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+// Vinculamos el código del Shader al objeto
+glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+glCompileShader(vertexShader);
+glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+glCompileShader(fragmentShader);
+
+// Comprobamos si ha habido algún error
+int success;
+char infoLog[512];
+
+glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+if(!success)
+{
+    glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+    std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+}
+
+glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+if(!success)
+{
+    glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+    std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+}
+----
+
+Una vez se tienen los shaders compilados por separado, es necesario enlazarlos para combinarlos. Esto se hace mediante un 'programa'. Se vinculan los shaders a este programa, que se activa cuando se
+renderizan objetos. Las salidas de cada shader, entonces, se vinculan a las entradas del siguiente.
+
+.Creación de un programa
+----
+// Creación del objeto programa
+unsigned int shaderProgram;
+shaderProgram = glCreateProgram();
+
+// Enlace de los Shaders al programa
+glAttachShader(shaderProgram, vertexShader);
+glAttachShader(shaderProgram, fragmentShader);
+glLinkProgram(shaderProgram);
+
+// Comprobación de errores
+glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+if(!success)
+{
+    glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+    std::cout << "ERROR::SHADER::PROGRAM::LINKAGE_FAILED\n" << infoLog << std::endl;
+}
+
+// Activación del programa
+glUseProgram(shaderProgram);
+
+// Limpieza de los Shaders usados anteriormente, ya innecesarios
+glDeleteShader(vertexShader);
+glDeleteShader(fragmentShader);
+----
+
+==== Enlazando atributos de vértices
+
+Una vez construidos los shaders y enlazados a un programa, queda especificar cómo se deben interpretar los datos de los vértices a OpenGL.
+
+Los vértices tenían 3 coordenadas, siendo cada una de ellas 'float', que usualmente son 4 bytes. Esto significa que cada vértice serán 12 bytes, y si el polígono deseado fuera un triángulo, serían 3
+vértices: 36 bytes. Se debe tener en cuenta que no hay espacio entre los valores.
+
+.Se indica el orden y tamaño de los atributos de la siguiente manera:
+----
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);
+----
+    
+* Los argumentos de 'glVertexAttribPointer' son:
+** Índice: posición del atributo. Definido como '0' en el Shader.
+** Tamaño del atributo. Consta de tres elementos (x, y, z).
+** Tipo de dato. Las coordenadas se guardan como 'float'.
+** Normalización. En este caso, las coordenadas están ya normalizadas previamente, por lo que se deja en falso
+** 'Stride', es el espacio entre atributos consecutivos. Son 3 elementos float = 12 bytes.
+** 'Offset', es donde empieza la posición de los datos en el buffer. Requiere un puntero a void (void*).
+
+==== Vertex Buffer Object (VBO)
+
+Este buffer puede almacenar una gran cantidad de vértices en memoria. El objetivo es envíar el mayor número de datos a la vez posible.
+
+.Código para generar y configurar un VBO
+----
+// Creación del objeto
+unsigned int VBO;
+glGenBuffers(1, &VBO);
+
+// Se vincula  el buffer
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+// Se copian los datos de los vértices en memoria
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+----
+
+==== Reuniendo las piezas
+
+Teniendo esto claro, se puede hacer un pipeline sobre el dibujo de un objeto en OpenGL, con estos pasos previos realizados:
+
+.Código para dibujar un objeto tras las debidas preparaciones
+----
+// 0. Se copian los vértices en un buffer VBO y se almacenan en memoria
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+// 1. Se determinan los atributos de los vértices
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0); 
+
+// 2. Se activa el programa de shader para renderizar el objeto
+glUseProgram(shaderProgram);
+
+// 3. Se dibuja el objeto
+funcionDeOpenGLQueDibujaTriangulo();
+----
+
+Es necesario realizar este proceso para dibujar un objeto. Cuando aumenta el número de vértices y de atributos, puede convertise en una auténtica pesadilla. Por suerte, existe una manera de almacenar
+estas configuraciones para su reutilización.
+
+==== Vertex Array Object (VAO)
+
+Un Vertex Array Object (VAO) es un buffer enlazable, como es el VBO. Almacena la configuración de los atributos de los vértices. Está fuertemente vinculado al VBO, ya que el VAO almacena la
+configuración de los vértices almacenados en el VBO. El VAO almacena las llamadas a atributos y vértices, por lo que para dibujar, una vez configurado, es simplemente vincular el VAO.
+
+Cabe mencionar que, si la configuración o el VBO cambiase, sería necesario actualizar el VAO.
+
+.Se genera como otro objeto cualquiera:
+----
+unsigned int VAO;
+glGenVertexArrays(1, &VAO);
+----
+
+.Ahora, se usa el VAO vinculándolo para configurarlo y usándolo de la misma manera:
+----
+// Código de inicialización
+// 1. Enlazar el Vertex Array Object
+glBindVertexArray(VAO);
+// 2. Copiar los vértices en el VBO y almacenarlos
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+// 3. Configurar los atributos de los vértices
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);  
+
+// Dibujo en render loop
+// 4. Dibujo del objeto
+glUseProgram(shaderProgram);
+glBindVertexArray(VAO);
+funcionDeOpenGLQueDibujaTriangulo();   
+----
+
+==== El esperado triángulo
+
+Para dibujar los vértices con los shaders elegidos, OpenGL nos ofrece la función: 'glDrawArrays', a la que se le indica el modo de dibujo, un índice y un tamaño. Se supone todo lo demás ya
+inicializado y configurado. Queda como: 'glDrawArrays(GL_TRIANGLES, 0, 3);'
+
+==== Element Buffer Object (EBO)
+
+En el caso de que se quisiera dibujar un rectángulo, sólo tendríamos que dibujar dos triángulos. Especificar 6 vértices cuando sólo se necesitan 4 parece un malgasto de recursos. Por este motivo,
+existe este buffer en el que se indicará el orden en el que se dibujarán unos vértices. De tal manera, sólo se especifican 4 vértices y 6 índices, siendo el orden en el que se dibujan los triángulos.
+
+.Declaración de vértices e índices:
+----
+float vertices[] = {
+     0.5f,  0.5f, 0.0f,  // arriba derecha
+     0.5f, -0.5f, 0.0f,  // abajo derecha
+    -0.5f, -0.5f, 0.0f,  // abajo izquierda
+    -0.5f,  0.5f, 0.0f   // arriba izquierda
+};
+unsigned int indices[] = {  // Empezando desde el índice 0
+    0, 1, 3,   // Primer triángulo
+    1, 2, 3    // Segundo triángulo
+};  
+----
+
+.Generación del objeto EBO:
+----
+unsigned int EBO;
+glGenBuffers(1, &EBO);
+----
+
+.Similar al VBO, se copian los índices a memoria
+----
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
+----
+
+.En vez de usar 'glDrawArrays', se usa 'glDrawElements':
+----
+glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+----
+
+==== Ejercicio 1: Dibujar dos triángulos separados
+
+Para dibujar dos triángulos separados, no es necesario un EBO, sólo añadir tres vértices más al VBO y dibujar con normalidad, con posiciones adecuadas para que se vean en la pantalla juntos.
+
+==== Ejercicio 2: Dibujar dos triángulos con diferentes VAOs y VBOs para cada uno
+
+El reto está en cómo organizar el código para que cada sección tenga buffers bien separados. Se convierten los buffers en arrays de enteros sin signo y se cambia el tamaño de las funciones que
+interactúan con ellos de 1 a 2. Se crean dos listas de vértices distintas y se cargan por separado. A la hora de dibujarlos, se cargan dos VAOs distintos secuencialmente.
+
+==== Ejercicio 3: Dibujar dos triángulos con diferentes VAOs y VBOs, con diferentes colores
+
+El cambio aquí es crear un nuevo fragmentShader con color amarillo. En consecuencia de esto, se crea un programa nuevo y se deben de usar los dos en el render loop.
+
+== Semana 23-27
+
+* Objetivos
+** GLSL en mayor profundidad
+
+=== GLSL en mayor profundidad
+
+Aquí detallaré mejor cómo funciona el lenguaje GLSL y cómo utilizar los shaders para hacer diversos efectos y mejor organizados.
+
+Los shaders en GLSL siempre comienzan con una declaración de la versión, seguido de una lista de variables de entrada y salida, 'uniforms' y su función 'main'. Un 'uniform' es parecido a una variable
+global, que se usa para interactuar con un shader desde el código y es visible para todos los shaders de un mismo programa.
+
+GLSL comparte los tipos más fundamentales con C, aunque tiene varios que se usan con frecuencia específicos para sus cometidos: vectores y matrices; que se tratarán más adelante. Los vectores pueden
+ser de varios tipos, aunque es usual que se use el tipo 'float', de 2, 3 o 4 componentes. Se puede acceder a los elementos de los vectores con '.x', '.y', '.z' o '.w'. Se pueden combinar de forma
+flexible para hacer 'swizzling', que es combinar elementos de un vector para formar otro distinto, aunque el vector destino debe tener el tamaño adecuado.
+
+.Ejemplo de un código que hace uso de 'swizzling':
+----
+vec2 someVec;
+vec4 differentVec = someVec.xyxx;
+vec3 anotherVec = differentVec.zyw;
+vec4 otherVec = someVec.xxxx + anotherVec.yxzy;
+----
+
+Para que los shaders se puedan comunicar entre ellos, se usan entradas y salidas, que van ligadas de un shader al siguiente, y deben tener el mismo nombre. El 'vertex shader' difiere en su entrada,
+que es recibida directamente; para localizar el atributo se usó '(location = 0)', que de otra manera habría sido necesario usar una función de OpenGL para obtener su localización y acceder a él. El
+'fragment shader' necesita un vector de 4 dimensiones, ya que necesita generar el color final.
+
+De esta manera, se podría generar el color en el vertex shader y enviarlo al fragment shader a través de una variable salida y otra de entrada. ¿Pero, y si se quisiera generar el color desde el código
+y transmitirlo al shader?
+
+==== Uniforms
+
+Los 'uniforms' son una manera de enviar datos de la aplicación en CPU a los shaders en GPU. Son variables globales y pueden ser accedidas por cualquier shader. Se añade la palabra clave 'uniform' a la
+variable en el shader para convertirla en uniform.
+
+Luego, para acceder a ella desde el código C, primero se debe localizar el atributo y entonces, dar un valor a la variable:
+
+.Ejemplo de código donde el color toma una función senoidal para que cambie con el tiempo
+----
+// Se toma el valor del tiempo
+float timeValue = glfwGetTime();
+
+// Se calcula el valor del color verde con una función senoidal
+float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+
+// Se localiza el atributo uniform
+int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+
+// Se activa el programa
+glUseProgram(shaderProgram);
+
+// Se accede a la variable y se le otorga el valor calculado
+glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+----
+
+==== Uso de múltiples atributos
+
+Se ha visto cómo interactuar con el color desde el código C de forma dinámica, pero, ¿y si quisiera otorgarle un color a cada vértice? Entonces, quizás crear un valor uniform para cada uno no sea la
+mejor manera. Por eso, se puede crear un atributo adicional con el color deseado y que sea el vertex shader quien lo trate.
+
+.Ejemplo de vertex shader con dos atributos: posición y color:
+----
+#version 330 core
+layout (location = 0) in vec3 aPos;   // La variable de posición tiene posición 0
+layout (location = 1) in vec3 aColor; // La variable de color tiene posición 1
+  
+out vec3 ourColor; // Vector de salida que contiene el color deseado
+
+void main()
+{
+    gl_Position = vec4(aPos, 1.0);
+    ourColor = aColor; // El valor de la variable ourColor se iguala al vector de entrada aColor
+}       
+----
+
+.Ejemplo de fragment shader que recibe el color de vertex shader:
+----
+#version 330 core
+out vec4 FragColor;  
+in vec3 ourColor;
+  
+void main()
+{
+    FragColor = vec4(ourColor, 1.0);
+}
+----
+
+En este caso, cada vértice ocupa el doble, porque son 3 flotantes más en cada vértice. Habría que modificar el código C para que incluya estos cambios. 
+
+El vector del vértice queda de la siguiente forma: en un vértice hay 24 bytes, 12 bytes para la posición y otros 12 bytes para el color. Cada una de estas partes tiene 3 elementos de 4 bytes (float).
+El stride ahora es 24 bytes (6 floats), en vez de 12 bytes, y el offset es 12 bytes (3 floats) en caso del color es 12 bytes.
+
+El 'offset' es la posición desde la que comienza el atributo dentro de un vértice, que es justo la mitad (12 bytes).
+
+.Quedaría de esta forma la estructura de un vértice:
+------------------------------------
+|               \                  |
+|  X   Y   Z    \   R     G     B  |
+| 0-3 4-7 8-11  \ 12-15 16-19 20-23|
+------------------------------------
+
+
+.Ejemplo de fragmento C que configura los atributos del vértice:
+----
+// Atributo de posición
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);
+
+// Atributo de color
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+glEnableVertexAttribArray(1);
+----
+
+== Semana 2-6
+
+=== GLSL en mayor profundidad
+
+La declaración de funciones es semejante a C; aunque no hay concepto de puntero: se usan parámetros calificadores que indican si el valor de una función es de entrada o salida. Todas las variables sin
+calificador se asumen de entrada por defecto.
+
+GLSL no garantiza que dos computaciones idénticas en diferentes shaders devuelvan el mismo valor. Cabe indicar que las computaciones de expresiones constantes se calculan en host, no en GPU. Se debe
+tener en cuenta este margen de error para cálculos muy precisos. Para minimizar este riesgo, se pueden usar las palabras clave 'invariant' y 'precise'.
+
+==== Calificador 'invariant'
+
+Este calificador provoca que dos invocaciones en un shader con la misma expresión y mismos valores computen el mismo valor. Puede imponerse invarianza globalmente con: '#pragma STDGL invariant(all)',
+aunque no debería usarse para otros fines que no sean la depuración.
+
+==== Calificador 'precise'
+
+Este calificador se usa cuando se necesita obtener el mismo resultado de una expresión incluso cuando los valores están permutados de manera que matemáticamente el valor no debería verse afectado.
+También prohíbe usar dos métodos distintos de multiplicación en una expresión: de esta manera se perdería precisión. Esto puede aliviarse usando funciones específicas, como 'fma', que combina
+multiplicación y adición para una expresión como 'c*d + a*b', si se quisiera optimizar; primero multiplicando 'c*d' y luego 'fma(a,b,f)'.
+
+==== Directivas de preprocesador
+
+Al igual que en C, se pueden añadir líneas de preprocesado. Pueden utilizarse para crear 'macros', configurar la optimización, la depuración y las extensiones.
+
+==== Interface blocks
+
+Las variables compartidas con la aplicación pueden organizarse en _bloques_ de variables. Estos pueden ser de tipo 'uniform', 'in', 'out' y 'buffer'.
+
+.Ejemplo de un bloque 'uniform'
+----
+uniform a {
+    vec4 v1;
+    bool v2;
+};              // se accede a las variables como "v1" y "v2"
+
+
+uniform b {
+    vec4 v1;
+    bool v2;
+} name;         // se accede a las variables como "name.v1" y "name.v2"
+----
+
+==== Bloques 'uniform'
+
+En vez de declarar cada variable individualmente, se recogen en un sólo bloque.
+
+.Bloque 'uniform'
+----
+uniform Matrices {
+    mat4 ModelView;
+    mat4 Projection;
+    mat4 Color;
+};
+----
+
+Si se usan dos bloques con los mismos nombres para las variables causará un error. Para evitarlo, puede asociarse un nombre al bloque.
+
+Para acceder a estos bloques desde la aplicación se necesita encontrar la localización de las variables 'uniform' e inicializarlas como se haría con cualquier otro buffer ('glBufferData()'). El primer
+paso es encontrar el índice del bloque ('glGetUniformBlockIndex()') para un programa concreto. Se inicializa un objeto buffer con target 'GL_UNIFORM_BUFFER' usando 'glBindBuffer()' como previamente.
+Una vez inicializado, es necesario determinar el tamaño exacto para acomodar las variables. Para ello, se usa 'glGetActiveUniformBlockiv()', pidiendo 'GL_UNIFORM_BLOCK_DATA_SIZE'. Luego, se asocia un
+objeto buffer con el bloque uniform con 'glBindBufferRange()'. Aún queda determinar la posición de las variables dentro del bloque, es decir, los índices, tamaño y offset. Se obtienen mediante las
+funciones 'glGetUniformIndices()' y 'glGetActiveUniformsiv()'.Una vez hecho todo esto, el buffer está asociado a las variables y sólo quedaría llenar el buffer con los valores deseados.
+
+== Semana 23-27
+
+* Objetivos
+** Preparación del entorno
+
+=== Preparación del entorno
+
+Ha sido creado para el propósito de mantener el proyecto bien organizado y seguro un repositorio alojado en _Gitlab_. Para practicar y realizar un calentamiento previo, se harán unas pruebas de
+renderizado de formas geométricas simples diversas. Será necesario crear unas bibliotecas y mantener unas dependencias, por lo que CMake será increíblemente útil; de estas pruebas se podrán extraer
+las funciones más comunes, como leer y manipular shaders.
+
+== Semana 6-10
+
+Ha sido refactorizada gran parte del código y mejorado, además de disponer de una estructura estable con CMake y trasladado OpenGL 3.3 a 4.3 y GLFW y GLAD a freeGLUT y GLEW, correspondientemente.
+
+* Objetivos
+** Programa n-gon
+
+=== Programa n-gon
+
+Este programa servirá de base para construir polígonos regulares de cualquier número de vértices. Las ecuaciones paramétricas de un círculo servirán para calcular las coordenadas de los puntos.
+Importante destacar que crear un polígono regular de muchos lados conlleva inevitablemente a un círculo, por lo que he ahí la relación clara.
+
+== Semana 20-24
+
+=== Programa n-gon
+
+El programa construye un polígono regular de n vértices en el centro de la pantalla. Por supuesto, podría adaptarse para mover el polígono a otra coordenadas diferentes del origen. 
+
+Calcula los puntos a partir de las ecuaciones: 'x = r * cos(t)' y 'y = r * sen(t)', siendo 't' un ángulo interior que se calcula de la siguiente forma: 't = 2*M_PI*i/n + M_PI/2'; divide el ángulo
+completo entre el número de vértices multiplicado por el índice del vértice y le suma un ángulo constante. De esta forma, se calcula cada ángulo perteneciente a cada vértice y sus coordenadas
+asociadas.
+
+Una vez calculados los vértices y sus coordenadas queda calcular la distribución de los triángulos dentro de este polígono. Es sabido que cualquier polígono regular es convexo, por lo cual pueden ser
+representados como un _triangle fan_ y exactamente 'n-2' triángulos; en OpenGL se cambia 'GL_TRIANGLES' a 'GL_TRIANGLE_FAN' en la función que dibuja el polígono. El primer vértice actúa de nodo
+principal y cada pareja de vértices posteriores se conecta al primero.
+
+=== Triángulo arcoíris
+
+Se ha construido un simple programa con el propósito de ilustrar cómo OpenGL trata el mezclado de colores. En cada punta se inserta un color: rojo, azul y verde. El resultado es un triángulo de cuyas
+puntas emana un color y conforme se acercan unos a otros se mezclan.
+
+=== Manejo de shaders
+
+Todos los shaders están en la raíz del proyecto en una carpeta llamada _shaders_. El propósito de mantenerlos juntos es compartir código y reutilizarlo al máximo. Se cargan mediante una función
+auxiliar que lee los shaders y los compila de esta carpeta con una ruta dada. De esta forma, queda claro su uso, sólo teniendo que rellenar un struct llamado 'ShaderInfo' con el tipo y la ruta y
+llamando a 'loadShader(ShaderInfo[] shaders, GLuint numberShaders)'.
+
+=== Manejo de bibliotecas propias
+
+Las bibliotecas propias del proyecto se guardan en _lib_ y cada una en su propio directorio asociado. Deberán acompañarse de su _CMakeLists.txt_ para compilarse y poder utilizarlas en el código.
+
+=== Interpolación de datos en la rasterización
+
+Después del _vertex shader_ y antes del _fragment shader_ está la rasterización. Este paso se encarga de determinar qué ubicaciones están cubiertas por una geometría. Además, también interpola los datos de entrada del _fragment shader_, lo que hace posible que si asocias los tres colores primarios a cada esquina de un triángulo aparezca una gama extensa de colores; aunque no sólo se interpolan colores, también otros datos como la luz o las texturas.
+
+=== Antialiasing
+
+Esta técnica es fundamental para evitar el denominado _aliasing_ y conseguir gráficos sin ruido y suaves. El _aliasing_ es un término acuñado del procesamiento de señales, que ocurre en la
+digitalización de las señales analógicas en las que la frecuencia de muestreo es inadecuada; esta frecuencia es llamada _sampling rate_. Si se analiza la señal con una frecuencia baja, el resultado
+difiere gravementa de la señal original y resulta en cambios de color abruptos y erróneos. El método para evitar esta distorsión es evidente: aumentar el _sampling rate_; aunque evidente, su coste es
+alto.
+
+Hablando de gráficos y renderización 2D, las formas primitivas sería el mundo analógico descrito matemáticamente que se representan digitalmente en píxeles discretos en una pantalla. Crea el mismo
+efecto, pues existe un elemento analógico, siendo aquí una línea descrita matemáticamente, y un elemento digital, siendo este un píxel discreto. El _sampling rate_ en este caso sería la cantidad de
+muestras que se toman en cuenta para cada píxel, y cuantas más muestras se tomen el color final será más cercano al ideal matemático del que se parte. Una manera fácil de entenderlo es imaginar una
+línea que pasa por un conjunto de cuadrados diagonalmente y entender que se formaría una cantidad abundante de esquinas, en forma de escalera, que dejarían la geometría abrupta y rugosa.
+
+Una técnica simple y efectiva es el _supersampling_. Consiste en renderizar la imagen a una mayor resolución para que cada pixel obtenga sus datos de múltiples _samples_. De esta forma, algunos
+píxeles que antes no se tomarían en cuenta ahora se procesan y se suaviza la forma; el color obtenido por estos píxeles cuyas muestras no son completamente cubiertas se verá alterado y difuminado para
+conseguir este efecto de suavidad, pues el píxel toma el color promedio de sus _samples_. Es una técnica cara en tiempo de ejecución, aunque funciona.
+
+Esta idea se puede expandir y mejorar: _multisampling_.
+
+==== Multisampling
+
+Es una modificación del _supersampling_ en la que la idea es la misma, aunque la frecuencia con la que se ejecuta el _fragment shader_ o _FS_ es menor que el número de _samples_ por píxel; es común un
+ratio 4:1.
+
+== Semana 27-02
+
+=== Transformaciones y movimiento
+
+Para los propósitos de creación de matrices y operaciones matemáticas relacionadas con las mismas se usará GLM, una biblioteca de C++ diseñada para el uso con OpenGL. Ha sido añadido al proyecto mediante CMake y por lo tanto es compilado sin necesidad de que el usuario lo instale por sus propios métodos.
+
+Para mover, escalar y rotar una geometría, se puede hacer uso de matrices, concretamente de tamaño 4x4, para multiplicarlas por el vector de coordenadas. 
+
+Es importante denotar que las transformaciones son entorno al origen de coordenadas, por lo que sería conveniente desplazar temporalmente la figura al origen antes de aplicarlas y posteriormente devolverla a su posición; de lo contrario, su posición se verá alterada (a menos que sea el efecto deseado).
+
+==== Traslación
+
+Dada una matriz _T_, partiendo de una matriz identidad, se insertan los valores deseados para la traslación de las coordenadas. Por ejemplo, si la última columna de _T_ es (2.5, 0, 0, 1.0), será trasladado en la dirección de _x_ con el valor de _2.5_, es decir, el nuevo valor de la posición en _x_ sería _x_ + _2.5_, quedando las demás coordenadas intactas.
+
+==== Escalado
+
+La misma idea se aplica al escalado, aunque los valores se insertarán en la diagonal de la matriz _S_, que parte de la matriz identidad. Al multiplicar, se conseguirá que los valores de las coordenadas se escalen por los valores de la diagonal.
+
+==== Rotación
+
+La rotación es más compleja debido a la existencia de 3 ejes de coordenadas a usar como base. En este caso explicaré la rotación en el plano _xy_ a partir del cual es fácil extrapolar el resto.
+
+
+Representando las coordenadas _(x, y)_ en la forma polar se obtiene:
+
+x = L * cos a
+y = L * sin a
+
+Sumándole un ángulo θ a las coordenadas _(x, y)_:
+
+x' = L * cos (a + θ)
+y' = L * sin (a + θ)
+
+Usando identidades trigonométricas para separar el coseno y el seno en dos:
+
+x' = L * ( (cos a * cos θ) - (sin a * sin θ) )
+
+->
+
+x' = L * cos a * cos θ - L * sin a * sin θ
+
+->
+
+x' = x * cos θ - y * sin θ
+
+
+y' = L * (sin a * cos θ + cos a * sin θ)
+
+->
+
+y' = L * sin a * cos θ + L * cos a * sin θ
+
+->
+
+y' = y * cos θ + x * sin θ
+
+Por lo tanto, una matriz _R_ deberá hacer que las coordenadas resulten de esta forma partiendo de la matriz identidad. Para obtener las matrices rotando en base a otros planos sólo basta repetir esta operación con diferentes coordenadas.
+
+=== Instanced rendering
+
+
+// Una vez entendido todo lo anterior, es posible empezar realmente el primer objetivo real del proyecto, que consistía en enfrentar un programa que renderizaba entidades en masa contra el hardware disponible y comprobar su eficiencia sometido a gran estrés.
+//
+// Como primer objetivo, se intentará crear un programa que cree un cierto polígono numerosas veces y se mueva en direcciones aleatorias hasta desaparecer de la pantalla.
+//

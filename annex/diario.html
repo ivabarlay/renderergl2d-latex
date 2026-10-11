@@ -1,0 +1,1827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 10.2.1" />
+<title>Progreso semanal TFG</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Progreso semanal TFG</h1>
+<span id="author">Iván Barbero Lay</span><br />
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_semana_26_30_enero">Semana 26-30 Enero</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Comienzo de registro semanal de progreso de TFG.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Objetivos
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Encontrar bibliografía relevante lo más actual posible.
+</p>
+</li>
+<li>
+<p>
+Buscar información sobre qué renderizadores se usan en entornos GNU/Linux.
+</p>
+</li>
+<li>
+<p>
+Solucionar dilema OpenGL/Vulkan.
+</p>
+</li>
+<li>
+<p>
+Definir qué es un renderer 2D y sus usos.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_recolección_de_bibliografía_sobre_el_tema_del_trabajo">Recolección de bibliografía sobre el tema del trabajo</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+Linux 3D Graphics Programming - Norman Lin
+</p>
+</li>
+<li>
+<p>
+Real-time graphics-rendering engine - Hujun Bao, Wei Hua
+</p>
+</li>
+<li>
+<p>
+Computer graphics : from pixels to programmable graphics hardware - Boreskov A., Shikin E.
+</p>
+</li>
+<li>
+<p>
+OpenGL Programming Guide Eight Edition. The Official Guide to Learning OpenGL, Version 4.3 - The Khronos OpenGL ARB Working Group
+</p>
+</li>
+<li>
+<p>
+learnopengl.com
+</p>
+</li>
+<li>
+<p>
+wiki.khronos.org
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_renderizadores_usados_en_software_popular">Renderizadores usados en software popular</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Godot
+</dt>
+<dd>
+<p>
+Renderización 2D y 3D acompañado de un motor de física. Incluye tilemaps, partículas y animaciones. Se centra en luces y sombras, movimiento de partículas y display de meshes. Usa OpenGL y Vulkan como
+APIs de gráficos. Usa optimización GPU.
+</p>
+</dd>
+<dt class="hdlist1">
+Blender
+</dt>
+<dd>
+<p>
+Renderización 2D y 3D. Tiene tres renderizadores, aunque el más relevante es Cycles. Basado en ray-trace. Permite renderización multi-core con CPU y optimización SIMD, a la vez que permite
+renderización mediante GPU y multi-GPU.
+</p>
+</dd>
+<dt class="hdlist1">
+GTK
+</dt>
+<dd>
+<p>
+GTK apuesta por un renderer 2D unificado para GL y Vulkan, que son compilados de la misma fuente, aunque este cambio es reciente. Previamente, existía un renderer 2D GL que usaban shaders simples
+aunque más optimizado. El nuevo renderer unificado se centra en la mantenibilidad y correción a largo plazo a cambio de rendimiento. Este lujo es posible gracias a que los programas que hacen uso de
+este software no son excesivamente demandantes ni requieren una tasa de rendimiento grande, como podría ser Godot, Blender, Unity o Unreal Engine. También conlleva algunas capabilidades interesantes,
+como antialising, escalado fraccional y gradientes arbitrarios.
+</p>
+</dd>
+<dt class="hdlist1">
+Unity
+</dt>
+<dd>
+<p>
+Renderer 3D y 2D que usa DirectX, Metal, OpenGL y Vulkan. Utiliza optimización GPU para procesar el renderizado.
+Docs: <a href="https://discussions.unity.com/t/trying-to-understand-the-rendering-steps/734699/2">https://discussions.unity.com/t/trying-to-understand-the-rendering-steps/734699/2</a>
+</p>
+</dd>
+<dt class="hdlist1">
+Unreal Engine
+</dt>
+<dd>
+<p>
+Renderer semejante al de Unity.
+Docs: <a href="https://unrealartoptimization.github.io/book/pipelines/">https://unrealartoptimization.github.io/book/pipelines/</a>
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_solucionar_dilema_opengl_vulkan">Solucionar dilema OpenGL/Vulkan</h3>
+<div class="paragraph"><p>OpenGL y Vulkan son especificaciones de APIs, no la implementación en sí. OpenGL es la predecesora y se mantiene como una opción estable y más sencilla de utilizar. Vulkan es mucho más flexible, lo
+que conlleva un incremento en la complejidad; está dirigido a aplicaciones muy demandantes que necesitan exprimir hasta la última gota de eficiencia.</p></div>
+<div class="paragraph"><p>En este trabajo se ha decidido usar OpenGL, ya que es una API muy utilizada y estable, a la par que altamente flexible (aunque no al nivel de Vulkan).</p></div>
+</div>
+<div class="sect2">
+<h3 id="_definición_de_renderer">Definición de Renderer</h3>
+<div class="paragraph"><p>Del glosario de Unity:</p></div>
+<div class="paragraph"><p>"2D rendering creates visuals from flat graphic elements through specialized techniques like sprite batching, tile-based systems, and optimized draw calls, often enhanced with modern lighting and
+shader effects despite the two-dimensional nature. "</p></div>
+<div class="paragraph"><p>Es usado en videojuegos, diseños técnicos, mapas, imágenes o similares situaciones en las que se necesite un entorno con dos dimensiones.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_2_6_febrero">Semana 2-6 Febrero</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Objetivos
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Entorno CMake
+</p>
+</li>
+<li>
+<p>
+Principios esenciales de OpenGL
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_entorno_cmake">Entorno CMake</h3>
+<div class="paragraph"><p>Se usará CMake para gestionar dependencias y compilación del proyecto.</p></div>
+<div class="paragraph"><p>CMake maneja dependencias de forma estable y es beneficioso a largo plazo, cuando el código empieza a aumentar de tamaño y comienza a ser insostenible compilar a mano. Otra alternativa sería
+manualmente escribir Makefile. He visto mucho más útil y profesional usar CMake, ya que tiene un nivel de abstracción sobre los Makefile muy pulido y efectivo que costaría replicar a mano, además de
+no ser el objetivo de este proyecto.</p></div>
+<div class="paragraph"><p>Docs: <a href="https://cmake.org/cmake/help/latest/">https://cmake.org/cmake/help/latest/</a></p></div>
+</div>
+<div class="sect2">
+<h3 id="_principios_esenciales_de_opengl">Principios esenciales de OpenGL</h3>
+<div class="paragraph"><p>Immediate mode y core-profile. El primer modo es más fácil de entender y usar, aunque tiene funciones deprecadas y no se aconseja su uso. La manera recomendada de programar es con core-profile, que es
+una división de la especificación de opengl con funcionalidades modernas. La especificación de opengl permite extensiones para que los desarrolladores no necesiten esperar a una nueva versión de
+opengl, aunque rara vez se utiliza.</p></div>
+<div class="paragraph"><p>OpenGL se puede entender como una gran máquina de estados, llamándose al estado de OpenGL <em>contexto</em>. Este contexto puede ser cambiado por funciones y usado por otras. El código está escrito en C,
+aunque permite derivaciones para distintos lenguajes. Se usan objetos (struct). Cada objeto es un conjunto de opciones que representan un subset del estado de OpenGL. Un objeto podría representar el
+tamaño y colores de una ventana.</p></div>
+<div class="listingblock">
+<div class="title">Esto podría ser un ejemplo de creación y manipulación de un objeto:</div>
+<div class="content">
+<pre><code>// create object
+unsigned int objectId = 0;
+glGenObject(1, &amp;objectId);
+
+// bind/assign object to context
+glBindObject(GL_WINDOW_TARGET, objectId);
+
+// set options of object currently bound to GL_WINDOW_TARGET
+glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_WIDTH,  800);
+glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, 600);
+
+// set context target back to default
+glBindObject(GL_WINDOW_TARGET, 0);</code></pre>
+</div></div>
+<div class="paragraph"><p>Los objetos se crean, se modifican y se utilizan mediante la API, y la información se almacena fuera de la vista del programador. Esto permite una flexibilidad y reusabilidad increíble, pues se pueden
+crear varios objetos y vincularlos para dibujarlos de forma rápida.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_9_12_febrero">Semana 9-12 Febrero</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Objetivos
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Experimentar con OpenGL como primer contacto
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_experimentar_con_opengl">Experimentar con OpenGL</h3>
+<div class="paragraph"><p>OpenGL es sólo una especificación, por lo que habrá que instalar una implementación de ésta. Se usará en este proyecto la implementación de <em>mesa</em>, aunque se podrían usar los drivers de nvidia. Además,
+se usará GLFW para manejar ventanas y contextos de manera sencilla y escéptica en cuanto a sistema operativo. Por último, es conveniente usar una biblioteca que ayude a cargar funciones en tiempo de
+ejecución, lo que puede ser tedioso de otra manera. Se usará GLAD en esta ocasión.</p></div>
+<div class="paragraph"><p>Las funciones de OpenGL se cargan de maneras diferentes según la plataforma en la que nos encontremos. En linux, bajo la implementación de <em>mesa</em>, están dinámicamente vinculadas, por lo que hay que
+recuperarlas de memoria. En otras plataformas es distinto, por lo que GLAD es muy útil para resolver este problema.</p></div>
+<div class="paragraph"><p>Para instalar GLFW hay dos maneras: compilar manualmente el código fuente o instalar mediante <em>apt</em>, en mi caso. He decidido instalarlo de este último método, aunque para mayor optimización debería
+ser compilado.</p></div>
+<div class="paragraph"><p>Para configurar GLAD hay dos vías: su servicio web o ejecutar localmente. Yo usaré el servicio web.</p></div>
+<div class="sect3">
+<h4 id="_conceptos_base">Conceptos base</h4>
+<div class="paragraph"><p>Para entender algunas funciones de GLFW y GLAD, hay que tener conocimiento sobre C/Cpp, sobre todo de punteros. He tenido varios problemas con los llamados "function pointer". Revisaré un par de
+conceptos que son necesarios para entender el código, aunque se asume conocimiento global del lenguaje.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Puntero
+</dt>
+<dd>
+<p>
+Un puntero es una variable que almacena una dirección en memoria de otra variable.
+</p>
+</dd>
+<dt class="hdlist1">
+Puntero a una función
+</dt>
+<dd>
+<p>
+Un puntero de función es similar, aunque en vez de variable, es una función.
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="title">Considerando la siguiente función:</div>
+<div class="content">
+<pre><code>int foo()
+{
+    return 5;
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>Toda función se almacena como una variable, en memoria. Por lo tanto, es posible crear un puntero hacia ellas, con la siguiente sintaxis:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>// fncPtr es un puntero a una función que no toma argumentos y devuelve un entero
+int (*fncPtr)();</code></pre>
+</div></div>
+<div class="paragraph"><p>Los paréntesis alrededor de <em>fncPtr</em> son necesarios debido a la precedencia. Si fuera <code>int* fncPtr()</code>, se interpretaría como una función que no toma argumentos y que devuelve un puntero a un entero.
+Si se quisiera hacer un puntero constante, se añadiría la palabra clave <em>const</em> detrás del asterisco: <code>int (*const fcnPtr)();</code>.</p></div>
+<div class="paragraph"><p>En C++ también puede declararse un puntero a una función en una misma línea: <code>int (*fcnPtr)(int){ &amp;foo };</code>.</p></div>
+<div class="listingblock">
+<div class="title">De este modo, se puede crear un puntero a una función ya creada y usarla a través de este puntero:</div>
+<div class="content">
+<pre><code>#include &lt;stdio.h&gt;
+int foo()
+{
+    return 5;
+}
+
+int main()
+{
+    int (*fncPtr)(); // Inicializar puntero
+    fncPtr = &amp;foo; // Asignar la función 'foo' al puntero
+    int a = fncPtr(); // Llamada implícita. Algunos compiladores no soportan esta opción
+    int b = (*fncPtr)(); // Llamada explícita
+
+    return 0;
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>Con toda esta información, se puede empezar a analizar como inicializar GLAD y GLFW. En esta experimentación se usará la versión 3.3, aunque en la versión final se intentará usar una versión más
+moderna.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_16_20">Semana 16-20</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_experimentar_con_opengl_2">Experimentar con OpenGL</h3>
+<div class="sect3">
+<h4 id="_ventana_simple">Ventana simple</h4>
+<div class="listingblock">
+<div class="title">Se incluyen GLAD y GLFW, en ese orden:</div>
+<div class="content">
+<pre><code>#include &lt;glad/glad.h&gt;
+#include &lt;GLFW/glfw3.h&gt;</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Se inicia GLFW de la siguiente manera:</div>
+<div class="content">
+<pre><code>int main()
+{
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+    return 0;
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>Primero se inicializa GLFW con <code>glfwInit</code>. Las funciones <code>glfwWindowHint</code> se usan para configurar propiedades, como la versión y el perfil que se usa (perfil <em>core</em>). La última línea comentada se
+usaría para dar compatibilidad con MAC OS X.</p></div>
+<div class="listingblock">
+<div class="title">Creación de una ventana de 800x600 y asignación del contexto. Se asigna una función de callback que cambia el viewport cuando la ventana se expande o contrae.</div>
+<div class="content">
+<pre><code>GLFWwindow* window = glfwCreateWindow(800, 600, "Learn OpenGL", NULL, NULL);
+
+if (window == NULL) {
+    printf("Failed to create GLFW Window");
+    glfwTerminate();
+    return -1;
+}
+glfwMakeContextCurrent(window);
+glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Antes de usar funciones de OpenGL, inicializamos GLAD para cargarlas.</div>
+<div class="content">
+<pre><code>if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+{
+    std::cout &lt;&lt; "Failed to initialize GLAD" &lt;&lt; std::endl;
+    return -1;
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>La primera línea puede ser un tanto chocante, por lo que la detallaré en profundidad.</p></div>
+<div class="listingblock">
+<div class="title"><code>glfwGetProcAddress</code> se define como:</div>
+<div class="content">
+<pre><code>GLFWglproc glfwGetProcAddress(const char* procname);</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Esto significa que la función toma como argumento una cadena y devuelve <em>GLFWglproc</em>, que es un puntero a una función que no toma argumentos y que devuelve <em>void</em>:</div>
+<div class="content">
+<pre><code>typedef void (*GLFWglproc)(void);</code></pre>
+</div></div>
+<div class="paragraph"><p>Con esto, se puede decir que <em>glfwGetProcAddress</em> toma una cadena como argumento y devuelve un puntero a una función sin argumentos que devuelve <em>void</em>. La función devuelve la dirección de la función
+especificada de OpenGL si lo permite el contexto actual.</p></div>
+<div class="listingblock">
+<div class="title">Luego, nos encontramos con un <em>type cast</em> mediante el tipo <em>GlADloadproc</em>:</div>
+<div class="content">
+<pre><code>typedef void* (* GLADloadproc)(const char *name);</code></pre>
+</div></div>
+<div class="paragraph"><p>De nuevo, es un puntero a una función. Esta vez, se trata de una función que toma como argumento una cadena y devuelve un puntero a <em>void</em>. Lo que se intenta hacer es convertir una función que toma
+una cadena y devuelve un puntero a una función a otra función que también toma una cadena como argumento, pero devuelve un puntero a void. Esto sucede porque está permitido convertir cualquier puntero
+a <code>void*</code>.</p></div>
+<div class="listingblock">
+<div class="title">Luego, este resultado lo acepta <em>gladLoadGLLloader</em>, que se define en las cabeceras como:</div>
+<div class="content">
+<pre><code>int gladLoadGLLoader(GLADloadproc);</code></pre>
+</div></div>
+<div class="paragraph"><p>Esta función toma un valor <em>GLADloadproc</em>, que es justo lo que se trató de hacer anteriormente. Luego se rodea con una instrucción condicional para comprobar que efectivamente se ha cargado con éxito.</p></div>
+<div class="paragraph"><p>En resumen, esta primera parte del código le indica a GLAD que estamos usando GLFW, haciendo una conversión de tipos para que pueda aceptarse la función de GLFW para encontrar la dirección de las
+funciones de OpenGL, y luego se comprueba que se han cargado las funciones con GLAD correctamente. En este caso se ha usado el <em>loader</em> de GLFW, pero GLAD también incorpora uno.</p></div>
+<div class="paragraph"><p>Es necesario mantener un bucle de renderizado que gestione cada <em>frame</em>. En este ejemplo, procesamos el input del usuario con una función externa que cierra la ventana cuando se pulsa la tecla de
+escape. Luego, se borra el buffer de color y se reemplaza con otro elegido a mano. Por último, se intercambia el buffer (doble buffer) y se hace <em>glfwPollEvents</em>, que procesa las pulsaciones de
+teclas, movimiento de ratón, etc. Al salir del bucle, se termina GLFW y se devuelve <em>0</em>.</p></div>
+<div class="listingblock">
+<div class="title">Ejemplo de render loop</div>
+<div class="content">
+<pre><code>while (!glfwWindowShouldClose(window))
+{
+    // input
+    // -----
+    processInput(window);
+
+    // render
+    // ------
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+    // -------------------------------------------------------------------------------
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+// glfw: terminate, clearing all previously allocated GLFW resources.
+// ------------------------------------------------------------------
+glfwTerminate();
+return 0;</code></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_flujo_de_shaders">Flujo de Shaders</h4>
+<div class="paragraph"><p>El flujo de shaders que tiene OpenGL puede dividirse en 6 etapas fundamentales: Vertex Shader, Geometry Shader, Primitive Assembly, Rasterization, Fragment Shader y Tests and Blending. Hay algunas
+fases en las que el programador puede introducir su propia implementación, como se mostrará más adelante. Cada fase se explicará secuencialmente.</p></div>
+<div class="paragraph"><p>Se usa un lenguaje especial de OpenGL para shaders, llamado <em>GLSL</em>, para compilar y generar estos shaders. Este lenguaje se tratará más adelante.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Vertex Shader
+</dt>
+<dd>
+<p>
+Se transforman vectores de posición de los vértices en otros diferentes, generalmente 3D.
+</p>
+</dd>
+<dt class="hdlist1">
+Geometry Shader
+</dt>
+<dd>
+<p>
+Se modifican, añaden o eliminan formas. Por ejemplo, romper un triángulo en tres, eliminar formas que no necesita o cambiar un punto en un cuadrado.
+</p>
+</dd>
+<dt class="hdlist1">
+Primitive Assembly
+</dt>
+<dd>
+<p>
+Se toman los vértices procesados y se agrupan en formas simples, como puntos, líneas o triángulos.
+</p>
+</dd>
+<dt class="hdlist1">
+Rasterization
+</dt>
+<dd>
+<p>
+Se transforman formas 3D en piezas 2D llamadas <em>fragmentos</em> (potenciales píxeles). En esta fase se determina qué píxeles en la pantalla
+cubre cada forma y qué datos lleva cada fragmento.
+</p>
+</dd>
+<dt class="hdlist1">
+Fragment Shader
+</dt>
+<dd>
+<p>
+En este paso se decide cómo se verá cada fragmento, es decir, color, luces, sombras, textura, etc.
+</p>
+</dd>
+<dt class="hdlist1">
+Tests and Blending (Per-Sample Operations)
+</dt>
+<dd>
+<p>
+En este paso final se decide qué fragmentos finalmente ocuparán píxeles en la pantalla. Se hacen pruebas como el <em>Depth Test</em>, el <em>Stencil Test</em> o el <em>Scissor Test</em>. Después de estas pruebas se crea
+la imagen final con los fragmentos supervivientes.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_creación_de_un_vertex_shader">Creación de un Vertex Shader</h4>
+<div class="paragraph"><p>Los shaders deben ser compilados en tiempo de ejecución. Aunque no haya profundizado en el lenguaje GLSL, es sencillo de entender una vez aprendido C.</p></div>
+<div class="listingblock">
+<div class="title">Este es un ejemplo muy básico de un Vertex Shader que simplemente pasa las coordenadas al shader, sin manipularlas.</div>
+<div class="content">
+<pre><code>#version 330 core
+layout (location = 0) in vec3 aPos;
+
+void main()
+{
+    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>La primera línea indica la versión que se utiliza, que es semejante a la versión de OpenGL que se esté usando (3.3). La segunda línea indica la posición en la que se encuentra el dato <em>aPos</em>, que es
+un vector de 3 dimensiones. Este sería el vector que indica la posición de un vértice. La posición se transporta a un vector de 4 dimensiones, en la que la última coordenada es un dato llamado
+<em>perspective division</em>, en la función principal del shader.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_creación_de_un_fragment_shader">Creación de un Fragment Shader</h4>
+<div class="listingblock">
+<div class="title">Este es un ejemplo muy básico de un Fragment Shader que hace que todos los colores sean el naranja, simplemente.</div>
+<div class="content">
+<pre><code>#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>La instrucción <em>out</em> hace que devuelva una variable: <em>FragColor</em>, que decide el color final. En este caso, es un vector de 4 dimensiones, que indica los tres colores primarios: rojo, verde y azul
+(RGB) y el valor alpha (opacidad).</p></div>
+</div>
+<div class="sect3">
+<h4 id="_compilación_de_un_shader">Compilación de un Shader</h4>
+<div class="paragraph"><p>Por ahora, el código GLSL se almacenará en constantes dentro de nuestro código C.</p></div>
+<div class="listingblock">
+<div class="title">Código para compilar Vertex Shader y Fragment Shader:</div>
+<div class="content">
+<pre><code>// Declaración de los Shaders
+const char *vertexShaderSource = "#version 330 core\n"
+    "layout (location = 0) in vec3 aPos;\n"
+    "void main()\n"
+    "{\n"
+    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "}\0";
+
+const char *fragmentShaderSource = "#version 330 core\n"
+    "out vec4 FragColor;\n"
+    "void main()\n"
+    "{\n"
+    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "}\0";
+
+// Se crea el objeto del Shader y se almacena la referencia
+unsigned int vertexShader, fragmentShader;
+vertexShader = glCreateShader(GL_VERTEX_SHADER);
+fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+// Vinculamos el código del Shader al objeto
+glShaderSource(vertexShader, 1, &amp;vertexShaderSource, NULL);
+glCompileShader(vertexShader);
+glShaderSource(fragmentShader, 1, &amp;fragmentShaderSource, NULL);
+glCompileShader(fragmentShader);
+
+// Comprobamos si ha habido algún error
+int success;
+char infoLog[512];
+
+glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &amp;success);
+if(!success)
+{
+    glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+    std::cout &lt;&lt; "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" &lt;&lt; infoLog &lt;&lt; std::endl;
+}
+
+glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &amp;success);
+if(!success)
+{
+    glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+    std::cout &lt;&lt; "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" &lt;&lt; infoLog &lt;&lt; std::endl;
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>Una vez se tienen los shaders compilados por separado, es necesario enlazarlos para combinarlos. Esto se hace mediante un <em>programa</em>. Se vinculan los shaders a este programa, que se activa cuando se
+renderizan objetos. Las salidas de cada shader, entonces, se vinculan a las entradas del siguiente.</p></div>
+<div class="listingblock">
+<div class="title">Creación de un programa</div>
+<div class="content">
+<pre><code>// Creación del objeto programa
+unsigned int shaderProgram;
+shaderProgram = glCreateProgram();
+
+// Enlace de los Shaders al programa
+glAttachShader(shaderProgram, vertexShader);
+glAttachShader(shaderProgram, fragmentShader);
+glLinkProgram(shaderProgram);
+
+// Comprobación de errores
+glGetProgramiv(shaderProgram, GL_LINK_STATUS, &amp;success);
+if(!success)
+{
+    glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+    std::cout &lt;&lt; "ERROR::SHADER::PROGRAM::LINKAGE_FAILED\n" &lt;&lt; infoLog &lt;&lt; std::endl;
+}
+
+// Activación del programa
+glUseProgram(shaderProgram);
+
+// Limpieza de los Shaders usados anteriormente, ya innecesarios
+glDeleteShader(vertexShader);
+glDeleteShader(fragmentShader);</code></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_enlazando_atributos_de_vértices">Enlazando atributos de vértices</h4>
+<div class="paragraph"><p>Una vez construidos los shaders y enlazados a un programa, queda especificar cómo se deben interpretar los datos de los vértices a OpenGL.</p></div>
+<div class="paragraph"><p>Los vértices tenían 3 coordenadas, siendo cada una de ellas <em>float</em>, que usualmente son 4 bytes. Esto significa que cada vértice serán 12 bytes, y si el polígono deseado fuera un triángulo, serían 3
+vértices: 36 bytes. Se debe tener en cuenta que no hay espacio entre los valores.</p></div>
+<div class="listingblock">
+<div class="title">Se indica el orden y tamaño de los atributos de la siguiente manera:</div>
+<div class="content">
+<pre><code>glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);</code></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Los argumentos de <em>glVertexAttribPointer</em> son:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Índice: posición del atributo. Definido como <em>0</em> en el Shader.
+</p>
+</li>
+<li>
+<p>
+Tamaño del atributo. Consta de tres elementos (x, y, z).
+</p>
+</li>
+<li>
+<p>
+Tipo de dato. Las coordenadas se guardan como <em>float</em>.
+</p>
+</li>
+<li>
+<p>
+Normalización. En este caso, las coordenadas están ya normalizadas previamente, por lo que se deja en falso
+</p>
+</li>
+<li>
+<p>
+<em>Stride</em>, es el espacio entre atributos consecutivos. Son 3 elementos float = 12 bytes.
+</p>
+</li>
+<li>
+<p>
+<em>Offset</em>, es donde empieza la posición de los datos en el buffer. Requiere un puntero a void (void*).
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_vertex_buffer_object_vbo">Vertex Buffer Object (VBO)</h4>
+<div class="paragraph"><p>Este buffer puede almacenar una gran cantidad de vértices en memoria. El objetivo es envíar el mayor número de datos a la vez posible.</p></div>
+<div class="listingblock">
+<div class="title">Código para generar y configurar un VBO</div>
+<div class="content">
+<pre><code>// Creación del objeto
+unsigned int VBO;
+glGenBuffers(1, &amp;VBO);
+
+// Se vincula  el buffer
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+// Se copian los datos de los vértices en memoria
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);</code></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_reuniendo_las_piezas">Reuniendo las piezas</h4>
+<div class="paragraph"><p>Teniendo esto claro, se puede hacer un pipeline sobre el dibujo de un objeto en OpenGL, con estos pasos previos realizados:</p></div>
+<div class="listingblock">
+<div class="title">Código para dibujar un objeto tras las debidas preparaciones</div>
+<div class="content">
+<pre><code>// 0. Se copian los vértices en un buffer VBO y se almacenan en memoria
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+// 1. Se determinan los atributos de los vértices
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);
+
+// 2. Se activa el programa de shader para renderizar el objeto
+glUseProgram(shaderProgram);
+
+// 3. Se dibuja el objeto
+funcionDeOpenGLQueDibujaTriangulo();</code></pre>
+</div></div>
+<div class="paragraph"><p>Es necesario realizar este proceso para dibujar un objeto. Cuando aumenta el número de vértices y de atributos, puede convertise en una auténtica pesadilla. Por suerte, existe una manera de almacenar
+estas configuraciones para su reutilización.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_vertex_array_object_vao">Vertex Array Object (VAO)</h4>
+<div class="paragraph"><p>Un Vertex Array Object (VAO) es un buffer enlazable, como es el VBO. Almacena la configuración de los atributos de los vértices. Está fuertemente vinculado al VBO, ya que el VAO almacena la
+configuración de los vértices almacenados en el VBO. El VAO almacena las llamadas a atributos y vértices, por lo que para dibujar, una vez configurado, es simplemente vincular el VAO.</p></div>
+<div class="paragraph"><p>Cabe mencionar que, si la configuración o el VBO cambiase, sería necesario actualizar el VAO.</p></div>
+<div class="listingblock">
+<div class="title">Se genera como otro objeto cualquiera:</div>
+<div class="content">
+<pre><code>unsigned int VAO;
+glGenVertexArrays(1, &amp;VAO);</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Ahora, se usa el VAO vinculándolo para configurarlo y usándolo de la misma manera:</div>
+<div class="content">
+<pre><code>// Código de inicialización
+// 1. Enlazar el Vertex Array Object
+glBindVertexArray(VAO);
+// 2. Copiar los vértices en el VBO y almacenarlos
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+// 3. Configurar los atributos de los vértices
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);
+
+// Dibujo en render loop
+// 4. Dibujo del objeto
+glUseProgram(shaderProgram);
+glBindVertexArray(VAO);
+funcionDeOpenGLQueDibujaTriangulo();</code></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_el_esperado_triángulo">El esperado triángulo</h4>
+<div class="paragraph"><p>Para dibujar los vértices con los shaders elegidos, OpenGL nos ofrece la función: <em>glDrawArrays</em>, a la que se le indica el modo de dibujo, un índice y un tamaño. Se supone todo lo demás ya
+inicializado y configurado. Queda como: <em>glDrawArrays(GL_TRIANGLES, 0, 3);</em></p></div>
+</div>
+<div class="sect3">
+<h4 id="_element_buffer_object_ebo">Element Buffer Object (EBO)</h4>
+<div class="paragraph"><p>En el caso de que se quisiera dibujar un rectángulo, sólo tendríamos que dibujar dos triángulos. Especificar 6 vértices cuando sólo se necesitan 4 parece un malgasto de recursos. Por este motivo,
+existe este buffer en el que se indicará el orden en el que se dibujarán unos vértices. De tal manera, sólo se especifican 4 vértices y 6 índices, siendo el orden en el que se dibujan los triángulos.</p></div>
+<div class="listingblock">
+<div class="title">Declaración de vértices e índices:</div>
+<div class="content">
+<pre><code>float vertices[] = {
+     0.5f,  0.5f, 0.0f,  // arriba derecha
+     0.5f, -0.5f, 0.0f,  // abajo derecha
+    -0.5f, -0.5f, 0.0f,  // abajo izquierda
+    -0.5f,  0.5f, 0.0f   // arriba izquierda
+};
+unsigned int indices[] = {  // Empezando desde el índice 0
+    0, 1, 3,   // Primer triángulo
+    1, 2, 3    // Segundo triángulo
+};</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Generación del objeto EBO:</div>
+<div class="content">
+<pre><code>unsigned int EBO;
+glGenBuffers(1, &amp;EBO);</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Similar al VBO, se copian los índices a memoria</div>
+<div class="content">
+<pre><code>glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">En vez de usar <em>glDrawArrays</em>, se usa <em>glDrawElements</em>:</div>
+<div class="content">
+<pre><code>glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);</code></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_ejercicio_1_dibujar_dos_triángulos_separados">Ejercicio 1: Dibujar dos triángulos separados</h4>
+<div class="paragraph"><p>Para dibujar dos triángulos separados, no es necesario un EBO, sólo añadir tres vértices más al VBO y dibujar con normalidad, con posiciones adecuadas para que se vean en la pantalla juntos.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_ejercicio_2_dibujar_dos_triángulos_con_diferentes_vaos_y_vbos_para_cada_uno">Ejercicio 2: Dibujar dos triángulos con diferentes VAOs y VBOs para cada uno</h4>
+<div class="paragraph"><p>El reto está en cómo organizar el código para que cada sección tenga buffers bien separados. Se convierten los buffers en arrays de enteros sin signo y se cambia el tamaño de las funciones que
+interactúan con ellos de 1 a 2. Se crean dos listas de vértices distintas y se cargan por separado. A la hora de dibujarlos, se cargan dos VAOs distintos secuencialmente.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_ejercicio_3_dibujar_dos_triángulos_con_diferentes_vaos_y_vbos_con_diferentes_colores">Ejercicio 3: Dibujar dos triángulos con diferentes VAOs y VBOs, con diferentes colores</h4>
+<div class="paragraph"><p>El cambio aquí es crear un nuevo fragmentShader con color amarillo. En consecuencia de esto, se crea un programa nuevo y se deben de usar los dos en el render loop.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_23_27">Semana 23-27</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Objetivos
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+GLSL en mayor profundidad
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_glsl_en_mayor_profundidad">GLSL en mayor profundidad</h3>
+<div class="paragraph"><p>Aquí detallaré mejor cómo funciona el lenguaje GLSL y cómo utilizar los shaders para hacer diversos efectos y mejor organizados.</p></div>
+<div class="paragraph"><p>Los shaders en GLSL siempre comienzan con una declaración de la versión, seguido de una lista de variables de entrada y salida, <em>uniforms</em> y su función <em>main</em>. Un <em>uniform</em> es parecido a una variable
+global, que se usa para interactuar con un shader desde el código y es visible para todos los shaders de un mismo programa.</p></div>
+<div class="paragraph"><p>GLSL comparte los tipos más fundamentales con C, aunque tiene varios que se usan con frecuencia específicos para sus cometidos: vectores y matrices; que se tratarán más adelante. Los vectores pueden
+ser de varios tipos, aunque es usual que se use el tipo <em>float</em>, de 2, 3 o 4 componentes. Se puede acceder a los elementos de los vectores con <em>.x</em>, <em>.y</em>, <em>.z</em> o <em>.w</em>. Se pueden combinar de forma
+flexible para hacer <em>swizzling</em>, que es combinar elementos de un vector para formar otro distinto, aunque el vector destino debe tener el tamaño adecuado.</p></div>
+<div class="listingblock">
+<div class="title">Ejemplo de un código que hace uso de <em>swizzling</em>:</div>
+<div class="content">
+<pre><code>vec2 someVec;
+vec4 differentVec = someVec.xyxx;
+vec3 anotherVec = differentVec.zyw;
+vec4 otherVec = someVec.xxxx + anotherVec.yxzy;</code></pre>
+</div></div>
+<div class="paragraph"><p>Para que los shaders se puedan comunicar entre ellos, se usan entradas y salidas, que van ligadas de un shader al siguiente, y deben tener el mismo nombre. El <em>vertex shader</em> difiere en su entrada,
+que es recibida directamente; para localizar el atributo se usó <em>(location = 0)</em>, que de otra manera habría sido necesario usar una función de OpenGL para obtener su localización y acceder a él. El
+<em>fragment shader</em> necesita un vector de 4 dimensiones, ya que necesita generar el color final.</p></div>
+<div class="paragraph"><p>De esta manera, se podría generar el color en el vertex shader y enviarlo al fragment shader a través de una variable salida y otra de entrada. ¿Pero, y si se quisiera generar el color desde el código
+y transmitirlo al shader?</p></div>
+<div class="sect3">
+<h4 id="_uniforms">Uniforms</h4>
+<div class="paragraph"><p>Los <em>uniforms</em> son una manera de enviar datos de la aplicación en CPU a los shaders en GPU. Son variables globales y pueden ser accedidas por cualquier shader. Se añade la palabra clave <em>uniform</em> a la
+variable en el shader para convertirla en uniform.</p></div>
+<div class="paragraph"><p>Luego, para acceder a ella desde el código C, primero se debe localizar el atributo y entonces, dar un valor a la variable:</p></div>
+<div class="listingblock">
+<div class="title">Ejemplo de código donde el color toma una función senoidal para que cambie con el tiempo</div>
+<div class="content">
+<pre><code>// Se toma el valor del tiempo
+float timeValue = glfwGetTime();
+
+// Se calcula el valor del color verde con una función senoidal
+float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+
+// Se localiza el atributo uniform
+int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+
+// Se activa el programa
+glUseProgram(shaderProgram);
+
+// Se accede a la variable y se le otorga el valor calculado
+glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);</code></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_uso_de_múltiples_atributos">Uso de múltiples atributos</h4>
+<div class="paragraph"><p>Se ha visto cómo interactuar con el color desde el código C de forma dinámica, pero, ¿y si quisiera otorgarle un color a cada vértice? Entonces, quizás crear un valor uniform para cada uno no sea la
+mejor manera. Por eso, se puede crear un atributo adicional con el color deseado y que sea el vertex shader quien lo trate.</p></div>
+<div class="listingblock">
+<div class="title">Ejemplo de vertex shader con dos atributos: posición y color:</div>
+<div class="content">
+<pre><code>#version 330 core
+layout (location = 0) in vec3 aPos;   // La variable de posición tiene posición 0
+layout (location = 1) in vec3 aColor; // La variable de color tiene posición 1
+
+out vec3 ourColor; // Vector de salida que contiene el color deseado
+
+void main()
+{
+    gl_Position = vec4(aPos, 1.0);
+    ourColor = aColor; // El valor de la variable ourColor se iguala al vector de entrada aColor
+}</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Ejemplo de fragment shader que recibe el color de vertex shader:</div>
+<div class="content">
+<pre><code>#version 330 core
+out vec4 FragColor;
+in vec3 ourColor;
+
+void main()
+{
+    FragColor = vec4(ourColor, 1.0);
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>En este caso, cada vértice ocupa el doble, porque son 3 flotantes más en cada vértice. Habría que modificar el código C para que incluya estos cambios.</p></div>
+<div class="paragraph"><p>El vector del vértice queda de la siguiente forma: en un vértice hay 24 bytes, 12 bytes para la posición y otros 12 bytes para el color. Cada una de estas partes tiene 3 elementos de 4 bytes (float).
+El stride ahora es 24 bytes (6 floats), en vez de 12 bytes, y el offset es 12 bytes (3 floats) en caso del color es 12 bytes.</p></div>
+<div class="paragraph"><p>El <em>offset</em> es la posición desde la que comienza el atributo dentro de un vértice, que es justo la mitad (12 bytes).</p></div>
+<div class="listingblock">
+<div class="title">Quedaría de esta forma la estructura de un vértice:</div>
+<div class="content">
+<pre><code>|               \                  |
+|  X   Y   Z    \   R     G     B  |
+| 0-3 4-7 8-11  \ 12-15 16-19 20-23|</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Ejemplo de fragmento C que configura los atributos del vértice:</div>
+<div class="content">
+<pre><code>// Atributo de posición
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+glEnableVertexAttribArray(0);
+
+// Atributo de color
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+glEnableVertexAttribArray(1);</code></pre>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_2_6">Semana 2-6</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_glsl_en_mayor_profundidad_2">GLSL en mayor profundidad</h3>
+<div class="paragraph"><p>La declaración de funciones es semejante a C; aunque no hay concepto de puntero: se usan parámetros calificadores que indican si el valor de una función es de entrada o salida. Todas las variables sin
+calificador se asumen de entrada por defecto.</p></div>
+<div class="paragraph"><p>GLSL no garantiza que dos computaciones idénticas en diferentes shaders devuelvan el mismo valor. Cabe indicar que las computaciones de expresiones constantes se calculan en host, no en GPU. Se debe
+tener en cuenta este margen de error para cálculos muy precisos. Para minimizar este riesgo, se pueden usar las palabras clave <em>invariant</em> y <em>precise</em>.</p></div>
+<div class="sect3">
+<h4 id="_calificador_em_invariant_em">Calificador <em>invariant</em></h4>
+<div class="paragraph"><p>Este calificador provoca que dos invocaciones en un shader con la misma expresión y mismos valores computen el mismo valor. Puede imponerse invarianza globalmente con: <em>#pragma STDGL invariant(all)</em>,
+aunque no debería usarse para otros fines que no sean la depuración.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_calificador_em_precise_em">Calificador <em>precise</em></h4>
+<div class="paragraph"><p>Este calificador se usa cuando se necesita obtener el mismo resultado de una expresión incluso cuando los valores están permutados de manera que matemáticamente el valor no debería verse afectado.
+También prohíbe usar dos métodos distintos de multiplicación en una expresión: de esta manera se perdería precisión. Esto puede aliviarse usando funciones específicas, como <em>fma</em>, que combina
+multiplicación y adición para una expresión como <em>c*d + a*b</em>, si se quisiera optimizar; primero multiplicando <em>c*d</em> y luego <em>fma(a,b,f)</em>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_directivas_de_preprocesador">Directivas de preprocesador</h4>
+<div class="paragraph"><p>Al igual que en C, se pueden añadir líneas de preprocesado. Pueden utilizarse para crear <em>macros</em>, configurar la optimización, la depuración y las extensiones.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_interface_blocks">Interface blocks</h4>
+<div class="paragraph"><p>Las variables compartidas con la aplicación pueden organizarse en <em>bloques</em> de variables. Estos pueden ser de tipo <em>uniform</em>, <em>in</em>, <em>out</em> y <em>buffer</em>.</p></div>
+<div class="listingblock">
+<div class="title">Ejemplo de un bloque <em>uniform</em></div>
+<div class="content">
+<pre><code>uniform a {
+    vec4 v1;
+    bool v2;
+};              // se accede a las variables como "v1" y "v2"
+
+
+uniform b {
+    vec4 v1;
+    bool v2;
+} name;         // se accede a las variables como "name.v1" y "name.v2"</code></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_bloques_em_uniform_em">Bloques <em>uniform</em></h4>
+<div class="paragraph"><p>En vez de declarar cada variable individualmente, se recogen en un sólo bloque.</p></div>
+<div class="listingblock">
+<div class="title">Bloque <em>uniform</em></div>
+<div class="content">
+<pre><code>uniform Matrices {
+    mat4 ModelView;
+    mat4 Projection;
+    mat4 Color;
+};</code></pre>
+</div></div>
+<div class="paragraph"><p>Si se usan dos bloques con los mismos nombres para las variables causará un error. Para evitarlo, puede asociarse un nombre al bloque.</p></div>
+<div class="paragraph"><p>Para acceder a estos bloques desde la aplicación se necesita encontrar la localización de las variables <em>uniform</em> e inicializarlas como se haría con cualquier otro buffer (<em>glBufferData()</em>). El primer
+paso es encontrar el índice del bloque (<em>glGetUniformBlockIndex()</em>) para un programa concreto. Se inicializa un objeto buffer con target <em>GL_UNIFORM_BUFFER</em> usando <em>glBindBuffer()</em> como previamente.
+Una vez inicializado, es necesario determinar el tamaño exacto para acomodar las variables. Para ello, se usa <em>glGetActiveUniformBlockiv()</em>, pidiendo <em>GL_UNIFORM_BLOCK_DATA_SIZE</em>. Luego, se asocia un
+objeto buffer con el bloque uniform con <em>glBindBufferRange()</em>. Aún queda determinar la posición de las variables dentro del bloque, es decir, los índices, tamaño y offset. Se obtienen mediante las
+funciones <em>glGetUniformIndices()</em> y <em>glGetActiveUniformsiv()</em>.Una vez hecho todo esto, el buffer está asociado a las variables y sólo quedaría llenar el buffer con los valores deseados.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_23_27_2">Semana 23-27</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Objetivos
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Preparación del entorno
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_preparación_del_entorno">Preparación del entorno</h3>
+<div class="paragraph"><p>Ha sido creado para el propósito de mantener el proyecto bien organizado y seguro un repositorio alojado en <em>Gitlab</em>. Para practicar y realizar un calentamiento previo, se harán unas pruebas de
+renderizado de formas geométricas simples diversas. Será necesario crear unas bibliotecas y mantener unas dependencias, por lo que CMake será increíblemente útil; de estas pruebas se podrán extraer
+las funciones más comunes, como leer y manipular shaders.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_6_10">Semana 6-10</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Ha sido refactorizada gran parte del código y mejorado, además de disponer de una estructura estable con CMake y trasladado OpenGL 3.3 a 4.3 y GLFW y GLAD a freeGLUT y GLEW, correspondientemente.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Objetivos
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Programa n-gon
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_programa_n_gon">Programa n-gon</h3>
+<div class="paragraph"><p>Este programa servirá de base para construir polígonos regulares de cualquier número de vértices. Las ecuaciones paramétricas de un círculo servirán para calcular las coordenadas de los puntos.
+Importante destacar que crear un polígono regular de muchos lados conlleva inevitablemente a un círculo, por lo que he ahí la relación clara.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_20_24">Semana 20-24</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_programa_n_gon_2">Programa n-gon</h3>
+<div class="paragraph"><p>El programa construye un polígono regular de n vértices en el centro de la pantalla. Por supuesto, podría adaptarse para mover el polígono a otra coordenadas diferentes del origen.</p></div>
+<div class="paragraph"><p>Calcula los puntos a partir de las ecuaciones: <em>x = r * cos(t)</em> y <em>y = r * sen(t)</em>, siendo <em>t</em> un ángulo interior que se calcula de la siguiente forma: <em>t = 2*M_PI*i/n + M_PI/2</em>; divide el ángulo
+completo entre el número de vértices multiplicado por el índice del vértice y le suma un ángulo constante. De esta forma, se calcula cada ángulo perteneciente a cada vértice y sus coordenadas
+asociadas.</p></div>
+<div class="paragraph"><p>Una vez calculados los vértices y sus coordenadas queda calcular la distribución de los triángulos dentro de este polígono. Es sabido que cualquier polígono regular es convexo, por lo cual pueden ser
+representados como un <em>triangle fan</em> y exactamente <em>n-2</em> triángulos; en OpenGL se cambia <em>GL_TRIANGLES</em> a <em>GL_TRIANGLE_FAN</em> en la función que dibuja el polígono. El primer vértice actúa de nodo
+principal y cada pareja de vértices posteriores se conecta al primero.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_triángulo_arcoíris">Triángulo arcoíris</h3>
+<div class="paragraph"><p>Se ha construido un simple programa con el propósito de ilustrar cómo OpenGL trata el mezclado de colores. En cada punta se inserta un color: rojo, azul y verde. El resultado es un triángulo de cuyas
+puntas emana un color y conforme se acercan unos a otros se mezclan.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_manejo_de_shaders">Manejo de shaders</h3>
+<div class="paragraph"><p>Todos los shaders están en la raíz del proyecto en una carpeta llamada <em>shaders</em>. El propósito de mantenerlos juntos es compartir código y reutilizarlo al máximo. Se cargan mediante una función
+auxiliar que lee los shaders y los compila de esta carpeta con una ruta dada. De esta forma, queda claro su uso, sólo teniendo que rellenar un struct llamado <em>ShaderInfo</em> con el tipo y la ruta y
+llamando a <em>loadShader(ShaderInfo[] shaders, GLuint numberShaders)</em>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_manejo_de_bibliotecas_propias">Manejo de bibliotecas propias</h3>
+<div class="paragraph"><p>Las bibliotecas propias del proyecto se guardan en <em>lib</em> y cada una en su propio directorio asociado. Deberán acompañarse de su <em>CMakeLists.txt</em> para compilarse y poder utilizarlas en el código.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_interpolación_de_datos_en_la_rasterización">Interpolación de datos en la rasterización</h3>
+<div class="paragraph"><p>Después del <em>vertex shader</em> y antes del <em>fragment shader</em> está la rasterización. Este paso se encarga de determinar qué ubicaciones están cubiertas por una geometría. Además, también interpola los datos de entrada del <em>fragment shader</em>, lo que hace posible que si asocias los tres colores primarios a cada esquina de un triángulo aparezca una gama extensa de colores; aunque no sólo se interpolan colores, también otros datos como la luz o las texturas.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_antialiasing">Antialiasing</h3>
+<div class="paragraph"><p>Esta técnica es fundamental para evitar el denominado <em>aliasing</em> y conseguir gráficos sin ruido y suaves. El <em>aliasing</em> es un término acuñado del procesamiento de señales, que ocurre en la
+digitalización de las señales analógicas en las que la frecuencia de muestreo es inadecuada; esta frecuencia es llamada <em>sampling rate</em>. Si se analiza la señal con una frecuencia baja, el resultado
+difiere gravementa de la señal original y resulta en cambios de color abruptos y erróneos. El método para evitar esta distorsión es evidente: aumentar el <em>sampling rate</em>; aunque evidente, su coste es
+alto.</p></div>
+<div class="paragraph"><p>Hablando de gráficos y renderización 2D, las formas primitivas sería el mundo analógico descrito matemáticamente que se representan digitalmente en píxeles discretos en una pantalla. Crea el mismo
+efecto, pues existe un elemento analógico, siendo aquí una línea descrita matemáticamente, y un elemento digital, siendo este un píxel discreto. El <em>sampling rate</em> en este caso sería la cantidad de
+muestras que se toman en cuenta para cada píxel, y cuantas más muestras se tomen el color final será más cercano al ideal matemático del que se parte. Una manera fácil de entenderlo es imaginar una
+línea que pasa por un conjunto de cuadrados diagonalmente y entender que se formaría una cantidad abundante de esquinas, en forma de escalera, que dejarían la geometría abrupta y rugosa.</p></div>
+<div class="paragraph"><p>Una técnica simple y efectiva es el <em>supersampling</em>. Consiste en renderizar la imagen a una mayor resolución para que cada pixel obtenga sus datos de múltiples <em>samples</em>. De esta forma, algunos
+píxeles que antes no se tomarían en cuenta ahora se procesan y se suaviza la forma; el color obtenido por estos píxeles cuyas muestras no son completamente cubiertas se verá alterado y difuminado para
+conseguir este efecto de suavidad, pues el píxel toma el color promedio de sus <em>samples</em>. Es una técnica cara en tiempo de ejecución, aunque funciona.</p></div>
+<div class="paragraph"><p>Esta idea se puede expandir y mejorar: <em>multisampling</em>.</p></div>
+<div class="sect3">
+<h4 id="_multisampling">Multisampling</h4>
+<div class="paragraph"><p>Es una modificación del <em>supersampling</em> en la que la idea es la misma, aunque la frecuencia con la que se ejecuta el <em>fragment shader</em> o <em>FS</em> es menor que el número de <em>samples</em> por píxel; es común un
+ratio 4:1.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semana_27_02">Semana 27-02</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_transformaciones_y_movimiento">Transformaciones y movimiento</h3>
+<div class="paragraph"><p>Para los propósitos de creación de matrices y operaciones matemáticas relacionadas con las mismas se usará GLM, una biblioteca de C++ diseñada para el uso con OpenGL. Ha sido añadido al proyecto mediante CMake y por lo tanto es compilado sin necesidad de que el usuario lo instale por sus propios métodos.</p></div>
+<div class="paragraph"><p>Para mover, escalar y rotar una geometría, se puede hacer uso de matrices, concretamente de tamaño 4x4, para multiplicarlas por el vector de coordenadas.</p></div>
+<div class="paragraph"><p>Es importante denotar que las transformaciones son entorno al origen de coordenadas, por lo que sería conveniente desplazar temporalmente la figura al origen antes de aplicarlas y posteriormente devolverla a su posición; de lo contrario, su posición se verá alterada (a menos que sea el efecto deseado).</p></div>
+<div class="sect3">
+<h4 id="_traslación">Traslación</h4>
+<div class="paragraph"><p>Dada una matriz <em>T</em>, partiendo de una matriz identidad, se insertan los valores deseados para la traslación de las coordenadas. Por ejemplo, si la última columna de <em>T</em> es (2.5, 0, 0, 1.0), será trasladado en la dirección de <em>x</em> con el valor de <em>2.5</em>, es decir, el nuevo valor de la posición en <em>x</em> sería <em>x</em> + <em>2.5</em>, quedando las demás coordenadas intactas.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_escalado">Escalado</h4>
+<div class="paragraph"><p>La misma idea se aplica al escalado, aunque los valores se insertarán en la diagonal de la matriz <em>S</em>, que parte de la matriz identidad. Al multiplicar, se conseguirá que los valores de las coordenadas se escalen por los valores de la diagonal.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_rotación">Rotación</h4>
+<div class="paragraph"><p>La rotación es más compleja debido a la existencia de 3 ejes de coordenadas a usar como base. En este caso explicaré la rotación en el plano <em>xy</em> a partir del cual es fácil extrapolar el resto.</p></div>
+<div class="paragraph"><p>Representando las coordenadas <em>(x, y)</em> en la forma polar se obtiene:</p></div>
+<div class="paragraph"><p>x = L * cos a
+y = L * sin a</p></div>
+<div class="paragraph"><p>Sumándole un ángulo θ a las coordenadas <em>(x, y)</em>:</p></div>
+<div class="paragraph"><p>x' = L * cos (a + θ)
+y' = L * sin (a + θ)</p></div>
+<div class="paragraph"><p>Usando identidades trigonométricas para separar el coseno y el seno en dos:</p></div>
+<div class="paragraph"><p>x' = L * ( (cos a * cos θ) - (sin a * sin θ) )</p></div>
+<div class="paragraph"><p>&#8594;</p></div>
+<div class="paragraph"><p>x' = L * cos a * cos θ - L * sin a * sin θ</p></div>
+<div class="paragraph"><p>&#8594;</p></div>
+<div class="paragraph"><p>x' = x * cos θ - y * sin θ</p></div>
+<div class="paragraph"><p>y' = L * (sin a * cos θ + cos a * sin θ)</p></div>
+<div class="paragraph"><p>&#8594;</p></div>
+<div class="paragraph"><p>y' = L * sin a * cos θ + L * cos a * sin θ</p></div>
+<div class="paragraph"><p>&#8594;</p></div>
+<div class="paragraph"><p>y' = y * cos θ + x * sin θ</p></div>
+<div class="paragraph"><p>Por lo tanto, una matriz <em>R</em> deberá hacer que las coordenadas resulten de esta forma partiendo de la matriz identidad. Para obtener las matrices rotando en base a otros planos sólo basta repetir esta operación con diferentes coordenadas.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instanced_rendering">Instanced rendering</h3>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2026-06-11 13:36:31 CEST
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+#define check_error(SUCCESS, ERROR) if (checkSuccess(SUCCESS, ERROR)) return -1
+
+#define check_error_null(SUCCESS, ERROR) if (checkSuccess(SUCCESS, ERROR)) return NULL
+
+#define check_error_zero(SUCCESS, ERROR) if (checkSuccess(SUCCESS, ERROR)) return 0
+
+#define cast_ptr_int(VALUE_PTR) (*( (int*)VALUE_PTR))
+
+#define cast_ptr_long(VALUE_PTR) (*( (long*)VALUE_PTR))
+
+#define check_null(VALUE) (VALUE == NULL) ? 1 : 0
+
+typedef enum {
+    ERROR_PUSH_FRAME,
+    ERROR_CREATING_POLYGON,
+    ERROR_GENERATING_ANIMATION,
+    ERROR_LOADING_ANIMATION,
+    ERROR_COPYING_UNIFORM,
+    ERROR_EXTENDING_ANIMATION,
+    ERROR_ALLOCATING_MEMORY,
+    ERROR_REALLOCATING_MEMORY,
+    ERROR_COPYING_MEMORY,
+    ERROR_INIT_SHADERS,
+    ERROR_INIT_GL_DATA,
+    ERROR_INIT_ANIMATION_DATA,
+    ERROR_LOADING_SHADERS,
+    ERROR_OPENGL_CALL,
+    ERROR_OPENING_FILE,
+    ERROR_SIZE_FILE,
+    ERROR_READING_FILE,
+    ERROR_SEEK_FILE,
+    ERROR_CLOSING_FILE,
+    ERROR_CREATING_SHADER,
+    ERROR_COMPILING_SHADER,
+    ERROR_LINKING_SHADER,
+    ERROR_CREATING_PROGRAM,
+    ERROR_CREATING_ARRAY,
+
+} Error_Types;
+
+int checkSuccess(void* success, Error_Types error);

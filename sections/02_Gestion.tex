@@ -1,0 +1,68 @@
+\chapter{Metodología y Planificación}\label{chp:methodology}
+
+%En este capítulo se exponen los pasos dados previos al análisis, esenciales para una correcta disposición temporal del proyecto que lo mantienen firme y estable.
+En este capítulo se describen las etapas previas al análisis, fundamentales para garantizar el  correcto desarrollo del proyecto.
+
+Se comienza en el apartado \ref{sec:method} describiendo la metodología usada. Seguidamente, en \ref{sec:phases}, se presentan las fases en las que se ha abordado el desarrollo del trabajo y la planificación temporal seguida.
+
+\section{Metodología} \label{sec:method}
+El desarrollo del proyecto ha sido gestionado con \textit{Git} \cite{webGit}, alojado en un repositorio \cite{webGitlabRenderer} de \textit{Gitlab} \cite{webGitlab}. La metodología ha consistido en implementar funcionalidades de cada área en una rama distinta, para luego ser unida a la rama principal. De esta manera, es más sencillo detectar dónde los errores fueron generados y localizarlos.
+
+Todo el desarrollo tuvo lugar en el sistema operativo \textit{GNU/Linux} \cite{webGNULinux}, concretamente la distribución \textit{Debian} \cite{webDebian}. A modo de diario personal, el progreso fue siendo guardado semanalmente en un documento \textit{Asciidoc} \cite{webAsciidoc}, que ha servido de bitácora y muy útil para la memoria.
+
+El flujo de compilación lo gestiona \textit{CMake}. Con esta tecnología, es sencillo modularizar el proyecto, añadiendo dependencias según las necesidades del programa y creando una estructura de proyecto ordenada. Incluso, es simple compilar bibliotecas propias y enlazarlas posteriormente al código. Las ventajas frente a compilar manualmente son abrumadoras.
+
+La mayoría de la documentación que se ha necesitado proviene directamente de los autores de \textit{OpenGL}, \textit{Khronos} \cite{bookOGLGuideKhronos9}. Tanto el libro como su página web donde detallan minuciosamente las funciones fueron de gran utilidad. El resto de documentación proviene de sus respectivos autores, buscando información por la red cuando fuera necesario.
+
+Respecto a la implementación, se ha intentado extraer el máximo número de funciones posible a bibliotecas propias según crece el código. De esta manera, se divide la carga y es más fácil discernir errores y aumenta la reutilización de código.
+
+\section{Fases y Planificación} \label{sec:phases}
+A continuación, se describen las fases en las que se ha abordado el proyecto: 
+
+\paragraph{Estudio sobre OpenGL}
+Primero, es necesario comprender cómo funciona \textit{OpenGL} y los sistemas de renderización desde los conceptos básicos. Este es el primer paso esencial. Para entender esto, están a disposición manuales y guías sobre gráficos por ordenador por doquier, aunque para este trabajo los de \textit{Khronos} son particularmente interesantes. También, investigar algunas bibliotecas que facilitan el desarrollo, como pueden ser \textit{GLUT} y \textit{GLEW}. 
+
+\paragraph{Configuración del entorno de trabajo}
+En segundo lugar, conseguir establecer un entorno de trabajo con \textit{CMake} \cite{webCMakeDocs}. Dividir el proyecto en varias carpetas:
+
+\begin{itemize}
+
+    \item \textbf{\textit{lib}}, para lo relacionado con las bibliotecas propias y externas.
+    
+    \item \textbf{\textit{src}}, para lo relacionado con el código fuente principal de los programas.
+    
+    \item \textbf{\textit{shaders}}, para archivos de tipo \textit{shader} de \textit{OpenGL}.
+    
+    \item \textbf{\textit{tests}}, para la gestión de los resultados de las pruebas: datos y \textit{script} de \textit{R} y \textit{gnuplot} para analizarlos.
+    
+\end{itemize}
+Cada una de las carpetas contiene código \textit{CMake}, profundizando en las carpetas según el nivel de complejidad que se requiera. Por ejemplo, dentro de \textit{src} existen varios directorios con las áreas implementadas, como \textit{movement} o \textit{polygon}, y dentro de estos se declara la configuración de compilación de los programas relacionados con el movimiento.
+
+\paragraph{Desarrollo de biblioteca propia}
+En tercer lugar, con el objetivo de facilitar tareas de \textit{OpenGL}, se ha optado por crear una biblioteca cuyo código se encontraría dentro del directorio \textit{lib}. Este paso debería llevarse a cabo simultáneamente con el desarrollo del código principal, pues sería conveniente extraer las funciones y colocarlas en la biblioteca según aumente el programa.
+
+La biblioteca de \textit{shaders} aislaría en una caja negra todo el proceso de un \textit{shader}. Debería ser capaz de, recibiendo los contenidos del \textit{shader}, devolver un \textit{programa}, así llamado en la jerga de \textit{OpenGL}. El usuario, entonces, no necesitaría conocer los mecanismos de este proceso.
+
+La biblioteca de polígonos contendrá funciones que creen formas geométricas, útiles para las pruebas de los programas desarrollados. En concreto, se centrará en crear polígonos regulares de cualquier número de lados. Son fáciles de crear y son un instrumento conveniente para estimar rendimiento según número de vértices.
+
+Una biblioteca de animaciones, que será el principal objetivo, ya que reúne todo lo anterior creado y permite crear una secuencia de movimientos para los vértices en pantalla. Esto pone a prueba el rendimiento de los sistemas, ya que es necesaria una coordinación entre \textit{CPU} y \textit{GPU} al calcular cada \textit{frame} y operaciones matriciales en ambos lados para crear movimiento.
+
+Finalmente, una biblioteca que maneje errores de forma centralizada, pues podría ser realmente caótico y repetitivo de otra manera. Aquí se reunirían mensajes y códigos de error, llamándose cuando quiera comprobarse si un valor es erróneo. Deberá llamarse después de llamar a una función crítica, especialmente.
+
+\paragraph{Desarrollo de la animación}
+Habiendo estudiado el funcionamiento de \textit{OpenGL} y construido un entorno cómodo de trabajo, puede comenzarse el desarrollo del sistema de animación, haciendo uso de la biblioteca propia creada previamente, que facilitará su creación.
+
+El objetivo es construir la animación fotograma por fotograma. Funcionará como una máquina de estados: parado, movimiento e inercia. Inicia en movimiento, entra en inercia por un tiempo y progresa hacia el siguiente elemento en la secuencia. Cuando llegue al final, parará.
+
+Los parámetros serán inicializados y guardados en una estructura de datos, cuyos valores serán usados y modificados por las funciones.
+
+Podrán indicarse la secuencia de movimientos de varias formas: indicando qué matrices usar para las transformaciones de forma explícita o mediante funciones de la biblioteca propia, aislando las matrices del funcionamiento.
+
+También, podrá almacenarse la secuencia cargando desde un \textit{buffer} del usuario o, mediante funciones proporcionadas por la biblioteca, añadir elementos a la secuencia, aislando la memoria del funcionamiento.
+
+En resumen, se dará libertad al usuario para programar la animación, desde el funcionamiento más manual, aunque más eficiente, a uno más sencillo, aunque menos eficiente.
+
+\paragraph{Pruebas y optimización}
+En esta parte, se pondrán a prueba los algoritmos, comparando el rendimiento de diferentes formas y en distintos escenarios. Una vez obtenidos los resultados, observarlos y revisar de nuevo el sistema para detectar posibles mejoras con el objetivo de optimizarlos al máximo.
+
+Finalmente, en el diagrama de Gantt de la figura XXX, se muestra la duración de cada una de las etapas descritas.

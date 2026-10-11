@@ -1,0 +1,50 @@
+\chapter{Introducción}\label{cap:introduccion}
+
+El término conocido como gráficos por ordenador, o \textit{Computer Graphics}, fue acuñado en 1960 por un empleado de Boeing, llamado William Fetter, que a su vez lo atribuyó a su compañero Verne Hudson. Es una tecnología relativamente reciente que crece y cambia rápidamente. El término puede usarse para describir la representación de imágenes en un ordenador y rodea el aspecto visual en un entorno digital.
+
+En este trabajo se explorarán los denominados \textit{renderer}, en concreto la renderización en dos dimensiones. Existen muchas definiciones, aunque aquí citaré una que creo bastante acertada.
+El glosario de \cite{webUnityRenderDef} lo definió así:
+
+\blockquote{2D rendering creates visuals from flat graphic elements through specialized techniques like sprite batching, tile-based systems, and optimized draw calls, often enhanced with modern lighting and shader effects despite the two-dimensional nature.}
+
+Este tema puede ser abrumador para el estudiante que lo toma sin conocimiento previo, por lo que este trabajo puede servir de iniciación para muchos de los conceptos que asolan este escabroso terreno. En su debida medida, se trazará una ruta de aprendizaje, aunque asumiendo algunos conocimientos básicos, sobre todo en el lenguaje de programación \textit{C} \cite{bookCProgrammingLang}; será el lenguaje usado durante todo el documento, usando \textit{C++} en contadas ocasiones.
+
+Existen muchos tipos de \textit{toolkits} que facilitan el renderizado de imágenes sin entrar en peliagudos sistemas gráficos usando directamente las \textit{APIs} de gráficos como \textit{OpenGL} \cite{webKhronosOpenGL}, cuya \textit{API} se usará en este trabajo, o \textit{Vulkan} \cite{webKhronosVulkan}. Por ejemplo, si uno quisiera desarrollar una aplicación de escritorio, podría utilizar \textit{GTK} \cite{webGTK}, que ofrece una biblioteca extensa. Si se pretende diseñar un modelo o un escenario puede usarse \textit{Blender} \cite{webBlender}, que permite crear el modelo y renderizarlo sin escribir una sola línea de código. O incluso, si se desea crear un videojuego, \textit{Godot} \cite{webGodot} o \textit{Unity} \cite{webUnity}. Todos estos entornos hacen uso de \textit{APIs} de gráficos y de sistemas de renderización, aunque lo ocultan al usuario para facilitarle el desarrollo.
+
+Cabe destacar el énfasis en el software libre respecto a las tecnologías usadas y que el entorno de desarrollo tendrá su foco en el sistema operativo \textit{GNU/Linux} \cite{webGNULinux}.
+
+\begin{enumerate}
+    \item Primero, se describirá la metodología seguida y la estructura utilizada durante el desarrollo del proyecto \ref{chp:methodology}.
+    
+    \item Se hará una introducción a la renderización y sus fundamentos, sobre sus conceptos y ejemplos de funcionamiento, además de \textit{APIs} e implementaciones existentes \ref{chp:technique-state}.
+
+    \item Se hará un análisis de requisitos con 4 tipos: \textbf{información}, \textbf{funcional}, \textbf{no funcional} y \textbf{hardware}, donde se describen las necesidades que el proyecto debe satisfacer \ref{chp:analysis}.
+
+    \item Se describirán los lenguajes de programación y tecnologías utilizados con el fin de desarrollar el proyecto, haciendo especial hincapié en \textit{OpenGl} y en su funcionamiento \ref{chp:technologies}.
+    
+    \item Se presentará el diseño del sistema: las bibliotecas propias aquí implementadas, sus usos y complicaciones. Se representarán sus diseños en diagramas y se comentarán a alto nivel \ref{chp:design}.
+    
+    \item Se describirá la implementación del diseñado previamente presentado, entrando en detalle sobre cada función y estructura de datos y cómo deberían ser utilizados desde la perspectiva del usuario \ref{chp:implementation}.
+    
+    \item Se realizarán pruebas sobre el \textit{software} desarrollado, analizando los resultados y representándolos mediante gráficas \ref{chp:tests}.
+\end{enumerate}
+
+Finalmente, se realizarán unas conclusiones sobre el trabajo expuesto y se comentarán líneas futuras del proyecto: ideas sin finalizar o ideas a largo plazo. 
+
+\section{Objetivos}
+Los objetivos generales del proyecto, definidos a alto nivel, son los siguientes:
+
+\begin{itemize}
+
+    \item Comprensión del funcionamiento de \textit{OpenGL} y de un renderizador.
+    \item Establecer un entorno de trabajo para el desarrollo de los programas, con capacidad de modularización y gestión de dependencias.
+    
+    \item Desarrollar una biblioteca que facilite el uso de \textit{OpenGL}: procesamiento de \textit{shaders}, manejo de animaciones, gestión de errores y creación de polígonos.
+    
+    \item Aplicar el renderizado a una aplicación que genere formas geométricas y le aplique transformaciones para simular movimiento.
+    
+    \item Analizar los métodos de renderizado: la integridad de los resultados, su eficacia y su eficiencia.
+    
+    \item Optimización de los algoritmos y conseguir escalabilidad.
+    
+\end{itemize}

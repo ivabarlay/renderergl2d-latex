@@ -1,0 +1,27 @@
+\chapter{Conclusiones}\label{cap:conclusiones}
+
+En este proyecto se han desarrollado bibliotecas para el uso de \textit{OpenGL}: bibliotecas de configuración, creación de geometría, animaciones, funciones auxiliares de \textit{C} y gestión de errores. Todas estas bibliotecas se han utilizado en programas: a destacar, el programa de animación, que realiza una serie de transformaciones programables a un polígono regular y se renderiza en pantalla. 
+
+Para exprimir y medir las funcionalidades aquí desarrolladas, se han realizado pruebas en las que todas ellas se ven involucradas. Luego, con \textit{R} y \textit{gnuplot}, se toman cómputos numéricos sobre los datos recogidos y gráficas para visualizarlos con detalle.
+
+\section{Líneas futuras}
+
+Este proyecto sólo es una base para los muchos caminos por los que podría expandirse. A continuación, se enunciarán las posibles líneas futuras que se han contemplado: mejoras de rendimiento, nuevas características, integraciones con otros programas y comparativas.
+
+\begin{itemize}
+
+    \item Mejorar el sistema de animación para permitir geometría tridimensional.
+
+    \item Capacidad de importación de modelos. Se examinó la posibilidad de incorporar \textit{Assimp} con el fin de probar geometría más compleja y diferente.
+
+    \item Algoritmos de triangulación, para transformar geometría compleja en triángulos simples, amigables con la \textit{GPU} y más sencillos de procesar.
+
+    \item Integración con otros programas como extensión y observar ventajas y desventajas. Como caso concreto, \textit{Godot} ofrece una tecnología para interactuar con código \textit{C/C++} llamado \textit{GDExtension} \cite{webGodotGDExtension}, aún en estado experimental; en el caso de ser insuficiente, pueden usarse los módulos personalizados de \textit{C/C++} que también ofrece \textit{Godot} \cite{webGodotCModules}.
+
+    \item Crear comparativas de los tiempos de ejecución respecto a otros programas, como el ya mencionado previamente \textit{Godot}.
+
+    \item Mejora al sistema de animación, permitiendo fácilmente crear caminos distintos para diferentes geometrías y cargar la animación desde un fichero.
+
+    \item Mejora a la biblioteca de \textit{shaders}, abstrayendo aún más las funciones principales, como \textit{initAnimationData}, \textit{initGLData} y \textit{initGLShaders}, incluso permitiendo crear \textit{shaders} básicos sin programar \textit{GLSL}.
+
+\end{itemize}
