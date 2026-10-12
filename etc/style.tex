@@ -173,13 +173,14 @@
 \ganttset{
     hgrid, 
     vgrid={*4{draw=none}, *1{black!20, dashed}}, % Una línea discontinua cada 5 días laborables
-    x unit=0.15cm, 
+    bar label text={--#1$\rightarrow$},
+    x unit=0.40cm, 
     time slot format=simple,
-    y unit title=0.6cm,     
-    y unit chart=0.6cm,     
+    y unit title=1.0cm,     
+    y unit chart=1.6cm,     
     title height=1,        
-    bar height=1,          
-    bar top shift=0,      
+    bar height=0.5,
+    bar top shift=1.0,
     milestone height=1,   
     milestone top shift=0,
     % Configuración geométrica del hito: centrado y con ancho total de 7 unidades
