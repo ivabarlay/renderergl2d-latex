@@ -79,7 +79,7 @@ En esta parte, se pondrán a prueba los algoritmos, comparando el rendimiento, u
 
 
 \section{Diagrama de Gantt}
-Finalmente, en el diagrama de Gantt de la figura \ref{fig:gantt-full}, se muestra la duración de cada una de las etapas descritas. La fecha de inicio es el 26 de enero y la fecha final es el 13 de octubre.
+Finalmente, en el diagrama de Gantt de la figura \ref{fig:gantt-full}, se muestra la duración de cada una de las etapas descritas. La fecha de inicio es el 26 de enero y la fecha final es el 13 de octubre. Cada diagrama se divide en \textbf{meses} y estos en \textbf{semanas}, siendo la unidad de medida los \textbf{días}.
 
 \begin{figure}[H]
     \centering
@@ -109,8 +109,8 @@ Finalmente, en el diagrama de Gantt de la figura \ref{fig:gantt-full}, se muestr
     \vspace{0.4cm} 
 
     % === FASE II ===
+
     \begin{subfigure}{\textwidth}
-        \centering
         \begin{subfigure}{\textwidth}
         \resizebox{\textwidth}{!}{%
             \begin{ganttchart}{1}{88}
@@ -133,13 +133,17 @@ Finalmente, en el diagrama de Gantt de la figura \ref{fig:gantt-full}, se muestr
 
         \begin{subfigure}{\textwidth}
         \resizebox{\textwidth}{!}{%
-            \begin{ganttchart}{1}{65}
+            \begin{ganttchart}{1}{88}
             % Cabecera adaptada a los meses y semanas del calendario
-            \gantttitle{Fase II: Configuración del entorno de trabajo, bibliotecas propias y sistema de animación (Agosto)}{65} \\
-            \gantttitle{Agosto}{21} \gantttitle{Septiembre}{22} \gantttitle{Octubre}{22} \\
+            \gantttitle{Fase II: Configuración del entorno de trabajo, bibliotecas propias y sistema de animación (Agosto)}{88} \\
+            \gantttitle{Julio}{23} \gantttitle{Agosto}{21} \gantttitle{Septiembre}{22} \gantttitle{Octubre}{22} \\
+
+            \gantttitle{S1}{3} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} \gantttitle{S5}{5}  % Julio
             \gantttitle{S1}{5} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} \gantttitle{S5}{1}  % Agosto
+            \gantttitle{S1}{4} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} \gantttitle{S5}{3} % Septiembre
+            \gantttitle{S1}{2} \gantttitle{S2}{5} \gantttitle{S3}{5} \gantttitle{S4}{5} \gantttitle{S5}{5} \\ % Octubre
             
-            \ganttbar{Sistema de animación}{1}{21} \\
+            \ganttbar{Sistema de animación}{1}{44} \\
 
             \end{ganttchart}%
         }
