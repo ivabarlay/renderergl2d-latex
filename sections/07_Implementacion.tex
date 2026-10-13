@@ -69,17 +69,13 @@ Esta biblioteca \ref{fig:graph-libraries-miscc} recoge funciones de propósito g
 
 \subsection{Polígonos}
 
-La única función actual de esta biblioteca \ref{fig:graph-libraries-polygon} crea un polígono regular, en forma de un \textit{array} de vértices plano. Utilizando la ecuación paramétrica de un círculo, construye las coordenadas de cada vértice calculando los ángulos correspondientes. Esta función es especialmente útil como base de pruebas, o \textit{benchmark}, porque es sencillo estimar los triángulos que contiene un polígono regular de $n$ vértices.
+La única función actual de la biblioteca \ref{fig:graph-libraries-polygon} crea un polígono regular, en forma de un \textit{array} de vértices plano. Utilizando la ecuación paramétrica de un círculo, construye las coordenadas de cada vértice calculando los ángulos correspondientes. Esta función es especialmente útil como base de pruebas, o \textit{benchmark}, porque es sencillo estimar los triángulos que contiene un polígono regular de $n$ vértices.
 
-\begin{itemize}
-    \item El programa construye un polígono regular de $n$ vértices en el centro de la pantalla. Por supuesto, podría adaptarse para mover el polígono a otra coordenadas diferentes del origen. Calcula los puntos a partir de las ecuaciones: $x = r \cdot cos(t)$ y $y = r \cdot sen(t)$, siendo $(x,y)$ un par de coordenadas, $r$ el radio del polígono, $cos$ y $sen$ las funciones trigonométricas de coseno y seno, y $t$ un ángulo interior que se calcula de la siguiente forma: $t = \frac{2 \cdot M\_PI \cdot i}{n} + \frac{M\_PI}{2}$, donde $n$ es el número de vértices en el polígono; divide el ángulo completo entre el número de vértices multiplicado por el índice del vértice y le suma un ángulo constante. De esta forma, se calcula cada ángulo perteneciente a cada vértice y sus coordenadas asociadas. Una vez calculados los vértices y sus coordenadas queda calcular la distribución de los triángulos dentro de este polígono. Cualquier polígono regular es convexo \cite{webWolframConvexPolygon}, por lo cual pueden ser representados como un \textit{triangle fan} \cite[Capítulo~3]{bookOGLGuideKhronos9} y exactamente $n-2$ triángulos; en OpenGL se cambia \textit{GL\_TRIANGLES} a \textit{GL\_TRIANGLE\_FAN} en la función que dibuja el polígono. El primer vértice actúa de nodo principal y cada pareja de vértices posteriores se conecta al primero.
-\end{itemize}
+El programa construye un polígono regular de $n$ vértices en el centro de la pantalla, como está detallado en la sección \ref{sec:lib-polygon}. Cualquier polígono regular es convexo \cite{webWolframConvexPolygon}, por lo cual pueden ser representados como un \textit{triangle fan} \cite[Capítulo~3]{bookOGLGuideKhronos9} y exactamente $n-2$ triángulos; en OpenGL se cambia \textit{GL\_TRIANGLES} a \textit{GL\_TRIANGLE\_FAN} en la función que dibuja el polígono. El primer vértice actúa de nodo principal y cada pareja de vértices posteriores se conecta al primero.
 
 \subsection{Animaciones}
 
-Esta biblioteca \ref{fig:graph-libraries-animation1} \ref{fig:graph-libraries-animation2} contiene lo necesario para crear animaciones con \textit{OpenGL}. 
-
-La primera parte del diagrama muestra las funciones usadas por el usuario para transformar la posición de la geometría. Las funciones a la izquierda modifican un \textit{buffer} local, usado más tarde para cargarlo en la animación. Las funciones de la derecha modifican directamente la animación sin intermediario, lo que es más sencillo aunque costoso.
+Esta biblioteca contiene lo necesario para crear animaciones con \textit{OpenGL}. La primera parte del diagrama \ref{fig:graph-libraries-animation1}  muestra las funciones usadas por el usuario para transformar la posición de la geometría. Las funciones a la izquierda modifican un \textit{buffer} local, usado más tarde para cargarlo en la animación. Las funciones de la derecha modifican directamente la animación sin intermediario, lo que es más sencillo aunque costoso.
 
 \begin{itemize}
 
@@ -122,7 +118,7 @@ La primera parte del diagrama muestra las funciones usadas por el usuario para t
     
 \end{itemize}
 
-La segunda parte de este diagrama muestra las funciones relacionadas con \textit{buffers} y las acciones de cada fotograma, es decir, la configuración de la animación.
+La segunda parte del diagrama \ref{fig:graph-libraries-animation2}  muestra las funciones relacionadas con \textit{buffers} y las acciones de cada fotograma, es decir, la configuración de la animación.
 
 \begin{itemize}
 
@@ -130,7 +126,12 @@ La segunda parte de este diagrama muestra las funciones relacionadas con \textit
 
     \item La función \textit{updateAnimationData} inicializa las propiedades de la animación almacenadas en una estructura \textit{AnimationStruct} global. Recibe como argumentos todos los valores de la estructura y se los asigna directamente a la variable global de la biblioteca.
 
-    \item El trío de funciones \textit{genAnimationBuffer}, \textit{loadAnimationBuffer} y \textit{deleteAnimationBuffer} trata el ciclo de vida de la animación. La función \textit{genAnimationBuffer} asigna espacio inicial en memoria para la animación, la función \textit{loadAnimationBuffer} copia fotogramas en memoria y finalmente \textit{deleteAnimationBuffer} las destruye liberando la memoria asignada, respectivamente.
+    \item El trío de funciones \textit{genAnimationBuffer}, \textit{loadAnimationBuffer} y \textit{deleteAnimationBuffer} gestiona el ciclo de vida de la animación.
+        \begin{itemize}
+            \item La función \textit{genAnimationBuffer} asigna espacio inicial en memoria para la animación.
+            \item La función \textit{loadAnimationBuffer} copia fotogramas en memoria. 
+            \item La función \textit{deleteAnimationBuffer} las destruye liberando la memoria asignada.
+        \end{itemize}
     
     \item La función \textit{defaultFrameAction} es la acción por defecto que ocurre en cada fotograma.
     
@@ -143,7 +144,7 @@ La segunda parte de este diagrama muestra las funciones relacionadas con \textit
     \end{itemize}
 
     \vspace*{4\baselineskip}
-    En el siguiente diagrama se representa la función por defecto que se aplica cada fotograma. Cada tabla tiene como título el estado que representa y cada entrada tiene el índice y la operación que se realiza. Las flechas indican el movimiento entre estados, desde el estado origen hacia el estado destino, con un número que indica el orden que se sigue para comprobar la condición de la transición que se encuentra junto a la flecha.
+    En el diagrama \ref{fig:frame-state-machine} se representa la función por defecto que se aplica cada fotograma. Cada tabla tiene como título el estado que representa y cada entrada tiene el índice y la operación que se realiza. Las flechas indican el movimiento entre estados, desde el estado origen hacia el estado destino, con un número que indica el orden que se sigue para comprobar la condición de la transición que se encuentra junto a la flecha.
     
     \begin{figure}[htp]
         \centering
@@ -163,7 +164,7 @@ La segunda parte de este diagrama muestra las funciones relacionadas con \textit
 
 Con el objetivo de ilustrar la cooperación entre las diferentes bibliotecas creadas, se diseñará un programa de ejemplo, a alto nivel, cuyo propósito sea crear una animación con un polígono regular. El objetivo es generar matrices de transformación que se enviarán al \textit{shader} en forma de variable \textit{uniform}.
 
-El programa está representado a alto nivel en el siguiente diagrama. Los rectángulos coloreados son los que incluyen funcionalidades de las bibliotecas. Aunque no representado para simplificar el diagrama, se utiliza la comprobación de errores de la biblioteca cuando sea posible en todo el programa.
+El programa está representado a alto nivel en el diagrama \ref{fig:example-program-diagram}. Los rectángulos coloreados son los que incluyen funcionalidades de las bibliotecas. Aunque no representado para simplificar el diagrama, se utiliza la comprobación de errores de la biblioteca cuando sea posible en todo el programa.
 
 \begin{figure}[htp]
     \centering

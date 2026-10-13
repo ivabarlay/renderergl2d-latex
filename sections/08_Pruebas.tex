@@ -1,7 +1,5 @@
 \chapter{Pruebas} \label{chp:tests}
 
-\section{Introducción}
-
 \textbf{Las optimizaciones utilizadas durante las pruebas fueron las provocadas por la \textit{flag} \textit{O3}} en el compilador \textit{GCC} \cite{webGccOptimizationOptions}.
 
 En este capítulo se describen las pruebas realizadas sobre los programas desarrollados en el proyecto, así como el análisis de los resultados desde diferentes perspectivas, con el fin de evaluar aspectos como los valores de las métricas obtenidas, la uniformidad de los resultados, el comportamiento general y el rendimiento. Para ello, las versiones empleadas en las pruebas incorporan código adicional específico para caracterizar el rendimiento, generando dos ficheros: \textit{.log}, que recoge información legible para el usuario, y \textit{.dat}, que contiene los datos necesarios para la representación gráfica. Para las pruebas de rendimiento de vértices en un polígono \ref{sec:polygon-performance-test} y de animación \ref{sec:animation-performance-test}, los ficheros \textit{.dat} son procesados mediante \textit{gnuplot} y genera las gráficas correspondientes.

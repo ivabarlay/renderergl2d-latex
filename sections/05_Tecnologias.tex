@@ -78,6 +78,7 @@ A continuación se detallará la especificación de vértices \cite{webVertexSpe
     \item Un \textit{Element Buffer Object} (EBO), también llamado \textit{Index Buffer}, permite almacenar en él indices que referencian vértices en el \textit{VBO}. En vez de duplicar vértices, pueden referenciarse múltiples veces. Por ejemplo, un cuadrado contiene 2 triángulos y 6 vértices. Utilizando un \textit{EBO}, podrían declararse 4 vértices e indicar el orden en el que se utilizan para crear los triángulos.
 \end{itemize}
 
+En el ejemplo \ref{cod:example-creation-vbo-vao} se muestra un ejemplo de creación de los \textit{buffers VBO} y \textit{VAO}. Una vez creados y configurados, en la función \textit{display} ha de vincularse el \textit{VAO} para cargar los vértices y su configuración, como en el ejemplo \ref{cod:example-usage-vbo-vao}.
 \lstinputlisting[
     float,
     floatplacement=!htp,
@@ -85,8 +86,6 @@ A continuación se detallará la especificación de vértices \cite{webVertexSpe
     label=cod:example-creation-vbo-vao,
     caption=Ejemplo de creación de los objetos VBO y VAO.
 ]{code/c_example_creation_vbo_vao.c}
-
-Una vez creados y configurados, en la función \textit{display} ha de vincularse el \textit{VAO} para cargar los vértices y su configuración.
 
 \lstinputlisting[
     float,
@@ -98,7 +97,7 @@ Una vez creados y configurados, en la función \textit{display} ha de vincularse
 
 \FloatBarrier
 
-El \textit{EBO} puede usarse para dibujar un cuadrado. Se debe añadir después de vincular el \textit{VAO}, dejando el resto de la misma manera. La función de \textit{display} es idéntica, aunque se sustituye \textit{glDrawArrays} por \textit{glDrawElements}.
+El \textit{EBO} puede usarse para dibujar un cuadrado. Se debe añadir después de vincular el \textit{VAO}, dejando el resto de la misma manera. La función de \textit{display} es idéntica, aunque se sustituye \textit{glDrawArrays} por \textit{glDrawElements}. El ejemplo \ref{cod:example-creation-ebo} se muestra la creación de este \textit{buffer EBO} y en el ejemplo \ref{cod:example-usage-ebo} el uso de éste.
 
 \lstinputlisting[
     float,
@@ -150,7 +149,7 @@ Se usa un lenguaje especial de \textit{OpenGL} para \textit{shaders}, llamado \t
 \FloatBarrier
 \paragraph{Uniforms} \label{par:ogl-uniforms}
 
-Los \textit{uniforms} son una manera de enviar datos de la aplicación en \textit{CPU} a los \textit{shaders} en \textit{GPU}. Son variables globales y pueden ser accedidas por cualquier \textit{shader}. Se añade la palabra clave \textit{uniform} a la variable en el \textit{shader} para convertirla en \textit{uniform}. Esta variable debe ser declarada en el \textit{shader}, de la misma forma que cualquier variable en \textit{GLSL}, aunque con el prefijo \textit{uniform}. Para acceder a ella desde el código \textit{C}, primero se debe localizar el atributo y entonces, dar un valor a la variable:
+Los \textit{uniforms} son una manera de enviar datos de la aplicación en \textit{CPU} a los \textit{shaders} en \textit{GPU}. Son variables globales y pueden ser accedidas por cualquier \textit{shader}. Se añade la palabra clave \textit{uniform} a la variable en el \textit{shader} para convertirla en \textit{uniform}. Esta variable debe ser declarada en el \textit{shader}, de la misma forma que cualquier variable en \textit{GLSL}, aunque con el prefijo \textit{uniform}. Para acceder a ella desde el código \textit{C}, primero se debe localizar el atributo y entonces, dar un valor a la variable. En la figura \ref{cod:example-uniform} se muestra un ejemplo.
 
 \lstinputlisting[
     float,
@@ -163,9 +162,7 @@ Los \textit{uniforms} son una manera de enviar datos de la aplicación en \texti
 \FloatBarrier
 \paragraph{Atributos de vértices} \label{par:ogl-vertices-attributes}
 
-Para indicarle a \textit{OpenGL} cómo utilizar los datos que ha recibido, es necesario indicarlo explícitamente.
-
-Por ejemplo, si los vértices tienen 3 coordenadas, siendo cada una de ellas float, que usualmente son 4 bytes, esto significa que cada vértice serán 12 bytes, y si el polígono deseado fuera un triángulo, serían 3 vértices: 36 bytes. Se debe tener en cuenta que no hay espacio entre los valores en este caso.
+Para indicarle a \textit{OpenGL} cómo utilizar los datos que ha recibido, es necesario indicarlo explícitamente. Por ejemplo, si los vértices tienen 3 coordenadas, siendo cada una de ellas float, que usualmente son 4 bytes, esto significa que cada vértice serán 12 bytes, y si el polígono deseado fuera un triángulo, serían 3 vértices: 36 bytes. Se debe tener en cuenta que no hay espacio entre los valores en este caso. Un ejemplo de configuración de atributos sería la figura \ref{cod:example-attributes}.
 
 \lstinputlisting[
     float,
@@ -194,7 +191,7 @@ Los argumentos de \textit{glVertexAttribPointer} son:
 \FloatBarrier
 \paragraph{Compilación de un shader} \label{par:ogl-shader-compilation}
 
-Con el propósito de mantener la sencillez en el ejemplo, el código \textit{GLSL} se almacenará en constantes dentro del código \textit{C}, el cual se le proporciona a \textit{OpenGL} y se compila.
+Con el propósito de mantener la sencillez en el ejemplo, el código \textit{GLSL} se almacenará en constantes dentro del código \textit{C}, el cual se le proporciona a \textit{OpenGL} y se compila; en el ejemplo \ref{cod:example-shader-compilation} se muestra este concepto.
 
 \lstinputlisting[
     float,
@@ -207,7 +204,7 @@ Con el propósito de mantener la sencillez en el ejemplo, el código \textit{GLS
 \FloatBarrier
 \paragraph{Creación de un programa} \label{par:ogl-program-creation}
 
-Una vez se tienen los \textit{shaders} compilados por separado, es necesario enlazarlos para combinarlos. Esto se hace mediante un \textbf{programa}. Se vinculan los shaders a este programa, que se activa cuando se renderizan objetos. Las salidas de cada \textit{shader}, entonces, se vinculan a las entradas del siguiente.
+Una vez se tienen los \textit{shaders} compilados por separado, es necesario enlazarlos para combinarlos. Esto se hace mediante un \textbf{programa}. Se vinculan los shaders a este programa, que se activa cuando se renderizan objetos. Las salidas de cada \textit{shader}, entonces, se vinculan a las entradas del siguiente. El código necesario para la creación del programa podría ser como el de la figura \ref{cod:example-shader-program}.
 
 \lstinputlisting[
     float,
@@ -221,7 +218,7 @@ Una vez se tienen los \textit{shaders} compilados por separado, es necesario enl
 
 Los shaders deben ser compilados en tiempo de ejecución. Aunque no  se haya profundizado en el lenguaje \textit{GLSL} \cite{webGLSLDocs}, es sencillo de entender una vez aprendido \textit{C}.
 
-Este es un ejemplo muy básico de un \textit{Vertex Shader} que simplemente pasa las coordenadas al \textit{shader}, sin manipularlas:
+El código de la figura \ref{cod:example-vertex-shader} es un ejemplo muy básico de un \textit{Vertex Shader} que simplemente pasa las coordenadas al \textit{shader}, sin manipularlas:
 \lstinputlisting[
     float,
     floatplacement=!htp,
@@ -234,7 +231,7 @@ La primera línea indica la versión que se utiliza, que es semejante a la versi
 
 \FloatBarrier
 
-Este es un ejemplo muy básico de un \textit{Fragment Shader} que hace que todos los colores sean el naranja.
+El código de la figura \ref{cod:example-fragment-shader} es un ejemplo muy básico de un \textit{Fragment Shader} que hace que todos los colores sean el naranja.
 
 \lstinputlisting[
     float,
@@ -257,9 +254,8 @@ Se usará \textit{CMake} \cite{webCMakeDocs} para gestionar dependencias y compi
 \subsection{GLEW}
 Las funciones de \textit{OpenGL} se cargan de maneras diferentes según la plataforma en la que nos encontremos. En \textit{GNU/Linux}, bajo la implementación de \textit{Mesa} \cite{webMesaDocs}, están dinámicamente enlazadas, por lo que hay que recuperarlas de memoria. En otras plataformas es distinto, por lo que \textit{GLEW} es muy útil para resolver este problema.
 
-\textit{GLEW} \cite{webGLEW} inicializa las funciones de \textit{OpenGL} de forma agnóstica al sistema operativo. Esto libera al programador de una tediosa carga, pues hacerlo de forma manual sería fatigador y la mejora en rendimiento sería mínima o nula.
+\textit{GLEW} \cite{webGLEW} inicializa las funciones de \textit{OpenGL} de forma agnóstica al sistema operativo. Esto libera al programador de una tediosa carga, pues hacerlo de forma manual sería fatigador y la mejora en rendimiento sería mínima o nula. El código necesario para la inicialización de \textit{GLEW} es sencillo y se muestra en la figura \ref{cod:example-glew}.
 
-El código necesario para su arranque es muy sencillo:
 \lstinputlisting[
     float,
     floatplacement=!htp,
@@ -270,9 +266,8 @@ El código necesario para su arranque es muy sencillo:
 
 \FloatBarrier
 \subsection{Freeglut}
-\textit{Freeglut} \cite{webFreeglut} nace como alternativa a \textit{GLUT} \cite{specsGLUT}, una biblioteca ya abandonada. Se encarga de todas las tareas específicas al sistema operativo necesarias para crear ventanas, inicializar contextos de \textit{OpenGL}, gestionar eventos de entrada y permite crear programas realmente portables con \textit{OpenGL}.
+\textit{Freeglut} \cite{webFreeglut} nace como alternativa a \textit{GLUT} \cite{specsGLUT}, una biblioteca ya abandonada. Se encarga de todas las tareas específicas al sistema operativo necesarias para crear ventanas, inicializar contextos de \textit{OpenGL}, gestionar eventos de entrada y permite crear programas realmente portables con \textit{OpenGL}. El codigo necesario para inicializar \textit{Freeglut} podría ser como en la figura \ref{cod:example-glut}:
 
-El codigo necesario para inicializar \textit{Freeglut} podría ser:
 \lstinputlisting[
     float,
     floatplacement=!htp,

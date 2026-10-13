@@ -1,17 +1,8 @@
 \chapter{Diseño del sistema} \label{chp:design}
 
-\section{Introducción}
-
 En este capítulo se detalla el diseño del sistema, especificando a alto nivel cada parte que lo compone, incluyendo, también, esquemas que ilustran su estructura. Concretamente, se describirán las bibliotecas de \textit{\textbf{shaders}} \ref{sec:lib-shaders}, \textbf{errores} \ref{sec:lib-errors}, código \textbf{misceláneo } \textit{C} \ref{sec:lib-misc-c}, \textbf{polígonos} \ref{sec:lib-polygon} y \textbf{animaciones} \ref{sec:lib-animation}. En cada una de estas secciones, se tratan las decisiones de diseño tomadas respecto a cada biblioteca donde se expone cada elemento de la biblioteca y unas directrices sobre cómo utilizarlas desde la perspectiva del usuario.
 
 \section{Leyenda}
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/diagrams/libraries_legend.png}
-    \caption{Leyenda de los diagramas de las bibliotecas.}
-    \label{fig:lib-legend}
-\end{figure}
 
 La figura \ref{fig:lib-legend} es la leyenda que representa los elementos con los que se describe el sistema en los próximos diagramas de bibliotecas.
 
@@ -32,7 +23,16 @@ En los sucesivos apartados, se describen cada uno de los módulos que componen e
     \label{fig:libraries-overview}
 \end{figure}
 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/diagrams/libraries_legend.png}
+    \caption{Leyenda de los diagramas de las bibliotecas.}
+    \label{fig:lib-legend}
+\end{figure}
+
 \section{Shaders} \label{sec:lib-shaders}
+
+En esta sección se trata la biblioteca de \textit{shaders}: su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece. En la figura \ref{fig:graph-libraries-shader} se representa la estructura de la biblioteca de \textit{shaders}, la cual existe con el propósito de facilitar el procesamiento de los mismos, en lugar de manualmente repetir el proceso cada vez que se deseen usar. Así, no es necesario leer, compilar y enlazar los \textit{shaders} manualmente.
 
 \begin{figure}[htp]
     \centering
@@ -40,8 +40,6 @@ En los sucesivos apartados, se describen cada uno de los módulos que componen e
     \caption{Diagrama de la biblioteca de shaders.}
     \label{fig:graph-libraries-shader}
 \end{figure}
-
-En esta sección se trata la biblioteca de \textit{shaders}: su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece. En la figura \ref{fig:graph-libraries-shader} se representa la estructura de la biblioteca de \textit{shaders}, la cual existe con el propósito de facilitar el procesamiento de los mismos, en lugar de manualmente repetir el proceso cada vez que se deseen usar. Así, no es necesario leer, compilar y enlazar los \textit{shaders} manualmente.
 
 \subsection{Decisiones de diseño}
 
@@ -94,14 +92,14 @@ El usuario deberá utilizar \textit{ShaderInfo}, completándola con los datos de
 
 \section{Errores} \label{sec:lib-errors}
 
+En esta sección se trata la biblioteca de \textbf{errores}: su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece. La figura \ref{fig:graph-libraries-error} representa la biblioteca de errores, que tiene como objetivo comprobar si el valor recibido es adecuado y proporcionar mensajes de error, a la vez que devuelve un número que indica si fue válido o no. De esta manera, se centralizan los errores y se reduce la comprobación caótica de ellos en el código. También, sería sencillo determinar qué tipo de error se intenta comprobar al revisar el código.
+
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/diagrams/libraries_error.png}
     \caption{Diagrama de la biblioteca de errores.}
     \label{fig:graph-libraries-error}
 \end{figure}
-
-En esta sección se trata la biblioteca de \textbf{errores}: su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece. La figura \ref{fig:graph-libraries-error} representa la biblioteca de errores, que tiene como objetivo comprobar si el valor recibido es adecuado y proporcionar mensajes de error, a la vez que devuelve un número que indica si fue válido o no. De esta manera, se centralizan los errores y se reduce la comprobación caótica de ellos en el código. También, sería sencillo determinar qué tipo de error se intenta comprobar al revisar el código.
 
 \subsection{Decisiones de diseño}
 
@@ -137,6 +135,10 @@ El usuario debería, tras una función crítica, comprobar el valor, ya sea llam
 
 \section{Misceláneo} \label{sec:lib-misc-c}
 
+En esta sección se detalla la biblioteca de funciones \textbf{misceláneas}: su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece.
+
+En la biblioteca miscelánea de \textit{C} \ref{fig:graph-libraries-miscc} se reúnen funciones auxiliares no dirigidas especialmente a \textit{OpenGL} y compuestas por código \textit{C} sin dependencias. Principalmente, se ha diseñado con la intención de ser utilizada para la lectura de ficheros, la creación de estructuras de datos y otras cuestiones generales de programación en \textit{C}.
+
 \begin{figure}[htp]
     \centering
     \includegraphics[width=1.0\textwidth]{figures/diagrams/libraries_miscc.png}
@@ -144,9 +146,6 @@ El usuario debería, tras una función crítica, comprobar el valor, ya sea llam
     \label{fig:graph-libraries-miscc}
 \end{figure}
 
-En esta sección se detalla la biblioteca de funciones \textbf{misceláneas}: su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece.
-
-En la biblioteca miscelánea de \textit{C} \ref{fig:graph-libraries-miscc} se reúnen funciones auxiliares no dirigidas especialmente a \textit{OpenGL} y compuestas por código \textit{C} sin dependencias. Principalmente, se ha diseñado con la intención de ser utilizada para la lectura de ficheros, la creación de estructuras de datos y otras cuestiones generales de programación en \textit{C}.
 
 \subsection{Decisiones de diseño}
 
@@ -180,20 +179,29 @@ En esta sección se trata la biblioteca de \textbf{polígonos}: su motivación, 
 
 \subsection{Decisiones de diseño}
 
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/diagrams/libraries_polygon.png}
-    \caption{Diagrama de la biblioteca de polígonos.}
-    \label{fig:graph-libraries-polygon}
-\end{figure}
-
 Esta biblioteca de polígonos \ref{fig:graph-libraries-polygon} trata la creación de polígonos. En esta versión es bastante reducida y en futuras versiones se espera un crecimiento en las funcionalidades. La función principal crea un polígono regular de un número de vértices. En lugar de crear manualmente polígonos vértice a vértice, esta biblioteca sirve al usuario para generarlos automáticamente con algunos parámetros.
 
 \begin{itemize}
 
-    \item El programa \textit{createNGonVertices} construye un polígono regular de $n$ vértices en el centro de la pantalla, junto a un \textit{offset} para mover el polígono a otra coordenadas diferentes del origen. Estas coordenadas se almacenan consecutivamente como una matriz 2D plana, utilizando la función anteriormente descrita \textit{create2DArrayFlat}. Calcula los puntos a partir de las ecuaciones: $x = r * cos(t)$ y $y = r * sin(t)$, siendo $t$ un ángulo interior que se calcula de la siguiente forma: $t = M\_PI*i/n + M\_PI/2$, siendo $M\_PI$ el número $\pi$, la relación entre la longitud de una circunferencia y su diámetro. Divide el ángulo completo entre el número de vértices multiplicado por el índice del vértice y le suma un ángulo constante. De esta forma, se calcula cada ángulo perteneciente a cada vértice y sus coordenadas asociadas.
+    \item El programa \textit{createNGonVertices} construye un polígono regular de $n$ vértices en el centro de la pantalla, junto a un \textit{offset} para mover el polígono a otra coordenadas diferentes del origen. Estas coordenadas se almacenan consecutivamente como una matriz 2D plana, utilizando la función anteriormente descrita \textit{create2DArrayFlat}. Calcula los puntos a partir de las ecuaciones de las coordenadas polares \ref{equ:polar-coordinates}, siendo $t$ un ángulo interior que se calcula con la ecuación \ref{equ:internal-angle}. Divide el ángulo completo entre el número de vértices multiplicado por el índice del vértice y le suma un ángulo constante. De esta forma, se calcula cada ángulo perteneciente a cada vértice y sus coordenadas asociadas.
     
 \end{itemize}
+
+\begin{figure}[htp]
+    \begin{equation}
+        x = r * cos(t), y = r * sin(t)
+    \end{equation}
+    \caption{Ecuación de las coordenadas polares en dos dimensiones}
+    \label{equ:polar-coordinates} 
+\end{figure} 
+
+\begin{figure}[htp]
+    \begin{equation}
+        t = \pi*i/n + \pi/2
+    \end{equation}
+    \caption{Ecuación del ángulo interno en un polígono}
+    \label{equ:internal-angle} 
+\end{figure} 
 
 \lstinputlisting[
     float,
@@ -205,12 +213,23 @@ Esta biblioteca de polígonos \ref{fig:graph-libraries-polygon} trata la creaci�
 
 El código \ref{cod:headers-polygon-libraries} muestra el prototipo de la biblioteca en código \textit{C}.
 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/diagrams/libraries_polygon.png}
+    \caption{Diagrama de la biblioteca de polígonos.}
+    \label{fig:graph-libraries-polygon}
+\end{figure}
+
 \subsection{API pública}
 El usuario debería utilizar la función \textit{createNGonVertices} para crear un polígono regular de $n$ vértices, aportando un \textit{buffer} donde almacenarlos y unas coordenadas bidimensionales que servirán de desplazamiento desde el centro de la pantalla.
 
 Una vez calculados los vértices y sus coordenadas queda calcular la distribución de los triángulos dentro de este polígono. Pueden ser representados como un \textit{triangle fan} y exactamente $n-2$ triángulos; en OpenGL se asigna $GL\_TRIANGLE\_FAN$ en la función que dibuja el polígono. El primer vértice actúa de nodo principal y cada pareja de vértices posteriores se conecta al primero.
 
 \section{Animaciones} \label{sec:lib-animation}
+
+En esta sección se trata la biblioteca de \textbf{animaciones} \ref{fig:graph-libraries-animation} su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece.
+
+Se ha creado esta biblioteca con el propósito de facilitar la animación de geometría, permitiendo mover, escalar y rotar, ya sea cargando de una vez una serie de transformaciones o una a una. Gestiona los fotogramas y la acción en cada uno de ellos, aunque con un alto grado de personalización.
 
 \begin{figure}[htp]
     \begin{subfigure}[t]{1.0\textwidth}
@@ -232,32 +251,12 @@ Una vez calculados los vértices y sus coordenadas queda calcular la distribuci�
 \caption{Diagrama de la biblioteca de animaciones}
 \end{figure} \label{fig:graph-libraries-animation}
 
-En esta sección se trata la biblioteca de \textbf{animaciones} \ref{fig:graph-libraries-animation} su motivación, funciones, estructuras de datos y la \textit{API} pública que ofrece.
-
-Se ha creado esta biblioteca con el propósito de facilitar la animación de geometría, permitiendo mover, escalar y rotar, ya sea cargando de una vez una serie de transformaciones o una a una. Gestiona los fotogramas y la acción en cada uno de ellos, aunque con un alto grado de personalización.
-
 \FloatBarrier
 \subsection{Decisiones de diseño}
 
-\lstinputlisting[
-    float,
-    floatplacement=htp,
-    language=C,
-    label=cod:headers-animation-libraries-1,
-    caption=Prototipos de la biblioteca de animación; parte 1,
-]{code/h_animation_libraries_1.h}
-
-\lstinputlisting[
-    float,
-    floatplacement=htp,
-    language=C,
-    label=cod:headers-animation-libraries-2,
-    caption=Prototipos de la biblioteca de animación; parte 2
-]{code/h_animation_libraries_2.h}
-
 El código \ref{cod:headers-animation-libraries-1} \ref{cod:headers-animation-libraries-2} muestra el prototipo de la biblioteca en código \textit{C}.
 
-La primera parte del diagrama muestra las funciones usadas para transformar la posición de la geometría: 
+La primera parte del diagrama \ref{fig:graph-libraries-animation1} muestra las funciones usadas para transformar la posición de la geometría: 
 
 \begin{itemize}
     \item La estructura \textit{AnimationStruct} describe la animación: fotogramas, número de repeticiones (inercia), \textit{FPS}, etc. Para representar coordenadas, se han creado dos estructuras que describen coordenadas bidimensionales y tridimensionales.
@@ -292,7 +291,7 @@ La primera parte del diagrama muestra las funciones usadas para transformar la p
     
 \end{itemize}
 
-La segunda parte de este diagrama muestra las funciones relacionadas a la configuración y las acciones de cada fotograma; concretamente, trata la configuración previa a la animación así como la limpieza posterior.
+La segunda parte del diagrama \ref{fig:graph-libraries-animation2} muestra las funciones relacionadas a la configuración y las acciones de cada fotograma; concretamente, trata la configuración previa a la animación así como la limpieza posterior.
 
 \begin{itemize}
     \item El enumerado, llamado \textit{Frame\_Modes}, contiene 3 estados: quieto, animación e inercia. Cuando no está en movimiento, está \textbf{quieto}; cuando está en movimiento, está en \textbf{animación}; cuando sigue repitiéndose el movimiento, está en \textbf{inercia}, hasta que para y vuelve a \textbf{quieto}.
@@ -305,6 +304,22 @@ La segunda parte de este diagrama muestra las funciones relacionadas a la config
 
     \item Finalmente, la función \textit{updateFrameMode} actualiza el estado de la animación y prepara un temporizador que activa el siguiente fotograma.
 \end{itemize}
+
+\lstinputlisting[
+    float,
+    floatplacement=htp,
+    language=C,
+    label=cod:headers-animation-libraries-1,
+    caption=Prototipos de la bibliteca de animación; parte 1,
+]{code/h_animation_libraries_1.h}
+
+\lstinputlisting[
+    float,
+    floatplacement=htp,
+    language=C,
+    label=cod:headers-animation-libraries-2,
+    caption=Prototipos de la biblioteca de animación; parte 2
+]{code/h_animation_libraries_2.h}
 
 \FloatBarrier
 \subsection{API pública}
