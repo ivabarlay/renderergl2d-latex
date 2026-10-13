@@ -1,8 +1,39 @@
 \chapter{Conclusiones}\label{cap:conclusiones}
 
-En este proyecto se han desarrollado bibliotecas para el uso de \textit{OpenGL}: bibliotecas de configuración, creación de geometría, animaciones, funciones auxiliares de \textit{C} y gestión de errores. Todas estas bibliotecas se han utilizado en programas: a destacar, el programa de animación, que realiza una serie de transformaciones programables a un polígono regular y se renderiza en pantalla. 
+En este proyecto se han desarrollado bibliotecas para el uso de \textit{OpenGL}:
+\begin{itemize}
+    \item Bibliotecas de configuración de OpenGL.
+    \item Creación de geometría.
+    \item Animaciones.
+    \item Funciones auxiliares de \textit{C}.
+    \item Gestión de errores.
+\end{itemize}
 
-Para exprimir y medir las funcionalidades aquí desarrolladas, se han realizado pruebas en las que todas ellas se ven involucradas. Luego, con \textit{R} y \textit{gnuplot}, se toman cómputos numéricos sobre los datos recogidos y gráficas para visualizarlos con detalle.
+Todas estas bibliotecas se han utilizado en los programas, a destacar: el programa de animación, que realiza una serie de transformaciones programables a un polígono regular y se renderiza en pantalla. 
+
+Para exprimir y medir las funcionalidades aquí desarrolladas, se han realizado pruebas en las que todas ellas se ven involucradas.
+\begin{itemize}
+    \item Con \textit{R} y \textit{gnuplot}, se toman cómputos numéricos sobre los datos recogidos y gráficas para visualizarlos con detalle.
+    \item Con \textit{Valgrind} se ha analizado el uso de memoria de los programas, además de detectar posibles fugas en la ejecución.
+    \item Con \textit{perf} se ha analizado de manera más profunda el uso de \textit{CPU}, detallando número de ciclos, instrucciones por segundo, etc.
+\end{itemize}
+
+\subsection{Requisitos iniciales}
+
+Respecto a los requisitos iniciales, se han cumplimentado todos:
+
+\begin{itemize}
+    \item Se han creado bibliotecas propias: shaders, polígonos, errores, misceláneo de C y pruebas. Estas bibliotecas abstraen código repetitivo y complejo, a la vez que liberan espacio en el programa principal.
+
+    \item El código está escrito en el idioma inglés, bien comentado, organizado y robusto: gracias a la biblioteca de errores, puede depurarse fácilmente y los fallos no se diluyen en la traza.
+
+    \item Se cumplen los requisitos hardware, pues los programas desarrollados se ejecutan sin prácticamente mínimo de potencia de CPU, RAM o disco; aunque es cierto que se necesita una GPU, o al menos, una gráfica integrada, se asume indispensable para cualquier programa gráfico.
+
+    \item Se han realizado pruebas, extraído resultados de ellas y representado mediante gráficas. Una vez resueltas las pruebas, se han examinado para detectar posibles optimizaciones y, una vez detectadas, retrocedido y aplicado en el código.
+
+    \item Se han creado programas de ejemplo, diseñados como guía de uso para los usuarios que deseen utilizar este proyecto o incluso expandirlo y mejorarlo.
+
+\end{itemize}
 
 \section{Líneas futuras}
 
