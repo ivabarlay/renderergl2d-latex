@@ -114,7 +114,16 @@ Esta biblioteca contiene lo necesario para crear animaciones con \textit{OpenGL}
             \item Las funciones \textit{addScaleBuffer} y \textit{addTranslationBuffer} toman unas coordenadas bidimensionales de tipo \textit{Coords2D}, un número entero sin signo de veces que se repite la transformación, una lista de fotogramas de tipo \textit{FrameStruct} y un índice donde insertar la matriz en la lista de fotogramas.
         \end{itemize}
 
-    \item Finalmente, se añadió una función \textit{centerTransformationMatrix}, que acepta una matriz 4x4 de números flotantes, una lista de \textit{GLFloat} con los vértices del polígono y un número entero con la cantidad de vértices. Realiza cambios en una matriz de transformación para que rote respecto a sí mismo y no respecto al origen de coordenadas. Para ello, se hace la media de las coordenadas y se encuentra el centro del polígono, respecto al que se realizarán las transformaciones en lugar del origen de coordenadas. Puede usarse si el \textit{shader} no incorpora esta función.
+    \item Finalmente, se añadió una función \textit{centerTransformationMatrix}.
+        \begin{itemize}
+            \item Acepta como argumentos:
+                \begin{enumerate}
+                    \item Una matriz 4x4 de números flotantes.
+                    \item Una lista de \textit{GLFloat} con los vértices del polígono.
+                    \item Un número entero con la cantidad de vértices.
+                \end{enumerate}
+            \item Realiza cambios en una matriz de transformación para que rote respecto a sí mismo y no respecto al origen de coordenadas. Para ello, se hace la media de las coordenadas y se encuentra el centro del polígono, respecto al que se realizarán las transformaciones en lugar del origen de coordenadas. Puede usarse si el \textit{shader} no incorpora esta función.
+        \end{itemize}
     
 \end{itemize}
 
