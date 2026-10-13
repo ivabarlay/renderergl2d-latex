@@ -4,13 +4,13 @@ En este capítulo se hará hincapie en conceptos propios de la renderización \t
 
 \section{Antialiasing} \label{subsec:antialiasing}
 
-Esta técnica es fundamental para evitar el denominado \textit{aliasing} \cite{webVulkanAntialiasing} y conseguir gráficos sin ruido y suaves. El \textit{aliasing} es un término acuñado del procesamiento de señales, que ocurre en la digitalización de las señales analógicas en las que la frecuencia de muestreo es inadecuada; esta frecuencia es llamada \textit{sampling rate}. Si se analiza la señal con una frecuencia baja, el resultado difiere gravemente de la señal original y resulta en cambios de color abruptos y erróneos. El método para evitar esta distorsión es evidente: aumentar el \textit{sampling rate}; aunque evidente, su coste es alto.
+\paragraph{Aliasing} Esta técnica es fundamental para evitar el denominado \textit{aliasing} \cite{webVulkanAntialiasing} y conseguir gráficos sin ruido y suaves. El \textit{aliasing} es un término acuñado del procesamiento de señales, que ocurre en la digitalización de las señales analógicas en las que la frecuencia de muestreo es inadecuada; esta frecuencia es llamada \textit{sampling rate}. Si se analiza la señal con una frecuencia baja, el resultado difiere gravemente de la señal original y resulta en cambios de color abruptos y erróneos. El método para evitar esta distorsión es evidente: aumentar el \textit{sampling rate}; aunque evidente, su coste es alto.
 
-En el contexto de gráficos y renderizado 2D, las formas primitivas serían el mundo analógico descrito matemáticamente que se representan digitalmente en píxeles discretos en una pantalla. Crea el mismo efecto, pues existe un elemento analógico, siendo aquí una línea descrita matemáticamente, y un elemento digital, siendo este un píxel discreto. El \textit{sampling rate} en este caso sería la cantidad de muestras que se toman en cuenta para cada píxel, y cuantas más muestras se tomen, el color final será más cercano al ideal matemático del que se parte. Una manera fácil de entenderlo es imaginar una línea que pasa por un conjunto de cuadrados diagonalmente y entender que se formaría una cantidad abundante de esquinas, en forma de escalera, que dejarían la geometría abrupta y rugosa.
+\paragraph{Sampling rate} En el contexto de gráficos y renderizado 2D, las formas primitivas serían el mundo analógico descrito matemáticamente que se representan digitalmente en píxeles discretos en una pantalla. Crea el mismo efecto, pues existe un elemento analógico, siendo aquí una línea descrita matemáticamente, y un elemento digital, siendo este un píxel discreto. El \textit{sampling rate} en este caso sería la cantidad de muestras que se toman en cuenta para cada píxel, y cuantas más muestras se tomen, el color final será más cercano al ideal matemático del que se parte. Una manera fácil de entenderlo es imaginar una línea que pasa por un conjunto de cuadrados diagonalmente y entender que se formaría una cantidad abundante de esquinas, en forma de escalera, que dejarían la geometría abrupta y rugosa.
 
-Una técnica simple y efectiva es el \textit{supersampling}. Consiste en renderizar la imagen a una mayor resolución para que cada pixel obtenga sus datos de múltiples \textit{sample} . De esta forma, algunos píxeles que antes no se tomarían en cuenta ahora se procesan y se suaviza la forma; el color obtenido por estos píxeles cuyas muestras no son completamente cubiertas se verá alterado y difuminado para conseguir este efecto de suavidad, pues el píxel toma el color promedio de sus \textit{sample} . Es una técnica cara en tiempo de ejecución, aunque funciona.
+\paragraph{Supersampling} Una técnica simple y efectiva es el \textit{supersampling}. Consiste en renderizar la imagen a una mayor resolución para que cada pixel obtenga sus datos de múltiples \textit{sample} . De esta forma, algunos píxeles que antes no se tomarían en cuenta ahora se procesan y se suaviza la forma; el color obtenido por estos píxeles cuyas muestras no son completamente cubiertas se verá alterado y difuminado para conseguir este efecto de suavidad, pues el píxel toma el color promedio de sus \textit{sample} . Es una técnica cara en tiempo de ejecución, aunque funciona.
 
-Esta idea se puede expandir y mejorar: \textit{multisampling}. Es una modificación del \textit{supersampling} en la que la idea es la misma, aunque la frecuencia con la que se ejecuta el \textit{fragment shader}, o \textit{FS}, es menor que el número de \textit{samples} por píxel; es común un ratio 4:1.
+\paragraph{Multisampling} Esta idea se puede expandir y mejorar: \textit{multisampling}. Es una modificación del \textit{supersampling} en la que la idea es la misma, aunque la frecuencia con la que se ejecuta el \textit{fragment shader}, o \textit{FS}, es menor que el número de \textit{samples} por píxel; es común un ratio 4:1.
 
 En la figura \ref{fig:comparison-aliasing} se compara un mismo modelo con y sin \textit{antialiasing.}
 
@@ -65,12 +65,12 @@ Ofrece ajustes sobre el \textit{antialising} generales. Para las líneas puede a
 \textit{Godot} permite el uso de \textit{shaders} personalizados, con un lenguaje semejante \cite{webGodotShadingLanguage} a \textit{GLSL}, el lenguaje de \textit{OpenGL}. Los \textit{shaders} deben estar vinculados a un \textit{Material} \cite{webGodotMaterial} y este a un \textit{objeto}. Para interactuar con el \textit{shader} desde el código, se usan \textit{uniform}, de forma semejante a \textit{GLSL}, excepto que las funciones son propias del motor, como es \textit{set\_shader\_parameter}, indicando simplemente el nombre y el valor a actualizar, y \textit{get\_shader\_parameter} que recupera el valor de una variable indicando el nombre. Ambas funciones se definen en la clase \textit{Material}.
     
 \subsection{Blender}
-Renderización 2D y 3D. Tiene tres renderizadores, aunque el más relevante es \textit{Cycles} \cite{webBlenderCyclesDocs}. Basado en físicas, con objetivo de ser fotorrealista. Permite renderización \textit{multi-core} con \textit{CPU} y optimización \textit{SIMD}, a la vez que permite renderización mediante \textit{GPU} y \textit{multi-GPU}. La documentación no es particularmente extensa, aunque el motor es poderoso y cuenta con numerosas características \cite{webBlenderCyclesFeatures}, como pueden ser la iluminación, las sombras, las texturas y la perspectiva de cámara.
+Dispone de renderización 2D y 3D. Tiene tres renderizadores, aunque el más relevante es \textit{Cycles} \cite{webBlenderCyclesDocs}. Basado en físicas, con objetivo de ser fotorrealista. Permite renderización \textit{multi-core} con \textit{CPU} y optimización \textit{SIMD}, a la vez que permite renderización mediante \textit{GPU} y \textit{multi-GPU}. La documentación no es particularmente extensa, aunque el motor es poderoso y cuenta con numerosas características \cite{webBlenderCyclesFeatures}, como pueden ser la iluminación, las sombras, las texturas y la perspectiva de cámara.
 
 \subsection{GTK y GSK}
 Apuesta por un renderer 2D unificado para \textit{OpenGL} y \textit{Vulkan}, que son compilados de la misma fuente, aunque este cambio es reciente. Previamente, existía un renderer 2D \textit{OpenGL} que usaban shaders simples aunque más optimizado.
 
-El nuevo renderizador unificado se centra en la mantenibilidad y correción a largo plazo a cambio de rendimiento. Este lujo es posible gracias a que los programas que hacen uso de este software no son excesivamente demandantes ni requieren una tasa de rendimiento grande, como podrían \textit{Godot}, \textit{Blender}, \textit{Unity} o \textit{Unreal Engine}. También soporta algunas capacidades interesantes, como \textit{antialising}, escalado fraccional y gradientes arbitrarios. 
+El nuevo renderizador unificado se centra en la mantenibilidad y corrección a largo plazo a cambio de rendimiento. Este lujo es posible gracias a que los programas que hacen uso de este software no son excesivamente demandantes ni requieren una tasa de rendimiento grande, como podrían \textit{Godot}, \textit{Blender}, \textit{Unity} o \textit{Unreal Engine}. También soporta algunas capacidades interesantes, como \textit{antialising}, escalado fraccional y gradientes arbitrarios. 
 
 \paragraph{GSK}
 
@@ -80,12 +80,9 @@ El nuevo renderizador unificado se centra en la mantenibilidad y correción a la
 Renderer 3D y 2D que usa \textit{DirectX}, \textit{Metal}, \textit{OpenGL} y \textit{Vulkan}. Utiliza optimización \textit{GPU} para procesar el renderizado.
 Proporcionan una página web como manual \cite{webUnityManual}, aunque la fuente es software privativo y el código público no está disponible.
 
-\subsection{Conclusiones}
+\subsection{Comparación}
 Existen numerosos sistemas de renderización \textit{2D} y \textit{3D} con diferentes propósitos: videojuegos, cine, modelado, etc. Muchos de ellos son públicos y su funcionamiento puede estudiarse.
 
 La tabla \ref{tbl:comparison-engine} compara los motores mencionados: su capacidad dimensional, las \textit{APIs} que soportan, el propósito que tienen y su licencia de uso.
 
 \input{tables/table_engine_comparison}
-
-Este proyecto pretende aportar a la escena existente una base sobre la que puede construirse un motor \textit{2D}, detallando los pasos dados para que incluso un programador inexperto en programación gráfica pueda iniciarse.
-
