@@ -6,15 +6,16 @@ En este capítulo se describen las etapas previas al análisis, fundamentales pa
 Se comienza en el apartado \ref{sec:method} describiendo la metodología usada. Seguidamente, en \ref{sec:phases}, se presentan las fases en las que se ha abordado el desarrollo del trabajo y la planificación temporal seguida.
 
 \section{Metodología}\label{sec:method}
-El desarrollo del proyecto ha sido gestionado con \textit{Git} \cite{webGit}, alojado en un repositorio\cite{webGitlabRenderer} de \textit{Gitlab} \cite{webGitlab}. La metodología ha consistido en implementar funcionalidades de cada área en una rama distinta, para luego ser unida a la rama principal. De esta manera, es más sencillo detectar dónde los errores fueron generados y localizarlos.
 
-Todo el desarrollo tuvo lugar en el sistema operativo \textit{GNU/Linux} \cite{webGNULinux}, concretamente la distribución \textit{Debian} \cite{webDebian}. A modo de diario personal, el progreso fue siendo guardado semanalmente en un documento \textit{Asciidoc} \cite{webAsciidoc}, que ha servido de bitácora y muy útil para la memoria.
+\paragraph{Git} El desarrollo del proyecto ha sido gestionado con \textit{Git} \cite{webGit}, alojado en un repositorio\cite{webGitlabRenderer} de \textit{Gitlab} \cite{webGitlab}. La metodología ha consistido en implementar funcionalidades de cada área en una rama distinta, para luego ser unida a la rama principal. De esta manera, es más sencillo detectar dónde los errores fueron generados y localizarlos.
 
-El flujo de compilación lo gestiona \textit{CMake}. Con esta tecnología, es sencillo modularizar el proyecto, añadiendo dependencias según las necesidades del programa y creando una estructura de proyecto ordenada. Incluso, es simple compilar bibliotecas propias y enlazarlas posteriormente al código. Las ventajas frente a compilar manualmente son abrumadoras.
+\paragraph{Sistema operativo} Todo el desarrollo tuvo lugar en el sistema operativo \textit{GNU/Linux} \cite{webGNULinux}, concretamente la distribución \textit{Debian} \cite{webDebian}. A modo de diario personal, el progreso fue siendo guardado semanalmente en un documento \textit{Asciidoc} \cite{webAsciidoc}, que ha servido de bitácora y muy útil para la memoria.
 
-La mayoría de la documentación que se ha necesitado proviene directamente de los autores de \textit{OpenGL}, \textit{Khronos} \cite{bookOGLGuideKhronos9}. Tanto el libro como su página web donde detallan minuciosamente las funciones fueron de gran utilidad. El resto de documentación proviene de sus respectivos autores, buscando información por la red cuando fuera necesario.
+\paragraph{Dependencias y compilación} El flujo de compilación y la gestión de dependencias es el objetivo de utilizar \textit{CMake}. Con esta tecnología, es sencillo modularizar el proyecto, añadiendo dependencias según las necesidades del programa y creando una estructura de proyecto ordenada. Incluso, es simple compilar bibliotecas propias y enlazarlas posteriormente al código. Las ventajas frente a compilar manualmente son abrumadoras.
 
-Respecto a la implementación, se ha intentado extraer el máximo número de funciones posible a bibliotecas propias según crece el código. De esta manera, se divide la carga y es más fácil discernir errores y aumenta la reutilización de código.
+\paragraph{Fuentes} La mayoría de la documentación que se ha necesitado proviene directamente de los autores de \textit{OpenGL}, \textit{Khronos} \cite{bookOGLGuideKhronos9}. Tanto el libro como su página web donde detallan minuciosamente las funciones fueron de gran utilidad. El resto de documentación proviene de sus respectivos autores, buscando información por la red cuando fuera necesario.
+
+\paragraph{Bibliotecas} Respecto a la implementación, se ha intentado extraer el máximo número de funciones posible a bibliotecas propias según crece el código. De esta manera, se divide la carga y es más fácil discernir errores y aumenta la reutilización de código.
 
 \section{Fases y Planificación} \label{sec:phases}
 A continuación, se describen las fases en las que se ha abordado el proyecto. El proceso de elaboración de documentación va implícito en cada fase, evolucionando a lo largo del proyecto. En la fase 1 \ref{sub:phase-1} se analizan los sistemas de renderizado, especialmente \textit{OpenGl}, y se realiza un análisis sobre la estrategia que se llevará a cabo para desarrollar el programa y las bibliotecas. En la fase 2 \ref{sub:phase-2} se configura el entorno de trabajo y se implementan las bibliotecas y el programa principal. En la fase 3 \ref{sub:phase-3} se realizan pruebas a partir del \textit{software} desarrollado y gráficas con los resultados obtenidos.
@@ -45,7 +46,6 @@ Para conseguir establecer un entorno de trabajo organizado con \textit{CMake} \c
 \end{itemize}
 Cada una de las carpetas contiene código \textit{CMake}, profundizando en las carpetas según el nivel de complejidad que se requiera. Por ejemplo, dentro de \textit{src} existen varios directorios con las áreas implementadas, como \textit{movement} o \textit{polygon}, y dentro de estos se declara la configuración de compilación de los programas relacionados con el movimiento.
 
-
 \paragraph{Bibliotecas propias}
 Con el objetivo de facilitar tareas de \textit{OpenGL}, se ha optado por crear una biblioteca cuyo código se encontraría dentro del directorio \textit{lib}. Este paso debería llevarse a cabo simultáneamente con el desarrollo del código principal, pues sería conveniente extraer las funciones y colocarlas en la biblioteca según aumente el programa.
 
@@ -65,11 +65,15 @@ Habiendo estudiado el funcionamiento de \textit{OpenGL} y construido un entorno 
 
 El objetivo es construir la animación fotograma por fotograma. Funcionará como una máquina de estados: parado, movimiento e inercia. Inicia en movimiento, entra en inercia por un tiempo y progresa hacia el siguiente elemento en la secuencia. Cuando llegue al final, parará.
 
-Los parámetros serán inicializados y guardados en una estructura de datos, cuyos valores serán usados y modificados por las funciones.
+\begin{itemize}
 
-Podrán indicarse la secuencia de movimientos de varias formas: indicando qué matrices usar para las transformaciones de forma explícita o mediante funciones de la biblioteca propia, aislando las matrices del funcionamiento.
+    \item Los parámetros serán inicializados y guardados en una estructura de datos, cuyos valores serán usados y modificados por las funciones.
 
-También, podrá almacenarse la secuencia cargando desde un \textit{buffer} del usuario o, mediante funciones proporcionadas por la biblioteca, añadir elementos a la secuencia, aislando la memoria del funcionamiento.
+    \item Podrán indicarse la secuencia de movimientos de varias formas: indicando qué matrices usar para las transformaciones de forma explícita o mediante funciones de la biblioteca propia, aislando las matrices del funcionamiento.
+
+    \item También, podrá almacenarse la secuencia cargando desde un \textit{buffer} del usuario o, mediante funciones proporcionadas por la biblioteca, añadir elementos a la secuencia, aislando la memoria del funcionamiento.
+
+\end{itemize}
 
 En resumen, se dará libertad al usuario para programar la animación, desde el funcionamiento más manual, aunque más eficiente, a uno más sencillo, aunque menos eficiente.
 
