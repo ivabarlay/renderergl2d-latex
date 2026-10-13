@@ -230,9 +230,7 @@ El diagrama \ref{fig:example-program-gl-data} representa el proceso para crear l
 
 \FloatBarrier
 
-Finalmente, se muestra la inicialización de los datos de animación. Primero, se asigna memoria para el \textit{buffer} de animación con \textit{genAnimationBuffer}, indicando el tamaño en \textit{bytes} y el número de elementos. Luego, se actualizan los atributos de la estructura de datos \textit{AnimationStruct} mediante la función \textit{updateAnimationData}, que recibe como argumentos las propiedades y se las asigna. Se crean, también, dos \textit{arrays} para coordenadas bidimensionales \textit{Coords2D} y tridimensionales \textit{Coords3D} para usar en las transformaciones.
-
-Se crea un \textit{buffer} de fotogramas, que se completará usando funciones del tipo \textit{add*Buffer}, declaradas en la biblioteca de animación; estas funciones añaden fotogramas \textit{FrameStruct} a un \textit{buffer}, indicando el tipo de transformación, sus características y el índice en el que colocar el fotograma. Una vez lleno el \textit{buffer} de fotogramas, se guardan en memoria con \textit{loadAnimationBuffer}. Opcionalmente, puede extenderse la animación usando las funciones \textit{rotate|scale|moveAnimation}, indicando las características de la transformación y el fotograma, que automáticamente colocan la transformación correspondiente en la secuencia de animación.
+Finalmente, se muestra la inicialización de los datos de animación en la figura \ref{fig:example-program-animation}.
 
 \begin{figure}[htp]
     \centering
@@ -241,8 +239,22 @@ Se crea un \textit{buffer} de fotogramas, que se completará usando funciones de
     \label{fig:example-program-animation}
 \end{figure}
 
-\FloatBarrier
+\begin{enumerate}
+    \item Primero, se asigna memoria para el \textit{buffer} de animación con \textit{genAnimationBuffer}, indicando el tamaño en \textit{bytes} y el número de elementos.
+
+    \item Luego, se actualizan los atributos de la estructura de datos \textit{AnimationStruct} mediante la función \textit{updateAnimationData}, que recibe como argumentos las propiedades y se las asigna.
+
+    \item Se crean, también, dos \textit{arrays} para coordenadas bidimensionales \textit{Coords2D} y tridimensionales \textit{Coords3D} para usar en las transformaciones.
+
+    \item Se crea un \textit{buffer} de fotogramas, que se completará usando funciones del tipo \textit{add*Buffer}, declaradas en la biblioteca de animación; estas funciones añaden fotogramas \textit{FrameStruct} a un \textit{buffer}, indicando el tipo de transformación, sus características y el índice en el que colocar el fotograma.
+
+    \item Una vez lleno el \textit{buffer} de fotogramas, se guardan en memoria con \textit{loadAnimationBuffer}.
+
+    \item Opcionalmente, puede extenderse la animación usando las funciones \textit{rotate|scale|moveAnimation}, indicando las características de la transformación y el fotograma, que automáticamente colocan la transformación correspondiente en la secuencia de animación.
+\end{enumerate}
+
 \subsection{Demostración}
+En las subfiguras de la figura \ref{fig:test-animation} se encuentran capturas de pantalla realizadas durante la animación.
 
 \begin{figure}[htp]
     \centering
@@ -287,7 +299,7 @@ Se crea un \textit{buffer} de fotogramas, que se completará usando funciones de
         \label{fig:test-animation-scale}
     \end{subfigure}
 
-\end{figure}
+\end{figure} \label{fig:test-animation}
 
 \section{Conclusiones}
 En esta sección se ha explorado con detalle las bibliotecas y las funciones y estructuras que las componen. También, se ha ofrecido un ejemplo de uso con el objetivo de que el lector pueda encajar las diferentes partes del proyecto y conceptualizar un resultado.
