@@ -245,13 +245,16 @@ La instrucción out hace que devuelva una variable: \textit{FragColor}, que deci
 
 \FloatBarrier
 \section{Herramientas de soporte} \label{sec:support-technologies}
-\subsection{CMake}
+
+En esta sección se tratarán herramientas de soporte, útiles para la gestión y organización del proyecto, tanto en la estructura como en el código, tales como \textit{CMake} \ref{sub:support-cmake}, que gestiona la compilación y dependencias, \textit{GLEW} \ref{sub:support-glew}, que elimina la necesidad de obtener las funciones de \textit{OpenGL} manualmente, \textit{Freeglut} \ref{sub:support-freeglut}, que gestiona la creación de ventanas, o \textit{Git} \ref{sub:support-git}, que gestiona el control de versiones.
+
+\subsection{CMake} \label{sub:support-cmake}
 Se usará \textit{CMake} \cite{webCMakeDocs} para gestionar dependencias y compilación del proyecto.
 
 \textit{CMake} maneja dependencias de forma estable y es beneficioso a largo plazo, cuando el código empieza a aumentar de tamaño y comienza a ser insostenible compilar a mano. Otra alternativa sería manualmente escribir \textit{Makefile}. Se consideró más útil y profesional usar \textit{CMake}, ya que tiene un nivel de abstracción sobre los \textit{Makefile} muy pulido y efectivo que costaría replicar a mano.
 
 \FloatBarrier
-\subsection{GLEW}
+\subsection{GLEW} \label{sub:support-glew}
 Las funciones de \textit{OpenGL} se cargan de maneras diferentes según la plataforma en la que nos encontremos. En \textit{GNU/Linux}, bajo la implementación de \textit{Mesa} \cite{webMesaDocs}, están dinámicamente enlazadas, por lo que hay que recuperarlas de memoria. En otras plataformas es distinto, por lo que \textit{GLEW} es muy útil para resolver este problema.
 
 \textit{GLEW} \cite{webGLEW} inicializa las funciones de \textit{OpenGL} de forma agnóstica al sistema operativo. Esto libera al programador de una tediosa carga, pues hacerlo de forma manual sería fatigador y la mejora en rendimiento sería mínima o nula. El código necesario para la inicialización de \textit{GLEW} es sencillo y se muestra en la figura \ref{cod:example-glew}.
@@ -265,7 +268,7 @@ Las funciones de \textit{OpenGL} se cargan de maneras diferentes según la plata
 ]{code/c_example_glew.c}
 
 \FloatBarrier
-\subsection{Freeglut}
+\subsection{Freeglut} \label{sub:support-freeglut}
 \textit{Freeglut} \cite{webFreeglut} nace como alternativa a \textit{GLUT} \cite{specsGLUT}, una biblioteca ya abandonada. Se encarga de todas las tareas específicas al sistema operativo necesarias para crear ventanas, inicializar contextos de \textit{OpenGL}, gestionar eventos de entrada y permite crear programas realmente portables con \textit{OpenGL}. El codigo necesario para inicializar \textit{Freeglut} podría ser como en la figura \ref{cod:example-glut}:
 
 \lstinputlisting[
@@ -278,6 +281,6 @@ Las funciones de \textit{OpenGL} se cargan de maneras diferentes según la plata
 
 \FloatBarrier
 
-\subsection{Git}
+\subsection{Git} \label{sub:support-git}
 
 La tecnología \textit{Git} se ha utilizado durante todo el proyecto como software de \textbf{control de versiones}, haciendo gran uso de las ramas para distintas funcionalidades, las cuales evitan un posible colapso irremediable permitiendo deshacer cambios rápidamente.

@@ -1,10 +1,8 @@
 \chapter{Marco Conceptual y Estado de la técnica} \label{chp:technique-state}
 
-En este capítulo se hará hincapie en conceptos propios de la renderización \textit{2D} \ref{sec:fundations-2d}, tales como el \textit{antialiasing} \ref{subsec:antialiasing}, y en el estado de la técnica existente: \textit{APIs} más utilizadas \ref{sec:apis-render} y software que los implementa \ref{sec:current-implementations}, así como las características más distintivas de estos motores, como podría ser la personalización de \textit{shaders} en \textit{Godot} \ref{par:shaders-godot}.
+En este capítulo se hará hincapie en conceptos propios de la renderización \textit{2D}, tales como el \textit{antialiasing} \ref{subsec:antialiasing}, y en el estado de la técnica existente: \textit{APIs} más utilizadas \ref{sec:apis-render} y software que los implementa \ref{sec:current-implementations}, así como las características más distintivas de estos motores, como podría ser la personalización de \textit{shaders} en \textit{Godot} \ref{par:shaders-godot}.
 
-\section{Fundamentos de Renderización 2D} \label{sec:fundations-2d}
-
-\subsection{Antialiasing} \label{subsec:antialiasing}
+\section{Antialiasing} \label{subsec:antialiasing}
 
 Esta técnica es fundamental para evitar el denominado \textit{aliasing} \cite{webVulkanAntialiasing} y conseguir gráficos sin ruido y suaves. El \textit{aliasing} es un término acuñado del procesamiento de señales, que ocurre en la digitalización de las señales analógicas en las que la frecuencia de muestreo es inadecuada; esta frecuencia es llamada \textit{sampling rate}. Si se analiza la señal con una frecuencia baja, el resultado difiere gravemente de la señal original y resulta en cambios de color abruptos y erróneos. El método para evitar esta distorsión es evidente: aumentar el \textit{sampling rate}; aunque evidente, su coste es alto.
 

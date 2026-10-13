@@ -143,7 +143,7 @@ La segunda parte del diagrama \ref{fig:graph-libraries-animation2}  muestra las 
         \item En el estado \textit{fStill} se libera la memoria del \textit{buffer} de animación y no se realiza ninguna operación.
     \end{itemize}
 
-    \vspace*{4\baselineskip}
+    % \vspace*{4\baselineskip}
     En el diagrama \ref{fig:frame-state-machine} se representa la función por defecto que se aplica cada fotograma. Cada tabla tiene como título el estado que representa y cada entrada tiene el índice y la operación que se realiza. Las flechas indican el movimiento entre estados, desde el estado origen hacia el estado destino, con un número que indica el orden que se sigue para comprobar la condición de la transición que se encuentra junto a la flecha.
     
     \begin{figure}[htp]
@@ -153,7 +153,7 @@ La segunda parte del diagrama \ref{fig:graph-libraries-animation2}  muestra las 
         \label{fig:frame-state-machine}
     \end{figure}
     
-    \vspace*{4\baselineskip}
+    % \vspace*{4\baselineskip}
 
     \item Finalmente, la función \textit{updateFrameMode} actualiza el estado de la animación y prepara un temporizador que activa el siguiente fotograma.
     
@@ -180,7 +180,16 @@ A continuación, se describe la rutina de inicialización de \textit{shaders} y 
 Además del código del programa escrito en \textit{C}, es necesario escribir los \textit{shaders} correspondientes en la ruta \textit{/shaders} del proyecto; la extensión \textit{.vert} y \textit{.frag} son pertenecientes a los \textit{shaders} \textit{vertex} y \textit{fragment}.
 
 \begin{itemize}
-    \item El \textit{vertex shader} tiene un vector bidimensional llamado \textbf{vPosition} que contiene las coordenadas del vértice y una matriz 4x4 \textit{uniform} de tipo \textit{mat4} llamado \textit{modelMatrix} que contiene la matriz de transformación. Se crea una matriz 4x4 llamada \textit{centerMatrix} que multiplica a \textit{modelMatrix} para que realice la transformación entorno a sí mismo. Finalmente, se multiplican las coordenadas del vértice a la matriz de transformación centrada y se obtiene la nueva posición del vértice \textit{gl\_Position}.
+    \item El \textit{vertex shader} es responsable de realizar la operación matricial que modifica la posición del vértice.
+        \begin{enumerate}
+            
+            \item Contiene un vector bidimensional llamado \textbf{vPosition} que contiene las coordenadas del vértice y una matriz 4x4 \textit{uniform} de tipo \textit{mat4} llamada \textbf{modelMatrix} que contiene la matriz de transformación.
+
+            \item Se crea una matriz 4x4 llamada \textit{centerMatrix} que multiplica a \textit{modelMatrix} para que realice la transformación entorno a sí mismo.
+
+            \item Finalmente, se multiplican las coordenadas del vértice a la matriz de transformación centrada y se obtiene la nueva posición del vértice \textit{gl\_Position}.
+
+        \end{enumerate}
 
     \item El \textit{fragment shader} es un \textit{shader} simple que asigna el color blanco a \textit{fragColor}, que es un vector de 4 dimensiones.
 \end{itemize}
@@ -194,7 +203,23 @@ Además del código del programa escrito en \textit{C}, es necesario escribir lo
 
 \FloatBarrier
 
-El siguiente diagrama representa el proceso para crear los datos que usará \textit{OpenGL} para dibujar la geometría. En este caso, se crea un polígono regular mediante la función de la biblioteca de polígonos \textit{createNGonVertices}, indicando el número de vértices deseados, sus coordenadas, dimensiones y el \textit{buffer} donde se almacenarán los vértices del polígono. Deberán crearse los \textit{buffers} de \textit{OpenGL}, los cuales en este caso son el \textit{VAO} y el \textit{VBO}, mediante el par de funciones (para cada objeto) \textit{glGenVertexArrays} y \textit{glBindVertexArray}; generan internamente el objeto y luego lo vincula. Luego, se almacenan los vértices en el \textit{VBO} mediante la función \textit{glBufferData}, indicando el tipo de \textit{buffer}, el tamaño en \textit{bytes} a copiar, el origen y el tipo de uso que en este caso sería \textit{GL\_DYNAMIC\_DRAW}. Después, se especifican las posiciones de los atributos de los vértices con \textit{glVertexAttribPointer} y se activan con \textit{glEnableVertexAttribArray}. También, se inicializa la variable \textit{uniform} en el \textit{shader} que se utiliza para la matriz de transformación con una matriz de identidad. Finalmente, se libera el \textit{buffer} de vértices creado inicialmente para alojar el polígono.
+El diagrama \ref{fig:example-program-gl-data} representa el proceso para crear los datos que usará \textit{OpenGL} para dibujar la geometría.
+
+\begin{enumerate}
+
+    \item Se crea un polígono regular mediante la función de la biblioteca de polígonos \textit{createNGonVertices}, indicando el número de vértices deseados, sus coordenadas, dimensiones y el \textit{buffer} donde se almacenarán los vértices del polígono.
+
+    \item Deberán crearse los \textit{buffers} de \textit{OpenGL}, los cuales en este caso son el \textit{VAO} y el \textit{VBO}, mediante el par de funciones (para cada objeto) \textit{glGenVertexArrays} y \textit{glBindVertexArray}; generan internamente el objeto y luego lo vincula.
+
+    \item Luego, se almacenan los vértices en el \textit{VBO} mediante la función \textit{glBufferData}, indicando el tipo de \textit{buffer}, el tamaño en \textit{bytes} a copiar, el origen y el tipo de uso que en este caso sería \textit{GL\_DYNAMIC\_DRAW}.
+
+    \item Después, se especifican las posiciones de los atributos de los vértices con \textit{glVertexAttribPointer} y se activan con \textit{glEnableVertexAttribArray}.
+
+    \item También, se inicializa la variable \textit{uniform} en el \textit{shader} que se utiliza para la matriz de transformación con una matriz de identidad.
+
+    \item Finalmente, se libera el \textit{buffer} de vértices creado inicialmente para alojar el polígono.
+
+\end{enumerate}
 
 \begin{figure}[htp]
     \centering
